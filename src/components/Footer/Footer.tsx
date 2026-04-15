@@ -1,7 +1,12 @@
 import Link from 'next/link';
 import styles from './f.module.css';
 
-const Footer = () => {
+interface FooterProps {
+  onPrev: () => void;
+  onNext: () => void;
+}
+
+const Footer = ({ onPrev, onNext }: FooterProps) => {
 
   return (
     <div className={styles.footer}>
@@ -14,20 +19,38 @@ const Footer = () => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <g id="fish">
-            <path
-              id="prev"
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M0 8.72351C0 8.47873 6.81624 2.59198 7.13227 2.48975C7.28098 3.21163 5.30737 9.49652 9.0687 12.2989C10.7402 13.5429 0 8.96828 0 8.72351Z"
-              className={styles.fillshade}
-            />
-            <path
-              id="next"
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M53.8574 2.24036C54.3748 2.35964 61.9656 8.94351 61.9997 9.38347C62.0338 9.82343 55.0642 13.7552 55.6792 12.2711C57.5599 7.73518 53.8574 2.90184 53.8574 2.24036Z"
-              className={styles.fillshade}
-            />
+            <a
+              href="#"
+              className={styles.prev}
+              onClick={(event) => {
+                event.preventDefault();
+                onPrev();
+              }}
+            >
+              <path
+                id="prev"
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M0 8.72351C0 8.47873 6.81624 2.59198 7.13227 2.48975C7.28098 3.21163 5.30737 9.49652 9.0687 12.2989C10.7402 13.5429 0 8.96828 0 8.72351Z"
+                className={styles.fillshade}
+              />
+            </a>
+            <a
+              href="#"
+              className={styles.next}
+              onClick={(event) => {
+                event.preventDefault();
+                onNext();
+              }}
+            >
+              <path
+                id="next"
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M53.8574 2.24036C54.3748 2.35964 61.9656 8.94351 61.9997 9.38347C62.0338 9.82343 55.0642 13.7552 55.6792 12.2711C57.5599 7.73518 53.8574 2.90184 53.8574 2.24036Z"
+                className={styles.fillshade}
+              />
+            </a>
             <g id="bones">
               <path
                 id="bone1"

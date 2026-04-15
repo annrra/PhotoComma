@@ -1,5 +1,7 @@
+'use client';
+
 import styles from './hs.module.css';
-import { getHeroSlides } from '@/lib/api';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
 type SlideNode = {
@@ -19,25 +21,37 @@ type SlideNode = {
   };
 };
 
-const HeroSlides = async () => {
-  const slidesRaw = await getHeroSlides();
-  const slides: SlideNode[] = slidesRaw?.posts?.nodes ?? [];
-  console.log(JSON.stringify(slides, null, 2));
+interface HeroSlidesProps {
+  slides: SlideNode[];
+  currentSlide: number;
+}
+
+const HeroSlides = ({ slides, currentSlide }: HeroSlidesProps) => {
+  const slide = slides[currentSlide];
 
   return (
     <div className={styles.backdrop}>
-      {slides.map((slide, index) => (
-        <div key={index} className={styles.slide}>
-          {slide.featuredImage?.node?.file && (
-            <Image
-              src={slide.featuredImage.node.sourceUrl ?? ""}
-              alt={slide.featuredImage.node.altText ?? slide.title}
-              layout="fill"
-              objectFit="cover"
-            />
-          )}
-        </div>
-      ))}
+      <AnimatePresence mode="wait">
+        {slide && (
+          <motion.div
+            key={currentSlide}
+            className={styles.slide}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {slide.featuredImage?.node?.file && (
+              <Image
+                src={slide.featuredImage.node.sourceUrl ?? ""}
+                alt={slide.featuredImage.node.altText ?? slide.title}
+                fill
+                style={{ objectFit: 'cover' }}
+              />
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
