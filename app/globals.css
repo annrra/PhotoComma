@@ -1,0 +1,136 @@
+:root {
+  /* ========== Backgrounds ========== */
+  --pc-bg: #000;
+  --pc-bg-subtle: #999;
+  --pc-bg-muted: #808080;
+
+  /* ========== Foreground / Text ========== */
+  --pc-text: #d7d7d7;
+  --pc-text-muted: #c6c6c6;
+  --pc-text-subtle: #808080;
+
+  /* ========== Surfaces (cards, panels, modals) ========== */
+  --surface: #ffffff;
+  --pc-surface-elevated: #f9fafb;
+  --pc-border: #e5e7eb;
+
+  /* ========== Brand / Accent ========== */
+  --pc-accent: #f1572d;
+  --pc-accent-soft: #f1572d;
+
+  /* ========== States ========== */
+  --pc-success: #16a34a;
+  --pc-warning: #f59e0b;
+  --pc-danger: #ef4444;
+  --pc-info: #3b82f6;
+
+  /* ========== Interaction ========== */
+  --pc-focus: #6366f1;
+  --pc-selection: rgba(79, 70, 229, 0.2);
+
+  --font-system: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  --font-sm: 0.8125rem; /* 13px */
+  --font-md: 0.9375rem; /* 15px */
+  --font-base: 1rem;      /* 16px */
+
+  --lh-tight: 1.2;
+  --lh-base: 1.5;
+  --lh-relaxed: 1.7;
+
+  --pc-radius-xs: 2px;
+  --pc-radius-sm: 3px;
+  --pc-radius-md: 5px;
+  --pc-radius-base: 10px;
+  --pc-radius-lg: 12px;
+  --pc-radius-xl: 20px;
+  --pc-radius-full: 99px;
+
+  --pc-space-0: 0;
+  --pc-space-25: 2px;
+  --pc-space-50: 4px;
+  --pc-space-100: 8px;
+  --pc-space-200: 16px;
+  --pc-space-300: 24px;
+  --pc-space-400: 32px;
+  --pc-space-500: 40px;
+  --pc-space-600: 48px;
+  --pc-space-700: 56px;
+  --pc-space-800: 64px;
+  --pc-space-900: 72px;
+  --pc-space-1000: 80px;
+}
+
+/* =========================
+   Minimal CSS Reset / Normalize
+   ========================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  line-height: var(--lh-base);
+  font-family: var(--font-system);
+  text-rendering: optimizeLegibility;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================
+   End Minimal CSS Reset / Normalize
+   ========================= */
+
+html {
+  font-size: clamp(14px, 1.2vw, 16px);
+}
+
+body {
+  background: var(--pc-bg);
+  color: var(--pc-text);
+  font-family: var(--font-system);
+  font-family: var(--font-geist-sans);
+}

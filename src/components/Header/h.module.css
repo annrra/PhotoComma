@@ -1,0 +1,21 @@
+.header {
+  padding: var(--pc-space-600);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo a svg {
+  display: block;
+}
+
+.fillaccent {
+  fill: var(--pc-accent);
+}
+
+@media only screen and (max-width: 480px) {
+  
+}
