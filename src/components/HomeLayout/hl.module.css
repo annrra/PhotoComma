@@ -1,5 +1,6 @@
 .stage {
   height: 100vh;
+  min-height: 700px;
   position: relative;
 }
 
@@ -29,6 +30,9 @@
 
 .chrome {
   margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pc-space-100);
 }
 
 @media only screen and (max-width: 480px) {

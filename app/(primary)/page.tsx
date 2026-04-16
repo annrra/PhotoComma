@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { HomeLayout } from '@/src/components/HomeLayout';
-import { getHomePage, getHeroSlides } from '@/lib/api';
+import { getHomePage, getHeroSlides, getMainNavigation } from '@/lib/api';
 
 export const metadata: Metadata = {
   title: 'photo comma',
@@ -19,9 +19,12 @@ export default async function Home() {
   const slidesRaw = await getHeroSlides();
   const slides = slidesRaw?.posts?.nodes ?? [];
 
+  const navRaw = await getMainNavigation();
+  const navItems = navRaw?.menu?.menuItems?.nodes ?? [];
+
   return (
     <>
-      <HomeLayout introContent={introContent} slides={slides} />
+      <HomeLayout introContent={introContent} slides={slides} navigation={navItems} />
     </>
   );
 }

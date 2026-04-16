@@ -4,6 +4,28 @@
   --pc-bg-subtle: #999;
   --pc-bg-muted: #808080;
 
+  --pc-bg-100: rgba(0, 0, 0, 1);
+  --pc-bg-90:  rgba(0, 0, 0, 0.9);
+  --pc-bg-80:  rgba(0, 0, 0, 0.8);
+  --pc-bg-70:  rgba(0, 0, 0, 0.7);
+  --pc-bg-60:  rgba(0, 0, 0, 0.6);
+  --pc-bg-50:  rgba(0, 0, 0, 0.5);
+  --pc-bg-40:  rgba(0, 0, 0, 0.4);
+  --pc-bg-30:  rgba(0, 0, 0, 0.3);
+  --pc-bg-20:  rgba(0, 0, 0, 0.2);
+  --pc-bg-10:  rgba(0, 0, 0, 0.1);
+
+  --pc-light-100: rgba(255, 255, 255, 1);
+  --pc-light-90:  rgba(255, 255, 255, 0.9);
+  --pc-light-80:  rgba(255, 255, 255, 0.8);
+  --pc-light-70:  rgba(255, 255, 255, 0.7);
+  --pc-light-60:  rgba(255, 255, 255, 0.6);
+  --pc-light-50:  rgba(255, 255, 255, 0.5);
+  --pc-light-40:  rgba(255, 255, 255, 0.4);
+  --pc-light-30:  rgba(255, 255, 255, 0.3);
+  --pc-light-20:  rgba(255, 255, 255, 0.2);
+  --pc-light-10:  rgba(255, 255, 255, 0.1);
+
   /* ========== Foreground / Text ========== */
   --pc-text: #d7d7d7;
   --pc-text-muted: #c6c6c6;
@@ -30,6 +52,7 @@
 
   --font-system: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
+  --font-xs: 0.6875rem; /* 11px */
   --font-sm: 0.8125rem; /* 13px */
   --font-md: 0.9375rem; /* 15px */
   --font-base: 1rem;      /* 16px */

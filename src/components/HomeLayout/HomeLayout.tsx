@@ -5,33 +5,20 @@ import styles from './hl.module.css';
 import { Header } from '@/src/components/Header';
 import { HeroSlides } from '@/src/components/HeroSlides';
 import Intro from './Intro';
+import Nav from './Nav';
 import { Footer } from '@/src/components/Footer';
-
-type SlideNode = {
-  title: string;
-  uri: string;
-  slug: string;
-  content: string;
-  isFrontPage: boolean;
-  featuredImage?: {
-    node?: {
-      altText?: string;
-      file?: string;
-      fileSize?: number;
-      sourceUrl?: string;
-      filePath?: string;
-    };
-  };
-};
+import type { SlideNode } from '@/src/components/HeroSlides/HeroSlides';
+import type { NavNode } from '@/src/components/HomeLayout/Nav';
 
 interface HomeLayoutProps {
   introContent: string;
   slides: SlideNode[];
+  navigation: NavNode[];
 }
 
-const PAUSE_AFTER_INTERACTION = 5000;
+const PAUSE_AFTER_INTERACTION = 7000;
 
-const HomeLayout = ({ introContent, slides }: HomeLayoutProps) => {
+const HomeLayout = ({ introContent, slides, navigation }: HomeLayoutProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const pauseTimer = useRef<number | null>(null);
@@ -40,7 +27,7 @@ const HomeLayout = ({ introContent, slides }: HomeLayoutProps) => {
     if (slides.length <= 1 || isPaused) return;
     const interval = window.setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 7000);
 
     return () => window.clearInterval(interval);
   }, [slides.length, isPaused]);
@@ -84,7 +71,7 @@ const HomeLayout = ({ introContent, slides }: HomeLayoutProps) => {
         <div className={styles.layout}>
           <Intro content={introContent} />
           <div className={styles.chrome}>
-            <div className={styles.nav}></div>
+            <Nav navigation={navigation} />
             <Footer onPrev={prevSlide} onNext={nextSlide} />
           </div>
         </div>

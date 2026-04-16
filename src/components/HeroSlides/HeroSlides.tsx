@@ -4,7 +4,7 @@ import styles from './hs.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
-type SlideNode = {
+export type SlideNode = {
   title: string;
   uri: string;
   slug: string;
@@ -19,9 +19,12 @@ type SlideNode = {
       filePath?: string;
     };
   };
+  nextHeroslidePosition: {
+    hersoSlidePosition: 'center' | 'top' | 'bottom';
+  };
 };
 
-interface HeroSlidesProps {
+type HeroSlidesProps = {
   slides: SlideNode[];
   currentSlide: number;
 }
@@ -46,7 +49,7 @@ const HeroSlides = ({ slides, currentSlide }: HeroSlidesProps) => {
                 src={slide.featuredImage.node.sourceUrl ?? ""}
                 alt={slide.featuredImage.node.altText ?? slide.title}
                 fill
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'cover', objectPosition: slide.nextHeroslidePosition.hersoSlidePosition }}
               />
             )}
           </motion.div>
