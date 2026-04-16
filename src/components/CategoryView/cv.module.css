@@ -1,0 +1,35 @@
+.panel {
+  max-width: var(--pc-max-width);
+  margin: 0 auto;
+}
+
+.heading {
+  margin: 0 0 var(--pc-space-800);
+  font-size: var(--font-sm-alt);
+  line-height: var(--lh-relaxed);
+  font-weight: 400;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--pc-space-500);
+  margin: 0 0 var(--pc-space-800);
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+
+.snapshot {
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.snapshot.loaded {
+  opacity: 1;
+}

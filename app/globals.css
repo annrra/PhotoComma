@@ -54,6 +54,7 @@
 
   --font-xs: 0.6875rem; /* 11px */
   --font-sm: 0.8125rem; /* 13px */
+  --font-sm-alt: 0.875rem; /* 14px */
   --font-md: 0.9375rem; /* 15px */
   --font-base: 1rem;      /* 16px */
 
@@ -82,6 +83,8 @@
   --pc-space-800: 64px;
   --pc-space-900: 72px;
   --pc-space-1000: 80px;
+
+  --pc-max-width: 1400px;
 }
 
 /* =========================

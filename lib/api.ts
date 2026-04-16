@@ -142,3 +142,123 @@ export async function getMainNavigation() {
   const json = await res.json();
   return json.data ?? { posts: { nodes: [] } };
 }
+
+export async function getPost(slug: string) {
+	if (!API_URL) {
+    console.error('API_URL is not defined.');
+    return { posts: { nodes: [] } };
+  }
+
+  const res = await fetchWithTimeout(API_URL, {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      query:`{
+        post(id: "${slug}", idType: SLUG) {
+          title
+          uri
+          content
+          excerpt
+          guid
+          id
+          link
+          databaseId
+          status
+          slug
+          featuredImage {
+            node {
+              altText
+              caption
+              databaseId
+              file
+              filePath
+              fileSize
+              link
+              sourceUrl
+              slug
+              srcSet
+              title
+              uri
+            }
+          }
+        }
+      }`
+    }),
+    next: { revalidate: 60 },
+  });
+   
+  if (!res || !res.ok) {
+    return { posts: { nodes: [] } };
+  }
+
+  const json = await res.json();
+  return json.data ?? { posts: { nodes: [] } };
+}
+
+export async function getCategory(
+  slug: string,
+  first: number = 18,
+  after: string | null = null
+) {
+	if (!API_URL) {
+    console.error('API_URL is not defined.');
+    return { posts: { nodes: [] } };
+  }
+
+  const res = await fetchWithTimeout(API_URL, {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      query: `
+        query GetCategory($slug: ID!, $first: Int!, $after: String) {
+          category(id: $slug, idType: SLUG) {
+            uri
+            slug
+            name
+            description
+            link
+            posts(first: $first, after: $after) {
+              pageInfo {
+                hasNextPage
+                endCursor
+              }
+              nodes {
+                title
+                slug
+                databaseId
+                featuredImage {
+                  node {
+                    uri
+                    title
+                    sourceUrl
+                    srcSet
+                    slug
+                    guid
+                    fileSize
+                    filePath
+                    file
+                    altText
+                    caption
+                  }
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        slug,
+        first,
+        after
+      }
+    }),
+    next: { revalidate: 60 },
+  });
+   
+  if (!res || !res.ok) {
+    return { posts: { nodes: [] } };
+  }
+
+  const json = await res.json();
+  return json.data ?? { posts: { nodes: [] } };
+}

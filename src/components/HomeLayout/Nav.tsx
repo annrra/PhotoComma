@@ -1,6 +1,5 @@
 import styles from './nav.module.css';
 import Link from 'next/link';
-import { NormalizeNavUri } from '@/src/components/_utils/NormalizeNavUri';
 import classNames from 'classnames';
 
 export type NavNode = {
@@ -21,7 +20,7 @@ const Nav = ({ navigation }: NavProps) => {
       <ul>
         {navigation.map((item) => (    
           <li key={item.menuItemId} className={classNames(styles.navitem, {[styles.navalt]: item.label === 'about'})}>
-            <Link href={NormalizeNavUri(item.uri)} className={styles.link}>
+            <Link href={item.uri} className={styles.link}>
               <span className={styles.navlabel}>{item.label}</span>
               <span className={styles.separator}></span>
               <span className={styles.marker}>

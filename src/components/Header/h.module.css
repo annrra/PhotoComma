@@ -8,8 +8,13 @@
   justify-content: center;
 }
 
+.logo a {
+  outline: none;
+}
+
 .logo a svg {
   display: block;
+  outline: none;
 }
 
 .fillaccent {
