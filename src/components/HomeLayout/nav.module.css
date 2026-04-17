@@ -32,7 +32,6 @@
 
 .link {
   font-size: var(--font-sm);
-  text-transform: uppercase;
   color: var(--pc-text);
   display: flex;
   align-items: center;

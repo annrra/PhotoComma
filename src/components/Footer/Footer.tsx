@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from './f.module.css';
 
-interface FooterProps {
+type FooterProps = {
   onPrev: () => void;
   onNext: () => void;
 }
