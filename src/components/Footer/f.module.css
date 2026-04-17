@@ -7,6 +7,12 @@
   gap: var(--pc-space-200);
 }
 
+.footer.light {
+  background-color: transparent;
+  border-radius: 0;
+  padding: var(--pc-space-600);
+}
+
 .nav {
   padding: 0 0 0 var(--pc-space-200);
 }
@@ -18,6 +24,11 @@
 
 .credit a {
   color: var(--pc-text);
+}
+
+.credit .mailto {
+  color: var(--pc-text);
+  cursor: pointer;
 }
 
 .spacer {

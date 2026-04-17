@@ -13,6 +13,7 @@ export default function DefualtLayout({
       <div className={styles.screen}>
         {children}
       </div>
+      <Footer mode='light' />
     </div>
   );
 }
