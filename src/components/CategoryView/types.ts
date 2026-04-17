@@ -37,9 +37,3 @@ export type Category = {
 export type GetCategoryResponse = {
   category: Category | null
 }
-
-export type PostProps = {
-  params: {
-    slug: string;
-  };
-}

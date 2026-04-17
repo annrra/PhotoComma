@@ -181,6 +181,12 @@ export async function getPost(slug: string) {
               uri
             }
           }
+          categories {
+            nodes {
+              name
+              slug
+            }
+          }
         }
       }`
     }),
@@ -217,7 +223,7 @@ export async function getCategory(
             name
             description
             link
-            posts(first: $first, after: $after) {
+            posts(first: $first, after: $after, where: { status: PUBLISH }) {
               pageInfo {
                 hasNextPage
                 endCursor

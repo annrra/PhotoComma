@@ -52,13 +52,13 @@
 
 .snapshot {
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  /* opacity: 0;
+  transition: opacity 0.2s ease; */
 }
 
-.snapshot.loaded {
+/* .snapshot.loaded {
   opacity: 1;
-}
+} */
 
 .loader {
   display: flex;
