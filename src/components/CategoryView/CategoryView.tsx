@@ -29,8 +29,8 @@ const CategoryView = ({ category }: { category: Category }) => {
     setLoading(false);
   };
 
-  const handleImageLoad = (img: HTMLImageElement) => {
-    img.classList.add(styles.loaded);
+  const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    event.currentTarget.classList.add(styles.loaded);
   };
 
   const circleVariants: Variants = {
@@ -51,17 +51,23 @@ const CategoryView = ({ category }: { category: Category }) => {
         {category?.description}
       </h1>
       <div className={styles.grid}>
-        {posts.map((post) => (
-          <div key={post?.databaseId} className={styles.frame}>
-            {post?.featuredImage?.node && (
-              <Image
-                src={post.featuredImage.node.sourceUrl}
-                alt={post.featuredImage.node.altText || ""}
-                fill
-                className={styles.snapshot}
-                onLoadingComplete={handleImageLoad}
-              />
-            )}
+        {posts.map((post, index) => (
+          <div className={styles.node} key={post?.databaseId}>
+            <div className={styles.frame}>
+              {post?.featuredImage?.node && (
+                <Image
+                  src={post.featuredImage.node.sourceUrl}
+                  alt={post.featuredImage.node.altText || ""}
+                  fill
+                  width={0}
+                  height={0}
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className={styles.snapshot}
+                  onLoad={handleImageLoad}
+                  priority={index < 3}
+                />
+              )}
+            </div>
           </div>
         ))}
       </div>

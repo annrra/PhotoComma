@@ -21,6 +21,16 @@
   fill: var(--pc-accent);
 }
 
-@media only screen and (max-width: 480px) {
-  
+@media only screen and (max-width: 1000px) {
+  .header {
+    padding: var(--pc-space-400);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .header {
+    width: 90%;
+    margin: 0 auto;
+    padding: var(--pc-space-400) var(--pc-space-50);
+  }
 }
