@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './cv.module.css';
 import classNames from 'classnames';
 import type { Category } from './types';
@@ -55,17 +56,19 @@ const CategoryView = ({ category }: { category: Category }) => {
           <div className={styles.node} key={post?.databaseId}>
             <div className={styles.frame}>
               {post?.featuredImage?.node && (
-                <Image
-                  src={post.featuredImage.node.sourceUrl}
-                  alt={post.featuredImage.node.altText || ""}
-                  fill
-                  width={0}
-                  height={0}
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className={styles.snapshot}
-                  /* onLoad={handleImageLoad} */
-                  priority={index < 3}
-                />
+                <Link href={`/${post.slug}`}>
+                  <Image
+                    src={post.featuredImage.node.sourceUrl}
+                    alt={post.featuredImage.node.altText || ""}
+                    fill
+                    width={0}
+                    height={0}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className={styles.snapshot}
+                    /* onLoad={handleImageLoad} */
+                    priority={index < 3}
+                  />
+                </Link>
               )}
             </div>
           </div>

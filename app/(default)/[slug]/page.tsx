@@ -2,6 +2,9 @@ import { notFound } from 'next/navigation';
 import { getPost, getCategory } from '@/lib/api';
 import type { Post, GetPostResponse } from '@/src/components/PostView/types';
 import { PostView } from '@/src/components/PostView';
+import { Header } from '@/src/components/Header';
+import { Footer } from '@/src/components/Footer';
+import styles from './page.module.css';
 
 export type PostProps = {
   params: {
@@ -74,12 +77,16 @@ export default async function Post({ params }: PostProps) {
   const randomPosts = shuffleArray(candidates).slice(0, 20);
 
   return (
-    <PostView 
-      post={post} 
-      prevPost={prevPost}
-      nextPost={nextPost}
-      randomPosts={randomPosts}
-      categorySlug={categorySlug}
-    />
+    <>
+      <Header customClassName={styles['header-alt']} />
+      <PostView 
+        post={post} 
+        prevPost={prevPost}
+        nextPost={nextPost}
+        randomPosts={randomPosts}
+        categorySlug={categorySlug}
+      />
+      <Footer mode='light' />
+    </>
   );
 }

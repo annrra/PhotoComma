@@ -1,10 +1,15 @@
 import Link from 'next/link';
 import styles from './h.module.css';
+import classNames from 'classnames';
 
-const Header = () => {
+type HeaderProps = {
+  customClassName?: string;
+}
+
+const Header = ({ customClassName }: HeaderProps) => {
 
   return (
-    <div className={styles.header}>
+    <div className={classNames(styles.header, customClassName)}>
       <div className={styles.logo}>
         <Link href="/">
           <svg

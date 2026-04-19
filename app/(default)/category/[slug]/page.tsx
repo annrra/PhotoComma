@@ -2,6 +2,9 @@ import { notFound } from 'next/navigation';
 import { getCategory } from '@/lib/api';
 import type { GetCategoryResponse } from '@/src/components/CategoryView/types';
 import { CategoryView } from '@/src/components/CategoryView';
+import { Header } from '@/src/components/Header';
+import { Footer } from '@/src/components/Footer';
+import styles from './page.module.css';
 
 export type PostProps = {
   params: {
@@ -23,5 +26,13 @@ export default async function Post({ params }: PostProps) {
     notFound();
   }
 
-  return <CategoryView category={category} />;
+  return (
+    <>
+      <Header />
+      <div className={styles.screen}>
+        <CategoryView category={category} />
+      </div>
+      <Footer mode='light' />
+    </>
+  );
 }

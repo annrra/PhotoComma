@@ -1,4 +1,81 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 700px;
+  width: 95%;
+  margin: 0 auto;
+}
 
+.scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pc-space-800);
+  width: 100%;
+}
+
+.nav {
+  width: 135px;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  gap: var(--pc-space-200);
+  font-size: var(--font-sm);
+  color: var(--pc-text-subtle);
+  position: relative;
+  bottom: var(--pc-space-300);
+}
+
+.nav.idle {
+  cursor: not-allowed;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.nav span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav svg {
+  position: relative;
+  top: 1px;
+}
+
+.piece {
+  flex: 1;
+  order: 2;
+  max-width: 1300px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pc-space-300);
+}
+
+.caption {
+  font-size: var(--font-sm-alt);
+  color: var(--pc-text);
+  text-align: center;
+}
+
+.nav-prev {
+  order: 1;
+  justify-content: flex-end;
+}
+
+.nav-next {
+  order: 3;
+  justify-content: flex-start;
+}
+
+.snap {
+  width: 100%;
+  height: auto;
+}
+
+.fill-paginate {
+  fill: var(--pc-text-muted);
+}
 
 @media only screen and (max-width: 600px) {
   
