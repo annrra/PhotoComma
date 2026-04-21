@@ -4,6 +4,7 @@
   min-height: 700px;
   width: 95%;
   margin: 0 auto;
+  gap: 100px;
 }
 
 .scene {
@@ -56,6 +57,11 @@
   font-size: var(--font-sm-alt);
   color: var(--pc-text);
   text-align: center;
+}
+
+.caption h1 {
+  font-size: var(--font-sm-alt);
+  font-weight: 400;
 }
 
 .nav-prev {

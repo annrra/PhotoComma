@@ -74,7 +74,7 @@ export default async function Post({ params }: PostProps) {
 
   // Get random posts (excluding current)
   const candidates = categoryPosts.filter(p => p.slug !== slug);
-  const randomPosts = shuffleArray(candidates).slice(0, 20);
+  const randomPosts = shuffleArray(candidates).slice(0, 9);
 
   return (
     <>

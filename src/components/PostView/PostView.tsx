@@ -4,6 +4,7 @@ import styles from './pv.module.css';
 import classNames from 'classnames';
 import type { PostViewProps } from './types';
 import ViewControls from './ViewControls';
+import RelatedItems from './RelatedItems';
 
 const PostView = ({ 
   post,
@@ -69,12 +70,14 @@ const PostView = ({
               />
             )}
             <div className={styles.caption}>          
-              <div
+              <h1
                 dangerouslySetInnerHTML={{ __html: post?.excerpt || '' }}
               />
             </div>
           </div>
         </div>
+
+        <RelatedItems items={randomPosts} categorySlug={categorySlug} />
       </div>
     </>
   )

@@ -1,0 +1,41 @@
+.ally {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pc-space-300);
+  width: 730px;
+  margin: 0 auto 100px;
+}
+
+.subheader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subheader h2 {
+  font-size: var(--font-sm);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--pc-text);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.entry {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+
+.snapshot {
+  object-fit: cover;
+}
+
+.fill-grey {
+  fill: var(--pc-light-60);
+}
