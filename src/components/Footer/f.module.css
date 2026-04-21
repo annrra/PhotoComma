@@ -63,3 +63,29 @@
     padding: var(--pc-space-500) var(--pc-space-100);
   }
 }
+
+@media only screen and (max-width: 480px) {
+  .plain .label {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .plain .spacer {
+    display: none;
+  }
+
+  .plain .credit {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--pc-space-100);
+  }
+
+  .footer.plain {
+    gap: var(--pc-space-100)
+  }
+
+  .nav {
+    padding-left: var(--pc-space-100);
+  }
+}

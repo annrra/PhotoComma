@@ -26,10 +26,16 @@
 }
 
 .entry {
-  position: relative;
   width: 100%;
   aspect-ratio: 3 / 2;
   overflow: hidden;
+}
+
+.entry a {
+  display: inline-flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .snapshot {
@@ -38,4 +44,17 @@
 
 .fill-grey {
   fill: var(--pc-light-60);
+}
+
+@media only screen and (max-width: 800px) {
+  .ally {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--pc-space-200);
+  }
 }

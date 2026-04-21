@@ -12,7 +12,7 @@ type FooterProps = {
 const Footer = ({ mode = 'default', onPrev, onNext }: FooterProps) => {
 
   return (
-    <div className={classNames(styles.footer, { [styles.light]: mode === 'light' })}>
+    <div className={classNames(styles.footer, { [styles.light]: mode === 'light' }, { [styles.plain]: mode === 'default' })}>
       {mode === 'default' && (
         <div className={styles.nav}>
           <svg
@@ -89,7 +89,7 @@ const Footer = ({ mode = 'default', onPrev, onNext }: FooterProps) => {
           </svg>
         </div>
       )}
-      <div className={styles.credit}><span className={styles.spacer}>credit to:</span> <Link href="https://bettermonday.org" target='_blank' rel="noopener noreferrer">bettermonday.org</Link> <span className={styles.spacer}>|</span> <EmailLink showEmail className={styles.mailto} /></div>
+      <div className={styles.credit}><span className={classNames(styles.spacer, styles.label)}>credit to:</span> <Link href="https://bettermonday.org" target='_blank' rel="noopener noreferrer">bettermonday.org</Link> <span className={styles.spacer}>|</span> <EmailLink showEmail className={styles.mailto} /></div>
       {mode === 'default' && (
         <div className={styles.collapse}>
           <svg

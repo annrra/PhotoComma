@@ -20,10 +20,16 @@
 }
 
 .frame {
-  position: relative;
   width: 100%;
   aspect-ratio: 3 / 2;
   overflow: hidden;
+}
+
+.frame a {
+  display: inline-flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .node {
