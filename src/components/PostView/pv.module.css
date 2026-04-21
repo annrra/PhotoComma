@@ -126,10 +126,12 @@
   .nav-prev {
     grid-area: prev;
     justify-self: start;
+    width: auto;
   }
 
   .nav-next {
     grid-area: next;
     justify-self: end;
+    width: auto;
   }
 }

@@ -12,7 +12,7 @@ export type PostProps = {
   };
 }
 
-export default async function Post({ params }: PostProps) {
+export default async function Category({ params }: PostProps) {
   const { slug } = await params;
 
   if (!slug || typeof slug !== 'string') {
