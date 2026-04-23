@@ -1,0 +1,39 @@
+.panel {
+  max-width: 60%;
+  margin: var(--pc-space-300) 0 var(--pc-space-600);
+}
+
+.segment {
+  font-size: var(--font-sm-alt);
+  line-height: var(--lh-relaxed);
+  width: 70%;
+  margin: 0 auto;
+}
+
+.segment svg {
+  margin-bottom: var(--pc-space-400);
+}
+
+.figure {
+  width: 100%;
+  height: auto;
+  margin: var(--pc-space-400) 0;
+}
+
+.mailto {
+  cursor: pointer;
+  color: var(--pc-accent);
+}
+
+@media only screen and (max-width: 1000px) {
+  .segment {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .panel {
+    max-width: 80%;
+    margin: var(--pc-space-500) 0 var(--pc-space-400);
+  }
+}

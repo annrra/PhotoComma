@@ -49,7 +49,6 @@ export default async function About() {
 
   const rawData: GetAboutResponse = await getAboutPage();
   const about = rawData?.page?.nextAbout ?? null;
-  console.log(JSON.stringify(about, null, 2));
 
   if (!about) {
     notFound();
@@ -57,7 +56,7 @@ export default async function About() {
 
   return (
     <>
-      <Header />
+      <Header customClassName={styles['header-alt']} />
       <div className={styles.pane}>
         <AboutView page={about} />
       </div>
