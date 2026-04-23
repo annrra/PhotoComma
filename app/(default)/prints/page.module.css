@@ -1,0 +1,12 @@
+.print {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import type { PostViewProps } from './types';
-import SeparatorDecorator from './SeparatorDecorator';
+import { SeparatorDecorator } from '@/src/components/ui/SeparatorDecorator';
 import styles from './av.module.css';
 import classNames from 'classnames';
 import { EmailLink } from '@/src/components/_utils/EmailLink';

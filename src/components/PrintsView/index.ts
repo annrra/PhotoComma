@@ -1,0 +1,1 @@
+export { default as PrintsView } from './PrintsView';
