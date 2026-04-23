@@ -5,17 +5,17 @@ import { Footer } from '@/src/components/Footer';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
-  title: 'Prints | PhotoComma - Photography by Andrey Raychev',
-  description: 'Photography portfolio of Andrey Raychev featuring documentary and thematic image series.',
+  title: 'Photography Prints | PhotoComma - Andrey Raychev',
+  description: 'Fine art photography prints by Andrey Raychev, available worldwide. Carefully produced prints from selected photographic projects.',
 
   alternates: {
     canonical: '/prints',
   },
 
   openGraph: {
-    title: 'Prints | PhotoComma',
-    description: 'Photography portfolio of Andrey Raychev featuring documentary and thematic image series.',
-    url: 'https://photocomma.com/apropos',
+    title: 'Photography Prints | PhotoComma',
+    description: 'Fine art photography prints by Andrey Raychev, available worldwide. Carefully produced prints from selected photographic projects.',
+    url: 'https://photocomma.com/prints',
     siteName: 'PhotoComma',
     type: 'website',
     images: [
@@ -23,15 +23,15 @@ export const metadata: Metadata = {
         url: '/og-default.jpg',
         width: 1200,
         height: 630,
-        alt: 'PhotoComma - Prints Page',
+        alt: 'PhotoComma Photography Prints',
       },
     ],
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Prints | PhotoComma',
-    description: 'Photography portfolio of Andrey Raychev featuring documentary and thematic image series.',
+    title: 'Photography Prints | PhotoComma',
+    description: 'Fine art photography prints by Andrey Raychev, available worldwide. Carefully produced prints from selected photographic projects.',
     images: ['/og-default.jpg'],
   },
 };
