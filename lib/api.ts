@@ -244,6 +244,51 @@ export async function getPost(slug: string) {
   return json.data ?? { posts: { nodes: [] } };
 }
 
+export async function getMetaBySlug(slug: string) {
+	if (!API_URL) {
+    console.error('API_URL is not defined.');
+    return null;
+  }
+
+  const res = await fetchWithTimeout(API_URL, {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      query:`{
+        post(id: "${slug}", idType: SLUG) {
+          title
+          excerpt
+          uri
+          slug
+          status
+          meta {
+            metaTitle
+            metaDescription
+            metaOpengraphimage {
+              node {
+                sourceUrl
+                srcSet
+                uri
+                title
+                altText
+                caption
+              }
+            }
+          }
+        }
+      }`
+    }),
+    next: { revalidate: 60 },
+  });
+   
+  if (!res || !res.ok) {
+    return null;
+  }
+
+  const json = await res.json();
+  return json.data ?? null;
+}
+
 export async function getCategory(
   slug: string,
   first: number = 18,

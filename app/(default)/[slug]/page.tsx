@@ -1,10 +1,16 @@
 import { notFound } from 'next/navigation';
 import { getPost, getCategory } from '@/lib/api';
 import type { Post, GetPostResponse } from '@/src/components/PostView/types';
+import { generatePageMetadata } from '@/src/components/_utils/MetaDataUtil/MetaDataUtil';
 import { PostView } from '@/src/components/PostView';
 import { Header } from '@/src/components/Header';
 import { Footer } from '@/src/components/Footer';
 import styles from './page.module.css';
+
+export async function generateMetadata({ params }: PostProps) {
+  const { slug } = await params;
+  return await generatePageMetadata(slug);
+}
 
 export type PostProps = {
   params: {

@@ -1,7 +1,13 @@
 .stage {
   height: 100vh;
-  min-height: 630px;
+  min-height: 700px;
   position: relative;
+}
+
+@supports (height: 100dvh) {
+  .stage {
+    height: 100dvh;
+  }
 }
 
 .overlay {
