@@ -8,7 +8,7 @@ import { Footer } from '@/src/components/Footer';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
-  title: 'About | PhotoComma - Photography by Andrey Raychev',
+  title: 'About',
   description: 'Photography portfolio of Andrey Raychev featuring documentary and thematic image series.',
 
   alternates: {
