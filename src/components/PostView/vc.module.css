@@ -11,10 +11,6 @@
   overflow: visible;
 }
 
-.expand-circle {
-  fill: #111111;
-}
-
 .ctrls.full .expand-circle {
   fill: #333333;
 }

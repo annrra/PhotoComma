@@ -39,6 +39,11 @@
 
 .fillshade {
   fill: var(--pc-bg-muted);
+  transition: fill 0.3s ease;
+}
+
+.paginate:hover .fillshade {
+  fill: var(--pc-text)
 }
 
 .filler {

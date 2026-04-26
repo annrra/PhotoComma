@@ -39,21 +39,52 @@
   transition: all 0.3s ease;
 }
 
+.navlabel {
+  transition: color 0.3s ease;
+}
+
+.link:hover .navlabel {
+  color: var(--pc-accent);
+}
+
 .separator {
+  position: relative;
   width: 100%;
   height: 1px;
   background-color: var(--pc-light-10);
   flex: 1;
   margin-left: var(--pc-space-300);
+  overflow: hidden;
+}
+
+.separator::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--pc-light-05);
+
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.link:hover .separator::after {
+  transform: translateX(0%);
 }
 
 .markerfill {
   fill: var(--pc-light-20);
+  transition: transform 0.3s ease;
+  transform-origin: center;
+  transform-box: fill-box;
 }
 
 .link:hover .markerfill {
   fill: var(--pc-accent);
-} 
+  transform: rotate(90deg);
+}
 
 @media only screen and (max-width: 480px) {
   

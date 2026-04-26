@@ -57,6 +57,7 @@ const ViewControls = ({
             <motion.circle 
               id="Ellipse" 
               cx={20} cy={20} r={20}
+              fill="#111111"
               className={styles['expand-circle']}
               variants={circleVariants}
               style={{

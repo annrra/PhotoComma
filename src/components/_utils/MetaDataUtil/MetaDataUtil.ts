@@ -13,7 +13,7 @@ export async function generatePageMetadata(slug: string): Promise<PageMetadata> 
 
     return {
       title: 'Not Found',
-      description: 'Page not found',
+      description,
 			openGraph: {
         title: 'Page Not Found - PhotoComma',
         description,

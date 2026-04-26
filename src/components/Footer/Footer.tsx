@@ -25,7 +25,7 @@ const Footer = ({ mode = 'default', onPrev, onNext }: FooterProps) => {
             <g id="fish">
               <a
                 href="#"
-                className={styles.prev}
+                className={classNames(styles.prev, styles.paginate)}
                 onClick={(event) => {
                   event.preventDefault();
                   onPrev?.();
@@ -41,7 +41,7 @@ const Footer = ({ mode = 'default', onPrev, onNext }: FooterProps) => {
               </a>
               <a
                 href="#"
-                className={styles.next}
+                className={classNames(styles.next, styles.paginate)}
                 onClick={(event) => {
                   event.preventDefault();
                   onNext?.();

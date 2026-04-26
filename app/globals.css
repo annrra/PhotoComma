@@ -25,6 +25,7 @@
   --pc-light-30:  rgba(255, 255, 255, 0.3);
   --pc-light-20:  rgba(255, 255, 255, 0.2);
   --pc-light-10:  rgba(255, 255, 255, 0.1);
+  --pc-light-05:  rgba(255, 255, 255, 0.05);
 
   /* ========== Foreground / Text ========== */
   --pc-text: #d7d7d7;
