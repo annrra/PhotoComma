@@ -1,6 +1,10 @@
 import { getMetaBySlug } from '@/lib/api';
 import type { MetaResponse, PageMetadata } from './types';
 
+function stripHtml(html: string) {
+  return html.replace(/<[^>]*>/g, '');
+}
+
 export async function generatePageMetadata(slug: string): Promise<PageMetadata> {
   const meta: MetaResponse | null = await getMetaBySlug(slug);
   
@@ -43,8 +47,8 @@ export async function generatePageMetadata(slug: string): Promise<PageMetadata> 
     : '/og-default.jpg';
 
   const metadata: PageMetadata = {
-    title: metaData.metaTitle,
-    description: metaData.metaDescription,
+    title: metaData.metaTitle ?? metaPost.title,
+    description: metaData.metaDescription ?? stripHtml(metaPost.excerpt),
     alternates: {
       canonical: `${siteBase}/${slug}`,
     },

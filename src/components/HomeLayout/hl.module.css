@@ -4,11 +4,11 @@
   position: relative;
 }
 
-@supports (height: 100dvh) {
+/* @supports (height: 100dvh) {
   .stage {
     height: 100dvh;
   }
-}
+} */
 
 .overlay {
   position: absolute;

@@ -17,6 +17,7 @@ type MetaData = {
 
 type MetaPost = {
   title: string;
+  excerpt: string;
   meta: MetaData;
 }
 
