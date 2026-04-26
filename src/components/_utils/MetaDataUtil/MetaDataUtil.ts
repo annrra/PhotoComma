@@ -18,7 +18,7 @@ export async function generatePageMetadata(slug: string): Promise<PageMetadata> 
             url: '/og-default.jpg',
             width: 1200,
             height: 630,
-            alt: 'PhotoComma - Page Not Found',
+            alt: 'Black and white photograph of a bent tree and a curving road',
           },
         ],
       },

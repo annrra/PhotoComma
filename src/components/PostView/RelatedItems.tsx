@@ -2,19 +2,22 @@ import styles from './ri.module.css';
 import type { Post } from './types';
 import Link from 'next/link';
 import Image from 'next/image';
+import classNames from 'classnames';
 
 type RelatedItemsProps = {
   items?: Post[];
   categorySlug?: string | null;
+  customClassName?: string;
 };
 
 const RelatedItems = ({
   items = [], 
-  categorySlug
+  categorySlug,
+  customClassName,
 }: RelatedItemsProps) => {
 
   return (
-    <div className={styles.ally}>
+    <div className={classNames(styles.ally, customClassName)}>
       <div className={styles.subheader}>
         <h2>Some more random photos</h2>
         <Link href={`/category/${categorySlug}`}>

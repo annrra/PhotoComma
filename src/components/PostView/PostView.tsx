@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './pv.module.css';
@@ -5,6 +6,7 @@ import classNames from 'classnames';
 import type { PostViewProps } from './types';
 import ViewControls from './ViewControls';
 import RelatedItems from './RelatedItems';
+import { useView } from '@/src/context/ViewContext/ViewContext';
 
 const PostView = ({ 
   post,
@@ -14,12 +16,16 @@ const PostView = ({
   categorySlug, 
 }: PostViewProps) => {
   const postImage = post?.featuredImage?.node;
+  const { isFullscreen, setIsFullscreen } = useView();
 
   return (
     <>
-      <ViewControls />
-      <div className={styles.panel}>
-        <div className={styles.scene}>
+      <ViewControls 
+        isFullscreen={isFullscreen}
+        onToggleFullscreen={() => setIsFullscreen(!isFullscreen)}
+      />
+      <div className={classNames(styles.panel, {[styles.full]: isFullscreen})}>
+        <div className={classNames(styles.scene, {[styles.fullscreen]: isFullscreen})}>
           <Link 
             className={classNames(styles['nav-prev'], styles.nav, {[styles.idle]: prevPost == null})} 
             href={prevPost?.slug ? `/${prevPost.slug}` : '#'}
@@ -59,17 +65,19 @@ const PostView = ({
             </svg>
           </Link>
           <div className={styles.piece}>
-            {postImage?.sourceUrl && (
-              <Image
-                src={postImage?.sourceUrl}
-                alt={postImage?.altText || ""}
-                width={0}
-                height={0}
-                sizes="100vw"
-                priority
-                className={styles.snap}
-              />
-            )}
+            <div className={styles.snapper}>
+              {postImage?.sourceUrl && (
+                <Image
+                  src={postImage?.sourceUrl}
+                  alt={postImage?.altText || ""}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  priority
+                  className={styles.snap}
+                />
+              )}
+            </div>
             <div className={styles.caption}>          
               <h1
                 dangerouslySetInnerHTML={{ __html: post?.excerpt || '' }}
@@ -78,7 +86,7 @@ const PostView = ({
           </div>
         </div>
 
-        <RelatedItems items={randomPosts} categorySlug={categorySlug} />
+        {!isFullscreen && <RelatedItems items={randomPosts} categorySlug={categorySlug} customClassName={styles.related} />}
       </div>
     </>
   )

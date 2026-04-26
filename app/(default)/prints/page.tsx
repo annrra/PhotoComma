@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         url: '/og-default.jpg',
         width: 1200,
         height: 630,
-        alt: 'PhotoComma Photography Prints',
+        alt: 'Black and white photograph of a bent tree and a curving road',
       },
     ],
   },

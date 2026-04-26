@@ -7,6 +7,31 @@
   gap: 12px;
 }
 
+.expand {
+  overflow: visible;
+}
+
+.expand-circle {
+  fill: #111111;
+}
+
+.ctrls.full .expand-circle {
+  fill: #333333;
+}
+
+.ctrls.full {
+  z-index: 999;
+}
+
+.btn-ctrl {
+  outline: none;
+  border: 0;
+}
+
+.ctrls.full .expand-icon-fill {
+  fill: var(--pc-light-100);
+}
+
 @media only screen and (max-width: 1200px) {
   .ctrls {
     top: var(--pc-space-400);

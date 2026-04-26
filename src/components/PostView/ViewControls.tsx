@@ -1,106 +1,158 @@
 import styles from './vc.module.css';
+import classNames from 'classnames';
+import { motion } from 'framer-motion';
 
-const ViewControls = () => {
+type ViewControlsProps = {
+  isFullscreen: boolean;
+  onToggleFullscreen: () => void;
+}
+
+const ViewControls = ({
+  isFullscreen,
+  onToggleFullscreen,
+}: ViewControlsProps) => {
+
+  const circleVariants = {
+    rest: {
+      scale: 1,
+      fill: '#111111',
+    },
+    hover: {
+      scale: 1.18,
+      fill: '#333333',
+    },
+  };
+
+  const squareVariants = {
+    rest: {
+      scale: 1,
+      fill: 'var(--pc-light-60)',
+    },
+    hover: {
+      scale: 0.90,
+      fill: 'var(--pc-light-100)',
+    },
+  };
 
   return (
-    <div className={styles.ctrls}>
-      <svg
-        width={40}
-        height={40}
-        viewBox="0 0 40 40"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+    <div className={classNames(styles.ctrls, {[styles.full]: isFullscreen})}>
+      <motion.button 
+        onClick={onToggleFullscreen}
+        aria-label={isFullscreen ? 'Exit fullscreen view' : 'Enter fullscreen view'}
+        className={styles['btn-ctrl']}
+        initial="rest"
+        animate="rest"
+        whileHover="hover"
       >
-        <g id="expand" clipPath="url(#clip0_1411_44)">
-          <circle id="Ellipse" cx={20} cy={20} r={20} fill="#111111" />
-          <g id="square">
-            <rect
-              id="l8"
-              x={11}
-              y={22}
-              width={2}
-              height={7}
-              rx={1}
-              fill="white"
-              fillOpacity={0.6}
+        <motion.svg
+          width={40}
+          height={40}
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className={styles.expand}
+          style={{ overflow: 'visible' }}
+        >
+          <g id="expand">
+            <motion.circle 
+              id="Ellipse" 
+              cx={20} cy={20} r={20}
+              className={styles['expand-circle']}
+              variants={circleVariants}
+              style={{
+                transformBox: 'fill-box',
+                transformOrigin: 'center',
+              }}
             />
-            <rect
-              id="l7"
-              x={11}
-              y={29}
-              width={2}
-              height={7}
-              rx={1}
-              transform="rotate(-90 11 29)"
-              fill="white"
-              fillOpacity={0.6}
-            />
-            <rect
-              id="l6"
-              width={2}
-              height={7}
-              rx={1}
-              transform="matrix(-1 0 0 1 29 22)"
-              fill="white"
-              fillOpacity={0.6}
-            />
-            <rect
-              id="l5"
-              width={2}
-              height={7}
-              rx={1}
-              transform="matrix(0 -1 -1 0 29 29)"
-              fill="white"
-              fillOpacity={0.6}
-            />
-            <rect
-              id="l4"
-              width={2}
-              height={7}
-              rx={1}
-              transform="matrix(1 0 0 -1 11 18)"
-              fill="white"
-              fillOpacity={0.6}
-            />
-            <rect
-              id="l3"
-              width={2}
-              height={7}
-              rx={1}
-              transform="matrix(0 1 1 0 11 11)"
-              fill="white"
-              fillOpacity={0.6}
-            />
-            <rect
-              id="l2"
-              x={29}
-              y={18}
-              width={2}
-              height={7}
-              rx={1}
-              transform="rotate(180 29 18)"
-              fill="white"
-              fillOpacity={0.6}
-            />
-            <rect
-              id="l1"
-              x={29}
-              y={11}
-              width={2}
-              height={7}
-              rx={1}
-              transform="rotate(90 29 11)"
-              fill="white"
-              fillOpacity={0.6}
-            />
+            <motion.g 
+              id="square"
+              variants={squareVariants}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              style={{
+                transformBox: 'fill-box',
+                transformOrigin: 'center',
+              }}
+            >
+              <rect
+                id="l8"
+                x={11}
+                y={22}
+                width={2}
+                height={7}
+                rx={1}
+                className={styles['expand-icon-fill']}
+              />
+              <rect
+                id="l7"
+                x={11}
+                y={29}
+                width={2}
+                height={7}
+                rx={1}
+                transform="rotate(-90 11 29)"
+                className={styles['expand-icon-fill']}
+              />
+              <rect
+                id="l6"
+                width={2}
+                height={7}
+                rx={1}
+                transform="matrix(-1 0 0 1 29 22)"
+                className={styles['expand-icon-fill']}
+              />
+              <rect
+                id="l5"
+                width={2}
+                height={7}
+                rx={1}
+                transform="matrix(0 -1 -1 0 29 29)"
+                className={styles['expand-icon-fill']}
+              />
+              <rect
+                id="l4"
+                width={2}
+                height={7}
+                rx={1}
+                transform="matrix(1 0 0 -1 11 18)"
+                className={styles['expand-icon-fill']}
+              />
+              <rect
+                id="l3"
+                width={2}
+                height={7}
+                rx={1}
+                transform="matrix(0 1 1 0 11 11)"
+                className={styles['expand-icon-fill']}
+              />
+              <rect
+                id="l2"
+                x={29}
+                y={18}
+                width={2}
+                height={7}
+                rx={1}
+                transform="rotate(180 29 18)"
+                className={styles['expand-icon-fill']}
+              />
+              <rect
+                id="l1"
+                x={29}
+                y={11}
+                width={2}
+                height={7}
+                rx={1}
+                transform="rotate(90 29 11)"
+                className={styles['expand-icon-fill']}
+              />
+            </motion.g>
           </g>
-        </g>
-        <defs>
-          <clipPath id="clip0_1411_44">
-            <rect width={40} height={40} fill="white" />
-          </clipPath>
-        </defs>
-      </svg>
+          <defs>
+            <clipPath id="clip0_1411_44">
+              <rect width={40} height={40} fill="white" />
+            </clipPath>
+          </defs>
+        </motion.svg>
+      </motion.button>
 
       <svg
         width={40}
