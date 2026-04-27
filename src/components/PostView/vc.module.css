@@ -11,8 +11,18 @@
   overflow: visible;
 }
 
-.ctrls.full .expand-circle {
-  fill: #333333;
+.expand-circle {
+  fill: var(--pc-mobs);
+}
+
+.btn-ctrl .expand-circle,
+.btn-ctrl .theme-circle {
+  transition: all 0.1s ease;
+}
+
+.btn-ctrl:hover .expand-circle,
+.btn-ctrl:hover .theme-circle {
+  fill: var(--pc-mobs-sec);
 }
 
 .ctrls.full {
@@ -24,8 +34,21 @@
   border: 0;
 }
 
+.expand-icon-fill,
+.theme-icon-fill {
+  fill: var(--pc-light-60);
+}
+
 .ctrls.full .expand-icon-fill {
   fill: var(--pc-light-100);
+}
+
+[data-theme='light'] .theme-icon-fill {
+  fill: var(--pc-light-100);
+} 
+
+.theme-circle {
+  fill: var(--pc-mobs);
 }
 
 @media only screen and (max-width: 1200px) {

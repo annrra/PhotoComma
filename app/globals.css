@@ -13,7 +13,9 @@
   --pc-bg-40:  rgba(0, 0, 0, 0.4);
   --pc-bg-30:  rgba(0, 0, 0, 0.3);
   --pc-bg-20:  rgba(0, 0, 0, 0.2);
+  --pc-bg-15:  rgba(0, 0, 0, 0.15);
   --pc-bg-10:  rgba(0, 0, 0, 0.1);
+  --pc-bg-05:  rgba(0, 0, 0, 0.05);
 
   --pc-light-100: rgba(255, 255, 255, 1);
   --pc-light-90:  rgba(255, 255, 255, 0.9);
@@ -36,6 +38,9 @@
   --surface: #ffffff;
   --pc-surface-elevated: #f9fafb;
   --pc-border: #e5e7eb;
+
+  --pc-mobs: #111111;
+  --pc-mobs-sec: #333333;
 
   /* ========== Brand / Accent ========== */
   --pc-accent: #f1572d;
@@ -86,6 +91,17 @@
   --pc-space-1000: 80px;
 
   --pc-max-width: 1400px;
+}
+
+[data-theme='light'] {
+  --pc-bg: #fff;
+  --pc-text: #111111;
+  --pc-light-60: var(--pc-bg-60);
+  --pc-light-100: var(--pc-bg-100);
+  --pc-mobs: var(--pc-bg-05);
+  --pc-mobs-sec: var(--pc-bg-10);
+  --pc-text-muted: #808080;
+  --pc-text-subtle: #c6c6c6;
 }
 
 /* =========================

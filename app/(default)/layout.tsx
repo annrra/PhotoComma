@@ -1,5 +1,4 @@
 import styles from './page.module.css';
-import { ViewProvider } from '@/src/context/ViewContext/ViewContext';
 
 export default function DefualtLayout({
   children,
@@ -8,9 +7,7 @@ export default function DefualtLayout({
 }>) {
   return (
     <div className={styles.stage}>
-      <ViewProvider>
-        {children}
-      </ViewProvider>
+      {children}
     </div>
   );
 }
