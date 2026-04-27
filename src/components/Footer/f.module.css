@@ -56,9 +56,18 @@
   justify-content: center;
   width: 26px;
   height: 26px;
-  border-radius: var(--pc-radius-sm);
+  border-radius: 50%;
   background-color: var(--pc-accent);
   margin-left: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.collapse svg {
+  transform: rotate(180deg);
+}
+
+.collapsed svg {
+  transform: rotate(0deg);
 }
 
 @media only screen and (max-width: 600px) {

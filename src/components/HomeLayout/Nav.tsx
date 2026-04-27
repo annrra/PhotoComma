@@ -11,12 +11,13 @@ export type NavNode = {
 
 type NavProps = {
   navigation: NavNode[];
+  collapsed?: boolean;
 }
 
-const Nav = ({ navigation }: NavProps) => {
+const Nav = ({ navigation, collapsed = false }: NavProps) => {
   
   return (
-    <div className={styles.nav}>
+    <div className={classNames(styles.nav, {[styles.collapsed]: collapsed})}>
       <ul>
         {navigation.map((item) => (    
           <li key={item.menuItemId} className={classNames(styles.navitem, {[styles.navalt]: item.label === 'about'})}>

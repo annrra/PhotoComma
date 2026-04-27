@@ -9,6 +9,13 @@
   flex-direction: column;
 }
 
+.nav.collapsed {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+}
+
 .navitem {
   line-height: var(--pc-space-400);
 }
@@ -37,6 +44,7 @@
   align-items: center;
   gap: var(--pc-space-100);
   transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .navlabel {

@@ -22,6 +22,11 @@ const HomeLayout = ({ introContent, slides, navigation }: HomeLayoutProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const pauseTimer = useRef<number | null>(null);
+  const [navCollapsed, setNavCollapsed] = useState(false);
+
+  const toggleNav = () => {
+    setNavCollapsed((prev) => !prev);
+  };
 
   useEffect(() => {
     if (slides.length <= 1 || isPaused) return;
@@ -71,8 +76,13 @@ const HomeLayout = ({ introContent, slides, navigation }: HomeLayoutProps) => {
         <div className={styles.layout}>
           <Intro content={introContent} />
           <div className={styles.chrome}>
-            <Nav navigation={navigation} />
-            <Footer onPrev={prevSlide} onNext={nextSlide} />
+            <Nav navigation={navigation} collapsed={navCollapsed} />
+            <Footer 
+              onPrev={prevSlide} 
+              onNext={nextSlide} 
+              onToggleNav={toggleNav} 
+              isCollapsed={navCollapsed} 
+            />
           </div>
         </div>
       </div>

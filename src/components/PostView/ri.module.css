@@ -12,6 +12,10 @@
   justify-content: space-between;
 }
 
+.subheader a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .subheader h2 {
   font-size: var(--font-sm);
   font-weight: 400;

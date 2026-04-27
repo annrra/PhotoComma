@@ -7,9 +7,17 @@ type FooterProps = {
   mode?: 'default' | 'light';
   onPrev?: () => void;
   onNext?: () => void;
+  onToggleNav?: () => void;
+  isCollapsed?: boolean;
 }
 
-const Footer = ({ mode = 'default', onPrev, onNext }: FooterProps) => {
+const Footer = ({ 
+  mode = 'default', 
+  onPrev, 
+  onNext, 
+  onToggleNav, 
+  isCollapsed = false 
+}: FooterProps) => {
 
   return (
     <div className={classNames(styles.footer, { [styles.light]: mode === 'light' }, { [styles.plain]: mode === 'default' })}>
@@ -91,7 +99,7 @@ const Footer = ({ mode = 'default', onPrev, onNext }: FooterProps) => {
       )}
       <div className={styles.credit}><span className={classNames(styles.spacer, styles.label)}>credit to:</span> <Link href="https://bettermonday.org" target='_blank' rel="noopener noreferrer">bettermonday.org</Link> <span className={styles.spacer}>|</span> <EmailLink showEmail className={styles.mailto} /></div>
       {mode === 'default' && (
-        <div className={styles.collapse}>
+        <button className={classNames(styles.collapse, {[styles.collapsed]: isCollapsed})} onClick={onToggleNav}>
           <svg
             width={8}
             height={5}
@@ -105,7 +113,7 @@ const Footer = ({ mode = 'default', onPrev, onNext }: FooterProps) => {
               className={styles.filler}
             />
           </svg>
-        </div>
+        </button>
       )}
     </div>
   )
