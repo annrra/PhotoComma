@@ -12,6 +12,7 @@ type PostsResponse = {
       nodes: PostNode[];
     };
   };
+  errors?: unknown;
 };
 
 type ChangeFreq = 'monthly' | 'weekly' | 'always' | 'hourly' | 'daily' | 'yearly' | 'never';
@@ -44,7 +45,18 @@ async function fetchPostsByCategory(API_URL: string, categoryId: number[]) {
     next: { revalidate: 60 },
   });
 
+  if (!res.ok) {
+    console.error('Failed to fetch posts', await res.text());
+    return [];
+  }
+
   const data: PostsResponse = await res.json();
+
+  if (data?.errors) {
+    console.error('GraphQL errors:', data.errors);
+    return [];
+  }
+
   return data?.data?.posts?.nodes ?? [];
 }
 
