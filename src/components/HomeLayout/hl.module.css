@@ -34,6 +34,10 @@
   line-height: var(--lh-relaxed);
 }
 
+.intro.dark {
+  color: var(--pc-mobs-sec);
+}
+
 .chrome {
   margin-top: auto;
   display: flex;

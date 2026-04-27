@@ -92,6 +92,7 @@ export async function getHeroSlides() {
             }
             nextHeroslidePosition {
               hersoSlidePosition
+              heroSlideTextColor
             }
           }
         }

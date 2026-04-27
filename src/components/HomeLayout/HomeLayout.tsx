@@ -24,6 +24,9 @@ const HomeLayout = ({ introContent, slides, navigation }: HomeLayoutProps) => {
   const pauseTimer = useRef<number | null>(null);
   const [navCollapsed, setNavCollapsed] = useState(false);
 
+  const activeSlide = slides[currentSlide];
+  const textColor = activeSlide?.nextHeroslidePosition?.heroSlideTextColor || 'dark';  
+
   const toggleNav = () => {
     setNavCollapsed((prev) => !prev);
   };
@@ -74,7 +77,7 @@ const HomeLayout = ({ introContent, slides, navigation }: HomeLayoutProps) => {
       <div className={styles.overlay}>
         <Header />
         <div className={styles.layout}>
-          <Intro content={introContent} />
+          <Intro content={introContent} textColor={textColor} />
           <div className={styles.chrome}>
             <Nav navigation={navigation} collapsed={navCollapsed} />
             <Footer 

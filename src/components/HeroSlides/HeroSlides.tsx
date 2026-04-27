@@ -21,6 +21,7 @@ export type SlideNode = {
   };
   nextHeroslidePosition: {
     hersoSlidePosition: 'center' | 'top' | 'bottom';
+    heroSlideTextColor: 'light' | 'dark';
   };
 };
 
