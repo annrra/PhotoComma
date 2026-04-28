@@ -103,3 +103,13 @@
     padding-left: var(--pc-space-100);
   }
 }
+
+@media only screen and (max-width: 370px) {
+  .nav {
+    padding-left: var(--pc-space-50);
+  }
+
+  .plain .credit {
+    gap: var(--pc-space-50);
+  }
+}

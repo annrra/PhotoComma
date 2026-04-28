@@ -62,6 +62,7 @@
   position: relative;
   bottom: var(--pc-space-300);
   -webkit-tap-highlight-color: transparent;
+  padding: var(--pc-space-400) 0;
 }
 
 .nav.idle {
@@ -74,6 +75,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  opacity: 0.9;
 }
 
 .nav svg {
@@ -102,6 +104,10 @@
   font-weight: 400;
 }
 
+[data-theme='light'] .caption h1 {
+  font-weight: 300;
+}
+
 .nav-prev {
   order: 1;
   justify-content: flex-end;
@@ -125,6 +131,11 @@
 
 .fill-paginate {
   fill: var(--pc-text-muted);
+  transition: all 0.3s ease;
+}
+
+.nav:hover .fill-paginate {
+  fill: var(--surface);
 }
 
 @media only screen and (max-width: 1600px) {

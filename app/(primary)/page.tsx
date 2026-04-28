@@ -3,7 +3,7 @@ import { HomeLayout } from '@/src/components/HomeLayout';
 import { getHomePage, getHeroSlides, getMainNavigation } from '@/lib/api';
 
 export const metadata: Metadata = {
-  title: 'photo comma',
+  title: 'Photography & Visual Stories',
   description: 'Photo comma is a personal photography project with photo stories and stand alone images without particular connection with each other taken randomly from here and there.',
 
   alternates: {

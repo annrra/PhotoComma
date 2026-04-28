@@ -8,12 +8,15 @@ type IntroProps = {
 
 const Intro = ({ content, textColor = 'light' }: IntroProps) => {
   return (
-    <div
-      className={classNames(styles.intro, {[styles.dark]: textColor === 'dark'})}
-      dangerouslySetInnerHTML={{
-        __html: content,
-      }}
-    />
+    <>
+      <h1 className={styles.sronly}>Photocomma documentary and thematic photography portfolio</h1>
+      <div
+        className={classNames(styles.intro, {[styles.dark]: textColor === 'dark'})}
+        dangerouslySetInnerHTML={{
+          __html: content,
+        }}
+      />
+    </>
   )
 }
 

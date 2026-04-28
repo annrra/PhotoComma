@@ -13,6 +13,7 @@ const AboutView = ({
 
   return (
     <div className={styles.panel}>
+      <h1 className={styles.sronly}>About photocomma and a way of seeing</h1>
       <div className={classNames(styles.segment, styles['segment-intro'])}>
         <SeparatorDecorator />
         {page.nextAboutSectionOne}

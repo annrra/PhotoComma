@@ -8,6 +8,7 @@ const PrintsView = () => {
     <div className={styles.panel}>
       <div className={styles.segment}>
         <SeparatorDecorator />
+        <h1 className={styles.sronly}>Prints and shipping information at PhotoComma</h1>
         Each photograph is available to be purchased as a print<br />
         Printed with care<br />
         Shipping worldwide<br /><br />

@@ -102,6 +102,7 @@
   --pc-mobs-sec: var(--pc-bg-10);
   --pc-text-muted: #808080;
   --pc-text-subtle: #c6c6c6;
+  --surface: #000000;
 }
 
 /* =========================

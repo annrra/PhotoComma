@@ -9,7 +9,7 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'Photography portfolio of Andrey Raychev featuring documentary and thematic image series.',
+  description: 'PhotoComma is a photography portfolio by Andrey Raychev featuring documentary and thematic image series.',
 
   alternates: {
     canonical: '/apropos',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title: 'About | PhotoComma',
-    description: 'Photography portfolio of Andrey Raychev featuring documentary and thematic image series.',
+    description: 'PhotoComma is a photography portfolio by Andrey Raychev featuring documentary and thematic image series.',
     url: 'https://photocomma.com/apropos',
     siteName: 'PhotoComma',
     type: 'website',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'About | PhotoComma',
-    description: 'Photography portfolio of Andrey Raychev featuring documentary and thematic image series.',
+    description: 'PhotoComma is a photography portfolio by Andrey Raychev featuring documentary and thematic image series.',
     images: ['/og-default.jpg'],
   },
 };

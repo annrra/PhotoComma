@@ -79,9 +79,14 @@ const PostView = ({
               )}
             </div>
             <div className={styles.caption}>          
-              <h1
-                dangerouslySetInnerHTML={{ __html: post?.excerpt || '' }}
-              />
+              <h1>
+                {post?.excerpt
+                  ? new DOMParser()
+                      .parseFromString(post.excerpt, 'text/html')
+                      .body.textContent
+                      .trim()
+                  : ''}
+              </h1>
             </div>
           </div>
         </div>

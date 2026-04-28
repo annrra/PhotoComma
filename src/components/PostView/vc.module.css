@@ -46,7 +46,7 @@
 
 [data-theme='light'] .theme-icon-fill {
   fill: var(--pc-light-100);
-} 
+}
 
 .theme-circle {
   fill: var(--pc-mobs);
