@@ -14,9 +14,7 @@ const THEME_STORAGE_KEY = 'photocomma-theme';
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window === 'undefined') return 'dark';
-
-    const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
-    return storedTheme === 'light' ? 'light' : 'dark';
+    return window.localStorage.getItem(THEME_STORAGE_KEY) === 'light' ? 'light' : 'dark';
   });
 
   useEffect(() => {
