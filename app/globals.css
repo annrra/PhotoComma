@@ -1,4 +1,11 @@
 :root {
+  --pc-bg-static: #000;
+  --pc-text-static: #d7d7d7;
+  --pc-text-muted-static: #c6c6c6;
+  --pc-text-subtle-static: #808080;
+  --pc-mobs-static: #111111;
+  --pc-mobs-sec-static: #333333;
+
   /* ========== Backgrounds ========== */
   --pc-bg: #000;
   --pc-bg-subtle: #999;

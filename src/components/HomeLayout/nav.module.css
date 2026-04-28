@@ -39,7 +39,7 @@
 
 .link {
   font-size: var(--font-sm);
-  color: var(--pc-text);
+  color: var(--pc-text-static);
   display: flex;
   align-items: center;
   gap: var(--pc-space-100);
@@ -92,8 +92,4 @@
 .link:hover .markerfill {
   fill: var(--pc-accent);
   transform: rotate(90deg);
-}
-
-@media only screen and (max-width: 480px) {
-  
 }

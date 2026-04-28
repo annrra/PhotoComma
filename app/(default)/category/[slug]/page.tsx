@@ -5,7 +5,6 @@ import type { GetCategoryResponse } from '@/src/components/CategoryView/types';
 import { CategoryView } from '@/src/components/CategoryView';
 import { Header } from '@/src/components/Header';
 import { Footer } from '@/src/components/Footer';
-import styles from './page.module.css';
 
 export async function generateMetadata({ params }: PostProps) {
   const { slug } = await params;
@@ -35,9 +34,7 @@ export default async function Category({ params }: PostProps) {
   return (
     <>
       <Header />
-      <div className={styles.screen}>
-        <CategoryView category={category} />
-      </div>
+      <CategoryView category={category} />
       <Footer mode='light' />
     </>
   );

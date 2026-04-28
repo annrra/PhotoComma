@@ -1,5 +1,5 @@
 .footer {
-  background-color: var(--pc-bg);
+  background-color: var(--pc-bg-static);
   border-radius: var(--pc-radius-md);
   padding: var(--pc-space-100);
   display: flex;
@@ -18,16 +18,27 @@
 }
 
 .credit {
-  color: var(--pc-text-subtle);
+  color: var(--pc-text-subtle-static);
   font-size: var(--font-sm);
 }
 
+.footer.light .credit {
+  color: var(--pc-text-subtle);
+}
+
 .credit a {
+  color: var(--pc-text-static);
+}
+
+.footer.light .credit a,
+.footer.light .credit .mailto,
+.footer.light .paginate:hover .fillshade,
+.footer.light .filler {
   color: var(--pc-text);
 }
 
 .credit .mailto {
-  color: var(--pc-text);
+  color: var(--pc-text-static);
   cursor: pointer;
 }
 
@@ -43,11 +54,11 @@
 }
 
 .paginate:hover .fillshade {
-  fill: var(--pc-text)
+  fill: var(--pc-text-static)
 }
 
 .filler {
-  fill: var(--pc-text);
+  fill: var(--pc-text-static);
 }
 
 .collapse {

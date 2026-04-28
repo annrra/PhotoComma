@@ -129,6 +129,20 @@
   max-height: 95vh;
 }
 
+/* PostView image spinner/skeleton */
+/* .snap.hidden {
+  opacity: 0;
+}
+
+.skeleton {
+  width: 100%;
+  height: 100%;
+  min-height: 85vh;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+} */
+
 .fill-paginate {
   fill: var(--pc-text-muted);
   transition: all 0.3s ease;

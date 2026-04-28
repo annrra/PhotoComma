@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ThemeProvider } from '@/src/context/ThemeContext/ThemeContext';
 import { Geist } from "next/font/google";
 import "./globals.css";
 
@@ -54,7 +55,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable}`}>
-      <body>{children}</body>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

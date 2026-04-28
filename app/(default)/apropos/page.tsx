@@ -57,9 +57,7 @@ export default async function About() {
   return (
     <>
       <Header customClassName={styles['header-alt']} />
-      <div className={styles.pane}>
-        <AboutView page={about} />
-      </div>
+      <AboutView page={about} />
       <Footer mode='light' />
     </>
   );

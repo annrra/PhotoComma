@@ -48,6 +48,11 @@
   background-position: center;
 }
 
+[data-theme='light'] .node::after {
+  opacity: 0.3;
+  background-size: 20px 20px;
+}
+
 .grid .node:nth-child(3n)::after {
   display: none;
 }
@@ -67,13 +72,27 @@
 } */
 
 .loader {
+  position: relative;
   display: flex;
   justify-content: flex-end;
   margin: 0 -32px;
   padding: var(--pc-space-200) 0 var(--pc-space-500);
+}
+
+.loader:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 129px;
+  height: 1px;
   background-image: url("data:image/svg+xml,%3Csvg width='129' height='1' viewBox='0 0 129 1' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cg id='sep'%3E %3Cg id='sep-bgr'%3E %3Cpath d='M1 1H0V0H1V1Z' fill='%231D1D1D'/%3E %3Cpath d='M5 1H3V0H5V1Z' fill='%231D1D1D'/%3E %3Cpath d='M9 1H7V0H9V1Z' fill='%231D1D1D'/%3E %3Cpath d='M82 1H10V0H82V1Z' fill='%231D1D1D'/%3E %3Cpath d='M89 1H88V0H89V1Z' fill='%231D1D1D'/%3E %3Cpath d='M92 1H91V0H92V1Z' fill='%231D1D1D'/%3E %3Cpath d='M95 1H94V0H95V1Z' fill='%231D1D1D'/%3E %3Cpath d='M98 1H97V0H98V1Z' fill='%231D1D1D'/%3E %3Cpath d='M103 1H102V0H103V1Z' fill='%231D1D1D'/%3E %3Cpath d='M107 1H106V0H107V1Z' fill='%231D1D1D'/%3E %3Cpath d='M115 1H108V0H115V1Z' fill='%231D1D1D'/%3E %3Cpath d='M120 1H116V0H120V1Z' fill='%231D1D1D'/%3E %3Cpath d='M123 1H121V0H123V1Z' fill='%231D1D1D'/%3E %3Cpath d='M129 1H125V0H129V1Z' fill='%231D1D1D'/%3E %3C/g%3E %3Cg id='sep-front'%3E %3Cpath d='M15 1H13V0H15V1Z' fill='%233B3B3A'/%3E %3Cpath d='M42 1H17V0H42V1Z' fill='%233B3B3A'/%3E %3Cpath d='M62 1H45V0H62V1Z' fill='%233B3B3A'/%3E %3Cpath d='M71 1H65V0H71V1Z' fill='%233B3B3A'/%3E %3Cpath d='M82 1H74V0H82V1Z' fill='%233B3B3A'/%3E %3Cpath d='M87 1H85V0H87V1Z' fill='%233B3B3A'/%3E %3Cpath d='M91 1H89V0H91V1Z' fill='%233B3B3A'/%3E %3Cpath d='M93 1H92V0H93V1Z' fill='%233B3B3A'/%3E %3Cpath d='M97 1H95V0H97V1Z' fill='%233B3B3A'/%3E %3Cpath d='M101 1H100V0H101V1Z' fill='%233B3B3A'/%3E %3Cpath d='M106 1H103V0H106V1Z' fill='%233B3B3A'/%3E %3Cpath d='M108 1H107V0H108V1Z' fill='%233B3B3A'/%3E %3Cpath d='M113 1H112V0H113V1Z' fill='%233B3B3A'/%3E %3Cpath d='M118 1H117V0H118V1Z' fill='%233B3B3A'/%3E %3Cpath d='M128 1H127V0H128V1Z' fill='%233B3B3A'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E");
-  background-position: top right;
   background-repeat: no-repeat;
+  background-position: center;
+}
+
+[data-theme='light'] .loader:after {
+  opacity: 0.3;
 }
 
 .load-btn {

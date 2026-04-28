@@ -32,10 +32,11 @@
 .intro {
   font-size: var(--font-md);
   line-height: var(--lh-relaxed);
+  color: var(--pc-text-static);
 }
 
 .intro.dark {
-  color: var(--pc-mobs-sec);
+  color: var(--pc-mobs-sec-static);
 }
 
 .sronly {

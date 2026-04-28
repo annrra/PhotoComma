@@ -41,9 +41,7 @@ export default async function Prints() {
   return (
     <div className={styles.print}>
       <Header />
-      <div className={styles.pane}>
-        <PrintsView />
-      </div>
+      <PrintsView />
       <Footer mode='light' />
     </div>
   );

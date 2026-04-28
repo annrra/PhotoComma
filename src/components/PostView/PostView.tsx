@@ -4,7 +4,7 @@ import Link from 'next/link';
 import styles from './pv.module.css';
 import classNames from 'classnames';
 import type { PostViewProps } from './types';
-import ViewControls from './ViewControls';
+import { ViewControls } from '@/src/components/ViewControls';
 import RelatedItems from './RelatedItems';
 import { useView } from '@/src/context/ViewContext/ViewContext';
 
@@ -23,6 +23,7 @@ const PostView = ({
       <ViewControls 
         isFullscreen={isFullscreen}
         onToggleFullscreen={() => setIsFullscreen(!isFullscreen)}
+        hasExpandFullscreen
       />
       <div className={classNames(styles.panel, {[styles.full]: isFullscreen})}>
         <div className={classNames(styles.scene, {[styles.fullscreen]: isFullscreen})}>
