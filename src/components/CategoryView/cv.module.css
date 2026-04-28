@@ -1,3 +1,8 @@
+.screen {
+  width: 90%;
+  margin: 0 auto;
+}
+
 .panel {
   max-width: var(--pc-max-width);
   margin: 0 auto;

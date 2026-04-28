@@ -32,6 +32,7 @@
 
 .scene.fullscreen {
   width: 100vw;
+  padding: 0 var(--pc-space-300);
 }
 
 .scene.fullscreen .piece {
@@ -178,6 +179,7 @@
 @media only screen and (max-width: 768px) {
   .panel {
     gap: var(--pc-space-300);
+    width: 100%;
   }
 
   .scene {
@@ -193,6 +195,7 @@
 
   .scene.fullscreen {
     width: 90%;
+    padding: 0;
   }
 
   .snap {
