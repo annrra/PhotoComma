@@ -80,12 +80,7 @@ const PostView = ({
             </div>
             <div className={styles.caption}>          
               <h1>
-                {post?.excerpt
-                  ? new DOMParser()
-                      .parseFromString(post.excerpt, 'text/html')
-                      .body.textContent
-                      .trim()
-                  : ''}
+                {post?.excerpt?.replace(/<[^>]+>/g, '').trim() || ''}
               </h1>
             </div>
           </div>

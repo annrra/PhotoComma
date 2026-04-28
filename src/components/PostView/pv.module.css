@@ -162,6 +162,10 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .panel {
+    gap: var(--pc-space-300);
+  }
+
   .scene {
     width: 90%;
     margin-left: auto;
@@ -183,7 +187,7 @@
 
   .piece {
     grid-area: piece;
-    margin-bottom: var(--pc-space-600);
+    margin-bottom: var(--pc-space-100);
   }
 
   .nav-prev {

@@ -53,6 +53,7 @@
 @media only screen and (max-width: 800px) {
   .ally {
     width: 90%;
+    margin-bottom: var(--pc-space-600);
   }
 }
 

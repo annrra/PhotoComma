@@ -1,3 +1,5 @@
+'use client';
+import { useEffect, useState } from 'react';
 import styles from './ri.module.css';
 import type { Post } from './types';
 import Link from 'next/link';
@@ -10,11 +12,29 @@ type RelatedItemsProps = {
   customClassName?: string;
 };
 
+function useIsMobile(breakpoint = 600) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(`(max-width: ${breakpoint}px)`);
+
+    const listener = () => setIsMobile(media.matches);
+    listener(); // set initial value
+
+    media.addEventListener('change', listener);
+    return () => media.removeEventListener('change', listener);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 const RelatedItems = ({
   items = [], 
   categorySlug,
   customClassName,
 }: RelatedItemsProps) => {
+  const isMobile = useIsMobile(600);
+  const visibleItems = isMobile ? items.slice(0, 8) : items;
 
   return (
     <div className={classNames(styles.ally, customClassName)}>
@@ -39,7 +59,7 @@ const RelatedItems = ({
         </Link>
       </div>
       <div className={styles.grid}>
-        {items.map((item) => (
+        {visibleItems.map((item) => (
           <div className={styles.entry} key={item?.databaseId}>
             {item?.featuredImage?.node && (
               <Link href={`/${item.slug}`}>
