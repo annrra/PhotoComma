@@ -114,7 +114,7 @@ const PostView = ({
                       sizes="100vw"
                       priority
                       className={styles.snap}
-                      onLoadingComplete={() => setImgLoading(false)}
+                      onLoad={() => setImgLoading(false)}
                     />
                   </>
                 )}
