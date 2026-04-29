@@ -40,12 +40,6 @@ export const metadata: Metadata = {
     description: 'Photography portfolio of Andrey Raychev featuring documentary and thematic image series.',
     images: ['/og-default.jpg'],
   },
-
-  robots: {
-    index: false,
-    follow: false,
-    nocache: true,
-  },
 };
 
 export default function RootLayout({
