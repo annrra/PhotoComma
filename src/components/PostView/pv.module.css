@@ -45,7 +45,6 @@
 }
 
 .scene.fullscreen .piece {
-  /* flex: unset; */
   max-height: 90vh;
 }
 
@@ -130,27 +129,43 @@
 .snapper {
   display: flex;
   justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
 .snap {
   width: auto;
   height: auto;
   max-height: 95vh;
-}
-
-/* PostView image spinner/skeleton */
-/* .snap.hidden {
-  opacity: 0;
+  object-fit: contain;
 }
 
 .skeleton {
-  width: 100%;
-  height: 100%;
-  min-height: 85vh;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   inset: 0;
-  overflow: hidden;
-} */
+  background-color: var(--pc-bg);
+  max-height: 95vh;
+}
+
+.fullscreen .skeleton {
+  max-height: 85vh;
+}
+
+.spinframe {
+  fill: transparent;
+}
+
+.spin {
+  width: var(--pc-space-600);
+  height: var(--pc-space-600);
+}
+
+.spinner {
+  fill: var(--pc-light-60);
+}
 
 .fill-paginate {
   fill: var(--pc-text-muted);

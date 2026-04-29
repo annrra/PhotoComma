@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './pv.module.css';
@@ -6,6 +7,7 @@ import classNames from 'classnames';
 import type { PostViewProps } from './types';
 import { ViewControls } from '@/src/components/ViewControls';
 import RelatedItems from './RelatedItems';
+import Spinner from './Spinner';
 import { useView } from '@/src/context/ViewContext/ViewContext';
 
 const PostView = ({ 
@@ -17,6 +19,12 @@ const PostView = ({
 }: PostViewProps) => {
   const postImage = post?.featuredImage?.node;
   const { isFullscreen, setIsFullscreen } = useView();
+  const [imgLoading, setImgLoading] = useState(true);
+
+  const width = postImage?.mediaDetails?.width;
+  const height = postImage?.mediaDetails?.height;
+  const aspectRatio = width && height ? width / height : 1;
+  const imageKey = post.databaseId;
 
   return (
     <>
@@ -70,17 +78,26 @@ const PostView = ({
             </Link>
 
             <div className={styles.piece}>
-              <div className={styles.snapper}>
+              <div 
+                className={styles.snapper} 
+                style={{ aspectRatio: aspectRatio }}
+              >
                 {postImage?.sourceUrl && (
-                  <Image
-                    src={postImage?.sourceUrl}
-                    alt={postImage?.altText || ""}
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    priority
-                    className={styles.snap}
-                  />
+                  <>
+                    {imgLoading && <Spinner />}
+
+                    <Image
+                      key={imageKey}
+                      src={postImage?.sourceUrl}
+                      alt={postImage?.altText || ""}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      priority
+                      className={styles.snap}
+                      onLoadingComplete={() => setImgLoading(false)}
+                    />
+                  </>
                 )}
               </div>
             </div>

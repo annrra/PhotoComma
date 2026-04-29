@@ -206,6 +206,10 @@ export async function getPost(slug: string) {
               sourceUrl
               slug
               title
+              mediaDetails {
+                width
+                height
+              }
             }
           }
           categories {
