@@ -38,7 +38,7 @@ export async function generatePageMetadata(slug: string): Promise<PageMetadata> 
   const metaPost = meta.post;
   const metaData = metaPost.meta;
 
-  const openGraphImage = metaData.metaOpengraphimage?.node?.sourceUrl;
+  const openGraphImage = metaData.metaOpengraphimage?.node?.sourceUrl || metaPost.featuredImage?.node?.sourceUrl;
   const siteBase = 'https://photocomma.com';
   const ogImageUrl = openGraphImage
     ? openGraphImage.startsWith('http')

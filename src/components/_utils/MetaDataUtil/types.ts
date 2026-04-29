@@ -6,6 +6,12 @@ type MetaImage = {
   };
 }
 
+type FeaturedImage = {
+  node?: {
+    sourceUrl: string;
+  };
+}
+
 type MetaData = {
   metaTitle: string;
   metaDescription: string;
@@ -16,6 +22,7 @@ type MetaPost = {
   title: string;
   excerpt: string;
   meta: MetaData;
+  featuredImage: FeaturedImage;
 }
 
 export type MetaResponse = {

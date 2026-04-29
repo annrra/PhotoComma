@@ -260,6 +260,11 @@ export async function getMetaBySlug(slug: string) {
               }
             }
           }
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
         }
       }`
     }),
