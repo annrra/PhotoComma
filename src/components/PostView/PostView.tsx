@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './pv.module.css';
@@ -20,11 +20,30 @@ const PostView = ({
   const postImage = post?.featuredImage?.node;
   const { isFullscreen, setIsFullscreen } = useView();
   const [imgLoading, setImgLoading] = useState(true);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   const width = postImage?.mediaDetails?.width;
   const height = postImage?.mediaDetails?.height;
   const aspectRatio = width && height ? width / height : 1;
   const imageKey = post.databaseId;
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    if (imgLoading) {
+      timeout = setTimeout(() => {
+        setShowSpinner(true);
+      }, 120);
+    } else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setShowSpinner(false);
+    }
+
+    return () => {
+      clearTimeout(timeout);
+      setShowSpinner(false); // ensures no stale spinner state
+    };
+  }, [imgLoading]);
 
   return (
     <>
@@ -84,7 +103,7 @@ const PostView = ({
               >
                 {postImage?.sourceUrl && (
                   <>
-                    {imgLoading && <Spinner />}
+                    {showSpinner && <Spinner />}
 
                     <Image
                       key={imageKey}

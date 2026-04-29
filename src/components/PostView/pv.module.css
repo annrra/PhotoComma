@@ -29,9 +29,8 @@
   inset: 0;
   z-index: 99;
   background-color: var(--pc-bg);
-  margin: 0;
   min-height: 100vh;
-  width: 100%;
+  width: 97%;
   justify-content: center;
 }
 
@@ -131,6 +130,7 @@
   justify-content: center;
   position: relative;
   width: 100%;
+  max-height: 95vh;
 }
 
 .snap {
@@ -150,7 +150,8 @@
   max-height: 95vh;
 }
 
-.fullscreen .skeleton {
+.fullscreen .skeleton,
+.fullscreen .snapper {
   max-height: 85vh;
 }
 
@@ -201,7 +202,11 @@
 
 @media only screen and (max-width: 768px) {
   .panel {
-    gap: var(--pc-space-300);
+    gap: var(--pc-space-500);
+    width: 100%;
+  }
+
+  .panel.full {
     width: 100%;
   }
 
@@ -233,6 +238,10 @@
   .piece {
     grid-area: piece;
     margin-bottom: var(--pc-space-100);
+  }
+
+  .nav {
+    padding-bottom: var(--pc-space-100);
   }
 
   .nav-prev {
