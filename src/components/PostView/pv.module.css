@@ -9,6 +9,15 @@
 
 .scene {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pc-space-300);
+  width: 100%;
+}
+
+.canvas {
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--pc-space-800);
@@ -30,13 +39,13 @@
   display: none;
 }
 
-.scene.fullscreen {
+.canvas.fullscreen {
   width: 100vw;
   padding: 0 var(--pc-space-300);
 }
 
 .scene.fullscreen .piece {
-  flex: unset;
+  /* flex: unset; */
   max-height: 90vh;
 }
 
@@ -90,7 +99,6 @@
   max-width: 1300px;
   display: flex;
   flex-direction: column;
-  gap: var(--pc-space-300);
   max-height: 100vh;
 }
 
@@ -154,13 +162,13 @@
 }
 
 @media only screen and (max-width: 1600px) {
-  .scene {
+  .canvas {
     gap: var(--pc-space-400);
   }
 }
 
 @media only screen and (max-width: 1200px) {
-  .scene {
+  .canvas {
     gap: var(--pc-space-300);
     margin-top: var(--pc-space-400);
   }
@@ -183,9 +191,14 @@
   }
 
   .scene {
+    gap: 0;
+  }
+
+  .canvas {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
+    gap: var(--pc-space-100);
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
@@ -193,7 +206,7 @@
       "prev  next";
   }
 
-  .scene.fullscreen {
+  .canvas.fullscreen {
     width: 90%;
     padding: 0;
   }

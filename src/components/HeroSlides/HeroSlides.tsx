@@ -14,9 +14,7 @@ export type SlideNode = {
     node?: {
       altText?: string;
       file?: string;
-      fileSize?: number;
       sourceUrl?: string;
-      filePath?: string;
     };
   };
   nextHeroslidePosition: {

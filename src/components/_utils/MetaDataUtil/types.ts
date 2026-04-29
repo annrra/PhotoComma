@@ -1,11 +1,8 @@
 type MetaImage = {
   node?: {
     sourceUrl: string;
-    srcSet: string;
-    uri: string;
     title: string;
     altText: string;
-    caption: string;
   };
 }
 

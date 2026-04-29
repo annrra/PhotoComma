@@ -1,12 +1,8 @@
 export type FeaturedMediaNode = {
   altText: string;
-  file: string;
-  filePath: string;
-  fileSize: number;
   databaseId: number;
   sourceUrl: string;
   slug: string;
-  srcSet: string;
   title: string;
 };
 

@@ -85,9 +85,7 @@ export async function getHeroSlides() {
               node {
                 altText
                 file
-                fileSize
                 sourceUrl
-                filePath
               }
             }
             nextHeroslidePosition {
@@ -162,13 +160,9 @@ export async function getAboutPage() {
             nextAboutFeaturedMedia {
               node {
                 altText
-                file
-                filePath
-                fileSize
                 databaseId
                 sourceUrl
                 slug
-                srcSet
                 title
               }
             }
@@ -200,29 +194,18 @@ export async function getPost(slug: string) {
       query:`{
         post(id: "${slug}", idType: SLUG) {
           title
-          uri
-          content
           excerpt
-          guid
           id
-          link
           databaseId
           status
           slug
           featuredImage {
             node {
               altText
-              caption
               databaseId
-              file
-              filePath
-              fileSize
-              link
               sourceUrl
               slug
-              srcSet
               title
-              uri
             }
           }
           categories {
@@ -268,11 +251,8 @@ export async function getMetaBySlug(slug: string) {
             metaOpengraphimage {
               node {
                 sourceUrl
-                srcSet
-                uri
                 title
                 altText
-                caption
               }
             }
           }
@@ -307,7 +287,6 @@ export async function getCategory(
       query: `
         query GetCategory($slug: ID!, $first: Int!, $after: String) {
           category(id: $slug, idType: SLUG) {
-            uri
             slug
             name
             description
@@ -323,17 +302,10 @@ export async function getCategory(
                 databaseId
                 featuredImage {
                   node {
-                    uri
                     title
                     sourceUrl
-                    srcSet
                     slug
-                    guid
-                    fileSize
-                    filePath
-                    file
                     altText
-                    caption
                   }
                 }
               }
