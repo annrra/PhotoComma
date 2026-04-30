@@ -338,3 +338,127 @@ export async function getCategory(
   const json = await res.json();
   return json.data ?? { posts: { nodes: [] } };
 }
+
+type AdjacentPost = {
+  title: string;
+  slug: string;
+  databaseId: number;
+};
+
+type AdjacentPostsResult = {
+  prevPost: AdjacentPost | null;
+  nextPost: AdjacentPost | null;
+};
+
+type CategoryPostsPage = {
+  nodes: AdjacentPost[];
+  pageInfo: {
+    hasNextPage: boolean;
+    endCursor: string | null;
+  };
+};
+
+async function getCategoryPostsPage(
+  categorySlug: string,
+  first: number,
+  after: string | null
+): Promise<CategoryPostsPage | null> {
+  if (!API_URL) {
+    console.error('API_URL is not defined.');
+    return null;
+  }
+
+  const res = await fetchWithTimeout(API_URL, {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      query: `
+        query GetCategoryPostsPage($slug: ID!, $first: Int!, $after: String) {
+          category(id: $slug, idType: SLUG) {
+            posts(first: $first, after: $after, where: { status: PUBLISH }) {
+              pageInfo {
+                hasNextPage
+                endCursor
+              }
+              nodes {
+                title
+                slug
+                databaseId
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        slug: categorySlug,
+        first,
+        after
+      }
+    }),
+    next: { revalidate: 60 },
+  });
+
+  if (!res || !res.ok) {
+    return null;
+  }
+
+  const json = await res.json();
+  const posts = json?.data?.category?.posts;
+
+  if (!posts) {
+    return null;
+  }
+
+  return {
+    nodes: posts.nodes ?? [],
+    pageInfo: posts.pageInfo ?? { hasNextPage: false, endCursor: null },
+  };
+}
+
+export async function getAdjacentPostsInCategory(
+  categorySlug: string,
+  currentSlug: string,
+  pageSize: number = 20,
+  maxPages: number = 10
+): Promise<AdjacentPostsResult> {
+  const collectedPosts: AdjacentPost[] = [];
+  let after: string | null = null;
+
+  for (let page = 0; page < maxPages; page++) {
+    const pageData = await getCategoryPostsPage(categorySlug, pageSize, after);
+
+    if (!pageData) {
+      break;
+    }
+
+    collectedPosts.push(...pageData.nodes);
+
+    const currentIndex = collectedPosts.findIndex((p) => p.slug === currentSlug);
+    if (currentIndex !== -1) {
+      const prevPost = currentIndex > 0 ? collectedPosts[currentIndex - 1] : null;
+
+      if (currentIndex < collectedPosts.length - 1) {
+        return {
+          prevPost,
+          nextPost: collectedPosts[currentIndex + 1],
+        };
+      }
+
+      if (pageData.pageInfo.hasNextPage && pageData.pageInfo.endCursor) {
+        const nextPage = await getCategoryPostsPage(categorySlug, 1, pageData.pageInfo.endCursor);
+        const nextPost = nextPage?.nodes?.[0] ?? null;
+        return { prevPost, nextPost };
+      }
+
+      return { prevPost, nextPost: null };
+    }
+
+    if (!pageData.pageInfo.hasNextPage || !pageData.pageInfo.endCursor) {
+      break;
+    }
+
+    after = pageData.pageInfo.endCursor;
+  }
+
+  return { prevPost: null, nextPost: null };
+}

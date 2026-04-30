@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getPost, getCategory } from '@/lib/api';
+import { getPost, getCategory, getAdjacentPostsInCategory } from '@/lib/api';
 import type { Post, GetPostResponse } from '@/src/components/PostView/types';
 import { generatePageMetadata } from '@/src/components/_utils/MetaDataUtil/MetaDataUtil';
 import { PostView } from '@/src/components/PostView';
@@ -56,27 +56,13 @@ export default async function Post({ params }: PostProps) {
     return <PostView post={post} />;
   }
 
-  // Fetch all posts in the category
-  const categoryData = await getCategory(categorySlug, 90);
+  const [categoryData, adjacentPosts] = await Promise.all([
+    getCategory(categorySlug, 30),
+    getAdjacentPostsInCategory(categorySlug, slug),
+  ]);
   const categoryPosts: Post[] = categoryData?.category?.posts?.nodes ?? [];
-
-  if (categoryPosts.length === 0) {
-    return <PostView post={post} />;
-  }
-
-  // Find current post in the category list
-  const currentIndex = categoryPosts.findIndex(p => p.slug === slug);
-
-  if (currentIndex === -1) {
-    // Current post not found in category (shouldn't happen, but handle it)
-    return <PostView post={post} />;
-  }
-
-  // Compute prev/next
-  // posts[0] is newest, posts[length-1] is oldest
-  // So index-1 is newer, index+1 is older
-  const prevPost = currentIndex > 0 ? categoryPosts[currentIndex - 1] : null;
-  const nextPost = currentIndex < categoryPosts.length - 1 ? categoryPosts[currentIndex + 1] : null;
+  const prevPost = adjacentPosts.prevPost;
+  const nextPost = adjacentPosts.nextPost;
 
   // Get random posts (excluding current)
   const candidates = categoryPosts.filter(p => p.slug !== slug);

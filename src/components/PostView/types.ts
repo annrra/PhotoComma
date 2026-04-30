@@ -32,10 +32,12 @@ export type Post = {
   }
 }
 
+export type NavigationPost = Pick<Post, 'title' | 'slug' | 'databaseId'>;
+
 export type PostViewProps = {
   post: Post;
-  prevPost?: Post | null;
-  nextPost?: Post | null;
+  prevPost?: NavigationPost | null;
+  nextPost?: NavigationPost | null;
   randomPosts?: Post[];
   categorySlug?: string | null;
 };
