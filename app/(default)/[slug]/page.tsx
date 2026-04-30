@@ -57,7 +57,7 @@ export default async function Post({ params }: PostProps) {
   }
 
   // Fetch all posts in the category
-  const categoryData = await getCategory(categorySlug, 35);
+  const categoryData = await getCategory(categorySlug, 90);
   const categoryPosts: Post[] = categoryData?.category?.posts?.nodes ?? [];
 
   if (categoryPosts.length === 0) {
