@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 import { ThemeProvider } from '@/src/context/ThemeContext/ThemeContext';
-import { Geist } from "next/font/google";
-import "./globals.css";
-import { Analytics } from "@vercel/analytics/next";
+import { Geist } from 'next/font/google';
+import './globals.css';
+import { Analytics } from '@vercel/analytics/next';
+import { SchemaOrg } from '@/src/components/seo/SchemaOrg';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,6 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable}`}>
       <body>
+        <SchemaOrg />
         <ThemeProvider>
           {children}
         </ThemeProvider>
