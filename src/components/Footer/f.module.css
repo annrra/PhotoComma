@@ -53,6 +53,10 @@
   transition: fill 0.3s ease;
 }
 
+.paginate {
+  cursor: pointer;
+}
+
 .paginate:hover .fillshade {
   fill: var(--pc-text-static)
 }

@@ -1,7 +1,9 @@
+'use client';
 import Link from 'next/link';
 import styles from './f.module.css';
 import classNames from 'classnames';
 import { EmailLink } from '@/src/components/_utils/EmailLink';
+import { useRouter } from "next/navigation";
 
 type FooterProps = {
   mode?: 'default' | 'light';
@@ -18,6 +20,7 @@ const Footer = ({
   onToggleNav, 
   isCollapsed = false 
 }: FooterProps) => {
+  const router = useRouter();
 
   return (
     <div className={classNames(styles.footer, { [styles.light]: mode === 'light' }, { [styles.plain]: mode === 'default' })}>
@@ -31,14 +34,17 @@ const Footer = ({
             xmlns="http://www.w3.org/2000/svg"
           >
             <g id="fish">
-              <a
-                href="#"
+              <g
+                onClick={() => onPrev?.()}
                 className={classNames(styles.prev, styles.paginate)}
-                onClick={(event) => {
-                  event.preventDefault();
-                  onPrev?.();
-                }}
               >
+                <rect
+                  x="0"
+                  y="0"
+                  width="15"
+                  height="17"
+                  fill="transparent"
+                />
                 <path
                   id="prev"
                   fillRule="evenodd"
@@ -46,24 +52,39 @@ const Footer = ({
                   d="M0 8.72351C0 8.47873 6.81624 2.59198 7.13227 2.48975C7.28098 3.21163 5.30737 9.49652 9.0687 12.2989C10.7402 13.5429 0 8.96828 0 8.72351Z"
                   className={styles.fillshade}
                 />
-              </a>
-              <a
-                href="#"
+              </g>
+              <g
+                onClick={() => onNext?.()}
                 className={classNames(styles.next, styles.paginate)}
-                onClick={(event) => {
-                  event.preventDefault();
-                  onNext?.();
-                }}
               >
+                <rect
+                  x="50"
+                  y="0"
+                  width="15"
+                  height="17"
+                  fill="transparent"
+                />
                 <path
                   id="next"
                   fillRule="evenodd"
                   clipRule="evenodd"
                   d="M53.8574 2.24036C54.3748 2.35964 61.9656 8.94351 61.9997 9.38347C62.0338 9.82343 55.0642 13.7552 55.6792 12.2711C57.5599 7.73518 53.8574 2.90184 53.8574 2.24036Z"
                   className={styles.fillshade}
+                  style={{ pointerEvents: "bounding-box" as React.CSSProperties["pointerEvents"] }}
                 />
-              </a>
-              <g id="bones">
+              </g>
+              <g
+                id="bones" 
+                onClick={() => router.push("/category/gallery")}
+                className={styles.paginate}
+              >
+                <rect
+                  x="16"
+                  y="0"
+                  width="33"
+                  height="17"
+                  fill="transparent"
+                />
                 <path
                   id="bone1"
                   fillRule="evenodd"
