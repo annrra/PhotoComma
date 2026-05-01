@@ -34,7 +34,7 @@ const AboutView = ({
           <div className={classNames(styles.segment, styles['segment-outro'])}>
             <div className={styles.inline}>
               <span>{page.nextAboutSectionTwo}{' '}</span>
-              <span>You can write me at <EmailLink showEmail className={styles.mailto} /> whatever the reason is.</span>
+              <span>You can reach out to me at <EmailLink showEmail className={styles.mailto} /> whatever the reason is.</span>
             </div>
           </div>
         </div>
