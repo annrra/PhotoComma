@@ -55,15 +55,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-
-  async headers() {
-    return [
-      {
-        source: "/(.*)", // applies to ALL routes
-        headers: securityHeaders,
-      },
-    ];
-  },
 };
 
 export default nextConfig;
