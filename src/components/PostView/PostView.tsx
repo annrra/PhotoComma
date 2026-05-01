@@ -10,6 +10,7 @@ import RelatedItems from './RelatedItems';
 import Spinner from './Spinner';
 import { useView } from '@/src/context/ViewContext/ViewContext';
 import { useRouter } from 'next/navigation';
+import { motion, useMotionValue, animate } from "framer-motion";
 
 const PostView = ({ 
   post,
@@ -29,6 +30,8 @@ const PostView = ({
   const height = postImage?.mediaDetails?.height;
   const aspectRatio = width && height ? width / height : 1;
   const imageKey = post.databaseId;
+
+  const x = useMotionValue(0);
 
   const goPrev = useCallback(() => {
     if (prevPost?.slug) router.push(`/${prevPost.slug}`);
@@ -104,6 +107,59 @@ const PostView = ({
     };
   }, [isFullscreen, goPrev, goNext]);
 
+  useEffect(() => {
+    if (!isFullscreen || !imageRef.current) return;
+
+    const el = imageRef.current;
+
+    let startX = 0;
+    let isDragging = false;
+
+    const threshold = 60;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isDragging) return;
+
+      const diff = e.touches[0].clientX - startX;
+      x.set(diff * 0.6);
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      isDragging = false;
+
+      const diff = e.changedTouches[0].clientX - startX;
+
+      if (Math.abs(diff) > threshold) {
+        if (diff < 0) {
+          goNext();
+        } else {
+          goPrev();
+        }
+      }
+
+      animate(x, 0, {
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+      });
+    };
+
+    el.addEventListener("touchstart", handleTouchStart, { passive: true });
+    el.addEventListener("touchmove", handleTouchMove, { passive: true });
+    el.addEventListener("touchend", handleTouchEnd);
+
+    return () => {
+      el.removeEventListener("touchstart", handleTouchStart);
+      el.removeEventListener("touchmove", handleTouchMove);
+      el.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [isFullscreen, goPrev, goNext, x]);
+
   return (
     <>
       <ViewControls 
@@ -156,10 +212,10 @@ const PostView = ({
             </Link>
 
             <div className={styles.piece}>
-              <div 
+              <motion.div 
                 ref={imageRef}
                 className={styles.snapper} 
-                style={{ aspectRatio: aspectRatio }}
+                style={{ x, aspectRatio: aspectRatio }}
               >
                 {postImage?.sourceUrl && (
                   <>
@@ -178,7 +234,7 @@ const PostView = ({
                     />
                   </>
                 )}
-              </div>
+              </motion.div>
             </div>
 
           </div>
