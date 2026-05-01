@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './pv.module.css';
@@ -23,11 +23,20 @@ const PostView = ({
   const [imgLoading, setImgLoading] = useState(true);
   const [showSpinner, setShowSpinner] = useState(false);
   const router = useRouter();
+  const imageRef = useRef<HTMLDivElement | null>(null);
 
   const width = postImage?.mediaDetails?.width;
   const height = postImage?.mediaDetails?.height;
   const aspectRatio = width && height ? width / height : 1;
   const imageKey = post.databaseId;
+
+  const goPrev = useCallback(() => {
+    if (prevPost?.slug) router.push(`/${prevPost.slug}`);
+  }, [prevPost, router]);
+
+  const goNext = useCallback(() => {
+    if (nextPost?.slug) router.push(`/${nextPost.slug}`);
+  }, [nextPost, router]);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -48,14 +57,6 @@ const PostView = ({
   }, [imgLoading]);
 
   useEffect(() => {
-    const goPrev = () => {
-      if (prevPost?.slug) router.push(`/${prevPost.slug}`);
-    };
-
-    const goNext = () => {
-      if (nextPost?.slug) router.push(`/${nextPost.slug}`);
-    };
-
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') goPrev();
       if (e.key === 'ArrowRight') goNext();
@@ -63,7 +64,45 @@ const PostView = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [prevPost, nextPost, router]);
+  }, [goPrev, goNext]);
+
+  useEffect(() => {
+    if (!isFullscreen) return;
+    if (!imageRef.current) return;
+
+    let startX = 0;
+    let endX = 0;
+
+    const threshold = 60;
+
+    const onTouchStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX;
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      endX = e.changedTouches[0].clientX;
+
+      const diff = startX - endX;
+
+      if (Math.abs(diff) < threshold) return;
+
+      if (diff > 0) {
+        goNext();
+      } else {
+        goPrev();
+      }
+    };
+
+    const el = imageRef.current;
+
+    el.addEventListener('touchstart', onTouchStart, { passive: true });
+    el.addEventListener('touchend', onTouchEnd);
+
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [isFullscreen, goPrev, goNext]);
 
   return (
     <>
@@ -118,6 +157,7 @@ const PostView = ({
 
             <div className={styles.piece}>
               <div 
+                ref={imageRef}
                 className={styles.snapper} 
                 style={{ aspectRatio: aspectRatio }}
               >
