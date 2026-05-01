@@ -9,6 +9,7 @@ import { ViewControls } from '@/src/components/ViewControls';
 import RelatedItems from './RelatedItems';
 import Spinner from './Spinner';
 import { useView } from '@/src/context/ViewContext/ViewContext';
+import { useRouter } from 'next/navigation';
 
 const PostView = ({ 
   post,
@@ -21,6 +22,7 @@ const PostView = ({
   const { isFullscreen, setIsFullscreen } = useView();
   const [imgLoading, setImgLoading] = useState(true);
   const [showSpinner, setShowSpinner] = useState(false);
+  const router = useRouter();
 
   const width = postImage?.mediaDetails?.width;
   const height = postImage?.mediaDetails?.height;
@@ -44,6 +46,24 @@ const PostView = ({
       setShowSpinner(false); // ensures no stale spinner state
     };
   }, [imgLoading]);
+
+  useEffect(() => {
+    const goPrev = () => {
+      if (prevPost?.slug) router.push(`/${prevPost.slug}`);
+    };
+
+    const goNext = () => {
+      if (nextPost?.slug) router.push(`/${nextPost.slug}`);
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') goPrev();
+      if (e.key === 'ArrowRight') goNext();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [prevPost, nextPost, router]);
 
   return (
     <>
