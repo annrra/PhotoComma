@@ -3,6 +3,7 @@ import { ThemeProvider } from '@/src/context/ThemeContext/ThemeContext';
 import { Geist } from 'next/font/google';
 import './globals.css';
 import { SchemaOrg } from '@/src/components/seo/SchemaOrg';
+import Script from 'next/script';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,6 +56,7 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
         </ThemeProvider>
+        <Script src="https://cloud.umami.is/script.js" data-website-id="dffb56f9-9e92-4be9-8a3b-fc5433a4274d" strategy="afterInteractive"></Script>
       </body>
     </html>
   );
