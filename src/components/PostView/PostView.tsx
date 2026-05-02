@@ -11,6 +11,7 @@ import Spinner from './Spinner';
 import { useView } from '@/src/context/ViewContext/ViewContext';
 import { useRouter } from 'next/navigation';
 import { motion, useMotionValue, animate } from "framer-motion";
+import { DecodeHtml } from '@/src/components/_utils/DecodeHtml';
 
 const PostView = ({ 
   post,
@@ -241,7 +242,7 @@ const PostView = ({
 
           <div className={styles.caption}>          
             <h1>
-              {post?.excerpt?.replace(/<[^>]+>/g, '').trim() || ''}
+              {DecodeHtml(post?.excerpt?.replace(/<[^>]+>/g, '').trim())}
             </h1>
           </div>
 
