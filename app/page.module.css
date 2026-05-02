@@ -43,7 +43,3 @@
 .notice a:hover::after {
   width: 100%;
 }
-
-.fillaccent {
-  fill: var(--pc-accent);
-}

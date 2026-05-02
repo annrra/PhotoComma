@@ -1,0 +1,7 @@
+.fillaccent {
+  fill: var(--pc-accent);
+}
+
+.filler {
+  fill: var(--pc-bg);
+}
