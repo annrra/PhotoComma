@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/og-default.jpg',
+        url: '/og-apropos.jpg',
         width: 1200,
         height: 630,
         alt: 'Black and white photograph of a bent tree and a curving road',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'About | PhotoComma',
     description: 'PhotoComma is a photography portfolio by Andrey Raychev featuring documentary and thematic image series.',
-    images: ['/og-default.jpg'],
+    images: ['/og-apropos.jpg'],
   },
 };
 
