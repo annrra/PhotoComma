@@ -55,6 +55,10 @@ export type PageMetadata = {
   alternates?: {
     canonical: string;
   };
+  robots?: {
+    index: boolean;
+    follow: boolean;
+  };
   openGraph: OpenGraphMetadata;
   twitter: TwitterMetadata;
 }

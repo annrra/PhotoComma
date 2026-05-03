@@ -5,6 +5,14 @@ function stripHtml(html: string) {
   return html.replace(/<[^>]*>/g, '');
 }
 
+const NOINDEX_SLUGS = new Set([
+  'bent-tree-and-curving-road',
+  'bare-foot-cracked-earth-vein-pattern',
+  'foot-silhouette',
+  'runners',
+  'portal-signs',
+]);
+
 export async function generatePageMetadata(slug: string): Promise<PageMetadata> {
   const meta: MetaResponse | null = await getMetaBySlug(slug);
   
@@ -38,6 +46,8 @@ export async function generatePageMetadata(slug: string): Promise<PageMetadata> 
   const metaPost = meta.post;
   const metaData = metaPost.meta;
 
+  const isNoindex = NOINDEX_SLUGS.has(slug);
+
   const openGraphImage = metaData.metaOpengraphimage?.node?.sourceUrl || metaPost.featuredImage?.node?.sourceUrl;
   const siteBase = 'https://photocomma.com';
   const ogImageUrl = openGraphImage
@@ -52,8 +62,14 @@ export async function generatePageMetadata(slug: string): Promise<PageMetadata> 
     alternates: {
       canonical: `${siteBase}/${slug}`,
     },
+    robots: isNoindex
+      ? {
+          index: false,
+          follow: true,
+        }
+      : undefined,
     openGraph: {
-      title: metaData.metaTitle,
+      title: metaData.metaTitle ?? metaPost.title,
       description: metaData.metaDescription,
     },
     twitter: {
