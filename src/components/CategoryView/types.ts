@@ -8,6 +8,11 @@ export type CategoryPost = {
       sourceUrl: string
       slug: string
       altText: string
+      mediaDetails: {
+        sizes: [{
+          sourceUrl: string
+        }]
+      }
     }
   } | null
 }

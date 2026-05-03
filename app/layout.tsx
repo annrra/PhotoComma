@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { ThemeProvider } from '@/src/context/ThemeContext/ThemeContext';
 import { Geist } from 'next/font/google';
 import './globals.css';
-import { SchemaOrg } from '@/src/components/seo/SchemaOrg';
 import Script from 'next/script';
 
 const geistSans = Geist({
@@ -52,7 +51,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable}`}>
       <body>
-        <SchemaOrg />
         <ThemeProvider>
           {children}
         </ThemeProvider>

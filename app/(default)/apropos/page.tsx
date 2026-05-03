@@ -6,6 +6,7 @@ import { AboutView } from '@/src/components/AboutView';
 import { Header } from '@/src/components/Header';
 import { Footer } from '@/src/components/Footer';
 import styles from './page.module.css';
+import { SchemaOrgAbout } from '@/src/components/seo/SchemaOrgAbout';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -56,6 +57,7 @@ export default async function About() {
 
   return (
     <>
+      <SchemaOrgAbout />
       <Header customClassName={styles['header-alt']} />
       <AboutView page={about} />
       <Footer mode='light' />

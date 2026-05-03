@@ -65,7 +65,6 @@ const CategoryView = ({ category }: { category: Category }) => {
                         height={0}
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className={styles.snapshot}
-                        /* onLoad={handleImageLoad} */
                         priority={index < 3}
                       />
                     </Link>

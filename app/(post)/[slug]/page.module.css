@@ -1,0 +1,16 @@
+.stage {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+}
+
+[data-theme='light'] .stage {
+  background: var(--pc-bg);
+  color: var(--pc-text);
+}
+
+
+.header-alt {
+  padding-bottom: 0;
+}

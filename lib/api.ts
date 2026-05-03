@@ -86,11 +86,17 @@ export async function getHeroSlides() {
                 altText
                 file
                 sourceUrl
+                mediaDetails {
+                  sizes(include: THUMBNAIL) {
+                    sourceUrl
+                  }
+                }
               }
             }
             nextHeroslidePosition {
               hersoSlidePosition
               heroSlideTextColor
+              heroSlidePostUrl
             }
           }
         }
@@ -209,6 +215,9 @@ export async function getPost(slug: string) {
               mediaDetails {
                 width
                 height
+                sizes(include: THUMBNAIL) {
+                  sourceUrl
+                }
               }
             }
           }
@@ -315,6 +324,11 @@ export async function getCategory(
                     sourceUrl
                     slug
                     altText
+                    mediaDetails {
+                      sizes(include: THUMBNAIL) {
+                        sourceUrl
+                      }
+                    }
                   }
                 }
               }

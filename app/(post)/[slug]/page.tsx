@@ -6,6 +6,7 @@ import { PostView } from '@/src/components/PostView';
 import { Header } from '@/src/components/Header';
 import { Footer } from '@/src/components/Footer';
 import styles from './page.module.css';
+import { SchemaOrgPost } from "@/src/components/seo/SchemaOrgPost";
 
 export async function generateMetadata({ params }: PostProps) {
   const { slug } = await params;
@@ -70,15 +71,18 @@ export default async function Post({ params }: PostProps) {
 
   return (
     <>
-      <Header customClassName={styles['header-alt']} />
-      <PostView 
-        post={post} 
-        prevPost={prevPost}
-        nextPost={nextPost}
-        randomPosts={randomPosts}
-        categorySlug={categorySlug}
-      />
-      <Footer mode='light' />
+      <SchemaOrgPost post={post} />
+      <div className={styles.stage}>
+        <Header customClassName={styles['header-alt']} />
+        <PostView 
+          post={post} 
+          prevPost={prevPost}
+          nextPost={nextPost}
+          randomPosts={randomPosts}
+          categorySlug={categorySlug}
+        />
+        <Footer mode='light' />
+      </div>
     </>
   );
 }

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import styles from './page.module.css';
 import { HomeLayout } from '@/src/components/HomeLayout';
 import { getHomePage, getHeroSlides, getMainNavigation } from '@/lib/api';
+import { SchemaOrg } from '@/src/components/seo/SchemaOrg';
 
 export const metadata: Metadata = {
   title: 'Photography & Visual Stories',
@@ -24,7 +26,10 @@ export default async function Home() {
 
   return (
     <>
-      <HomeLayout introContent={introContent} slides={slides} navigation={navItems} />
+      <SchemaOrg slides={slides} />
+      <div className={styles.fit}>
+        <HomeLayout introContent={introContent} slides={slides} navigation={navItems} />
+      </div>
     </>
   );
 }

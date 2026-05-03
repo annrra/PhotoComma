@@ -3,6 +3,7 @@ import { PrintsView } from '@/src/components/PrintsView';
 import { Header } from '@/src/components/Header';
 import { Footer } from '@/src/components/Footer';
 import styles from './page.module.css';
+import { SchemaOrgPrints } from '@/src/components/seo/SchemaOrgPrints';
 
 export const metadata: Metadata = {
   title: 'Photography Prints',
@@ -39,10 +40,13 @@ export const metadata: Metadata = {
 export default async function Prints() {
 
   return (
-    <div className={styles.print}>
-      <Header />
-      <PrintsView />
-      <Footer mode='light' />
-    </div>
+    <>
+      <SchemaOrgPrints />
+      <div className={styles.print}>
+        <Header />
+        <PrintsView />
+        <Footer mode='light' />
+      </div>
+    </>
   );
 }

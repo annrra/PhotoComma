@@ -15,15 +15,21 @@ export type SlideNode = {
       altText?: string;
       file?: string;
       sourceUrl?: string;
+      mediaDetails: {
+        sizes: [{
+          sourceUrl: string
+        }]
+      }
     };
   };
   nextHeroslidePosition: {
     hersoSlidePosition: 'center' | 'top' | 'bottom';
     heroSlideTextColor: 'light' | 'dark';
+    heroSlidePostUrl?: string;
   };
 };
 
-type HeroSlidesProps = {
+export type HeroSlidesProps = {
   slides: SlideNode[];
   currentSlide: number;
 }

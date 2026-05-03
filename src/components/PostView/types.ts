@@ -10,6 +10,9 @@ export type FeaturedImageNode = {
 export type ImageMediaDetails = {
   width: number;
   height: number;
+  sizes: [{
+    sourceUrl: string
+  }]
 }
 
 export type Category = {
