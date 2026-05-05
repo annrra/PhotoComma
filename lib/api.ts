@@ -54,7 +54,7 @@ export async function getHomePage() {
         }
       }`
     }),
-    next: { revalidate: 60 },
+    next: { revalidate: 86400 },
   });
    
   if (!res || !res.ok) {
@@ -102,7 +102,7 @@ export async function getHeroSlides() {
         }
       }`
     }),
-    next: { revalidate: 60 },
+    next: { revalidate: 86400 },
   });
    
   if (!res || !res.ok) {
@@ -137,7 +137,7 @@ export async function getMainNavigation() {
         }
       }`
     }),
-    next: { revalidate: 60 },
+    next: { revalidate: 86400 },
   });
    
   if (!res || !res.ok) {
@@ -176,7 +176,7 @@ export async function getAboutPage() {
         }
       }`
     }),
-    next: { revalidate: 60 },
+    next: { revalidate: 86400 },
   });
    
   if (!res || !res.ok) {
@@ -230,7 +230,7 @@ export async function getPost(slug: string) {
         }
       }`
     }),
-    next: { revalidate: 60 },
+    next: { revalidate: 86400 },
   });
    
   if (!res || !res.ok) {
@@ -277,7 +277,7 @@ export async function getMetaBySlug(slug: string) {
         }
       }`
     }),
-    next: { revalidate: 60 },
+    next: { revalidate: 86400 },
   });
    
   if (!res || !res.ok) {
@@ -342,7 +342,7 @@ export async function getCategory(
         after
       }
     }),
-    next: { revalidate: 60 },
+    next: { revalidate: 86400 },
   });
    
   if (!res || !res.ok) {
@@ -409,7 +409,7 @@ async function getCategoryPostsPage(
         after
       }
     }),
-    next: { revalidate: 60 },
+    next: { revalidate: 86400 },
   });
 
   if (!res || !res.ok) {
