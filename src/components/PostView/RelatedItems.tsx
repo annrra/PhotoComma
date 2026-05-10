@@ -67,9 +67,11 @@ const RelatedItems = ({
                   src={item.featuredImage.node.sourceUrl}
                   alt={item.featuredImage.node.altText || ""}
                   fill
+                  loading="lazy"
+                  fetchPriority="low"
                   width={0}
                   height={0}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 240px"
+                  sizes="(max-width: 600px) 50vw, (max-width: 1200px) 33vw, 240px"
                   className={styles.snapshot}
                 />
               </Link>
