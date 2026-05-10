@@ -11,6 +11,7 @@ export type CategoryPost = {
       mediaDetails: {
         sizes: [{
           sourceUrl: string
+          name: string
         }]
       }
     }

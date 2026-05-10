@@ -12,6 +12,7 @@ export type ImageMediaDetails = {
   height: number;
   sizes: [{
     sourceUrl: string
+    name: string
   }]
 }
 

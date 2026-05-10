@@ -327,6 +327,7 @@ export async function getCategory(
                     mediaDetails {
                       sizes(include: THUMBNAIL) {
                         sourceUrl
+                        name
                       }
                     }
                   }

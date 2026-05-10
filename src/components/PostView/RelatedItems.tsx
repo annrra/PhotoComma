@@ -59,25 +59,33 @@ const RelatedItems = ({
         </Link>
       </div>
       <div className={styles.grid}>
-        {visibleItems.map((item) => (
-          <div className={styles.entry} key={item?.databaseId}>
-            {item?.featuredImage?.node && (
+        {visibleItems.map((item) => {
+          const imageNode = item?.featuredImage?.node;
+
+          const thumb =
+            imageNode?.mediaDetails?.sizes?.find(
+              (size) => size.name === "thumbnail"
+            )?.sourceUrl || imageNode?.sourceUrl;
+
+          if (!thumb) return null;
+
+          return (
+            <div className={styles.entry} key={item?.databaseId}>
               <Link href={`/${item.slug}`}>
                 <Image
-                  src={item.featuredImage.node.sourceUrl}
-                  alt={item.featuredImage.node.altText || ""}
+                  src={thumb}
+                  alt={imageNode.altText || ""}
                   fill
+                  unoptimized
                   loading="lazy"
                   fetchPriority="low"
-                  width={0}
-                  height={0}
                   sizes="(max-width: 600px) 50vw, (max-width: 1200px) 33vw, 240px"
                   className={styles.snapshot}
                 />
               </Link>
-            )}
-          </div>
-        ))}
+            </div>
+          )
+        })}
       </div>
     </div>
   )
