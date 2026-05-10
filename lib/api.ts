@@ -170,6 +170,12 @@ export async function getAboutPage() {
                 sourceUrl
                 slug
                 title
+                mediaDetails {
+                  sizes(include: MEDIUM) {
+                    sourceUrl
+                    name
+                  }
+                }
               }
             }
           }

@@ -4,6 +4,12 @@ export type FeaturedMediaNode = {
   sourceUrl: string;
   slug: string;
   title: string;
+  mediaDetails: {
+    sizes: [{
+      sourceUrl: string;
+      name: string;
+    }]
+  }
 };
 
 export type FeaturedMedia = {

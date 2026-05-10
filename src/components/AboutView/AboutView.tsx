@@ -13,6 +13,11 @@ const AboutView = ({
   const { nextAboutFeaturedMedia } = page;
   const image = nextAboutFeaturedMedia.node;
 
+  const mediumImage =
+    image?.mediaDetails?.sizes?.find(
+      (size) => size.name === "medium"
+    )?.sourceUrl || image?.sourceUrl;
+
   return (
     <>
       <ViewControls />
@@ -23,14 +28,17 @@ const AboutView = ({
             <SeparatorDecorator />
             {page.nextAboutSectionOne}
           </div>
-          <Image 
-            src={image.sourceUrl} 
-            alt={image.altText}
-            width={0}
-            height={0}
-            sizes="100vw"
-            className={styles.figure}
-          />
+          {mediumImage && (
+            <Image
+              src={mediumImage}
+              alt={image.altText}
+              sizes="100vw"
+              unoptimized
+              className={styles.figure}
+              width={1200}
+              height={800}
+            />
+          )}
           <div className={classNames(styles.segment, styles['segment-outro'])}>
             <div className={styles.inline}>
               <span>{page.nextAboutSectionTwo}{' '}</span>
