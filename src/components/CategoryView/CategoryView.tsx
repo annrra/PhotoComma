@@ -52,26 +52,34 @@ const CategoryView = ({ category }: { category: Category }) => {
             {category?.description}
           </h1>
           <div className={styles.grid}>
-            {posts.map((post, index) => (
-              <div className={styles.node} key={post?.databaseId}>
-                <div className={styles.frame}>
-                  {post?.featuredImage?.node && (
+            {posts.map((post, index) => {
+              const imageNode = post?.featuredImage?.node;
+
+              const thumb =
+                imageNode?.mediaDetails?.sizes?.find(
+                  (size) => size.name === "medium"
+                )?.sourceUrl || imageNode?.sourceUrl;
+
+              if (!thumb) return null;
+              
+              return (
+                <div className={styles.node} key={post?.databaseId}>
+                  <div className={styles.frame}>
                     <Link href={`/${post.slug}`}>
                       <Image
-                        src={post.featuredImage.node.sourceUrl}
-                        alt={post.featuredImage.node.altText || ""}
+                        src={thumb}
+                        alt={imageNode?.altText || ""}
                         fill
-                        width={0}
-                        height={0}
+                        unoptimized
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className={styles.snapshot}
                         priority={index < 3}
                       />
                     </Link>
-                  )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
           <div className={styles.loader}>
             <motion.button 

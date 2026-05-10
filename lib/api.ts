@@ -325,7 +325,7 @@ export async function getCategory(
                     slug
                     altText
                     mediaDetails {
-                      sizes(include: THUMBNAIL) {
+                      sizes(include: [THUMBNAIL, MEDIUM]) {
                         sourceUrl
                         name
                       }
