@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+const localhost = isDev ? " http://localhost" : "";
+
 const securityHeaders = [
   {
     key: "Content-Security-Policy",
@@ -7,9 +10,9 @@ const securityHeaders = [
       default-src 'self';
       script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://cloud.umami.is;
       style-src 'self' 'unsafe-inline';
-      img-src 'self' data: blob: https:;
+      img-src 'self' data: blob: https:${localhost};
       font-src 'self' data: https:;
-      connect-src 'self' https://api.photocomma.com https://va.vercel-scripts.com https://vitals.vercel-insights.com https://cloud.umami.is https://api-gateway.umami.dev;
+      connect-src 'self' https://api.photocomma.com https://va.vercel-scripts.com https://vitals.vercel-insights.com https://cloud.umami.is https://api-gateway.umami.dev${localhost};
       media-src 'self' https://api.photocomma.com;
       frame-ancestors 'none';
     `.replace(/\n/g, ""),
@@ -54,6 +57,7 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+    dangerouslyAllowLocalIP: true, //dev only - not for production
   },
 
   async headers() {
