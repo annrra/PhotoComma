@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { ThemeProvider } from '@/src/context/ThemeContext/ThemeContext';
+import { AnalyticsGate } from '@/src/components/AnalyticsGate';
+import { getValidRoutes } from '@/lib/validRoutes';
 import { Geist } from 'next/font/google';
 import './globals.css';
-import Script from 'next/script';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,18 +44,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+const UMAMI_WEBSITE_ID = 'dffb56f9-9e92-4be9-8a3b-fc5433a4274d';
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const validRoutes = await getValidRoutes();
+
   return (
     <html lang="en" className={`${geistSans.variable}`}>
       <body>
         <ThemeProvider>
           {children}
         </ThemeProvider>
-        <Script src="https://cloud.umami.is/script.js" data-website-id="dffb56f9-9e92-4be9-8a3b-fc5433a4274d" strategy="afterInteractive"></Script>
+        <AnalyticsGate validRoutes={validRoutes} websiteId={UMAMI_WEBSITE_ID} />
       </body>
     </html>
   );
