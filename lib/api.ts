@@ -28,6 +28,59 @@ async function fetchWithTimeout(
   }
 }
 
+export async function getProducts() {
+	if (!API_URL) {
+    console.error('API_URL is not defined.');
+    return { posts: { nodes: [] } };
+  }
+
+  const res = await fetchWithTimeout(API_URL, {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      query:`{
+        products {
+          nodes {
+            title
+            uri
+            databaseId
+            status
+            ... on VariableProduct {
+              variations {
+                nodes {
+                  id
+                  price(format: RAW)
+                  attributes {
+                    nodes {
+                      name
+                      value
+                    }
+                  }
+                }
+              }
+            }
+            featuredImage {
+              node {
+                sourceUrl
+                altText
+                title
+              }
+            }
+          }
+        }
+      }`
+    }),
+    next: { revalidate: 10 },
+  });
+   
+  if (!res || !res.ok) {
+    return { posts: { nodes: [] } };
+  }
+
+  const json = await res.json();
+  return json.data ?? { posts: { nodes: [] } };
+}
+
 export async function getHomePage() {
 	if (!API_URL) {
     console.error('API_URL is not defined.');

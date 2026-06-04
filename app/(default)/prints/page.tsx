@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { getProducts } from '@/lib/api';
+import type { ProductsResponse } from "@/src/components/PrintsView/types";
 import { PrintsView } from '@/src/components/PrintsView';
 import { Header } from '@/src/components/Header';
 import { Footer } from '@/src/components/Footer';
@@ -39,12 +41,15 @@ export const metadata: Metadata = {
 
 export default async function Prints() {
 
+  const rawData: ProductsResponse = await getProducts();
+  const products = rawData.products?.nodes ?? [];
+
   return (
     <>
       <SchemaOrgPrints />
       <div className={styles.print}>
         <Header />
-        <PrintsView />
+        <PrintsView products={products} />
         <Footer mode='light' />
       </div>
     </>

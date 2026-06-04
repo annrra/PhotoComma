@@ -1,24 +1,28 @@
 'use client';
-import { SeparatorDecorator } from '@/src/components/ui/SeparatorDecorator';
 import styles from './pv.module.css';
-import { EmailLink } from '@/src/components/_utils/EmailLink';
+import PrintsInfoPanel from './PrintsInfoPanel';
+import ProductCard from './ProductCard';
 import { ViewControls } from '@/src/components/ViewControls';
+import type { Product } from "./types";
 
-const PrintsView = () => {
+type PrintsViewProps = {
+  products: Product[];
+};
+
+const PrintsView = ({ products }: PrintsViewProps) => {
+  console.log(JSON.stringify(products, null, 2));
+  
 
   return (
     <>
       <ViewControls />
       <div className={styles.pane}>
         <div className={styles.panel}>
-          <div className={styles.segment}>
-            <SeparatorDecorator />
-            <h1 className={styles.sronly}>Prints and shipping information at PhotoComma</h1>
-            Each photograph is available to be purchased as a print<br />
-            Printed with care<br />
-            Shipping worldwide<br /><br />
-
-            For print requests: <EmailLink showEmail className={styles.mailto} />
+          <PrintsInfoPanel />
+          <div className={styles.grid}>
+            {products.map((product) => (
+              <ProductCard key={product.databaseId} product={product} />
+            ))}
           </div>
         </div>
       </div>

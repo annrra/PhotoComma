@@ -38,6 +38,107 @@
   color: var(--pc-accent);
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--pc-space-300);
+  margin: var(--pc-space-700) 0;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pc-space-200);
+}
+
+.item a {
+  display: inline-flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  aspect-ratio: 880 / 495;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--pc-radius-md);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.product-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-content h2 {
+  font-size: var(--font-sm);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.purchase-info {
+  display: inline-flex;
+  gap: var(--pc-space-200);
+  align-items: flex-end;
+  flex-direction: row-reverse;
+}
+
+.variations button {
+  border: 0;
+  color: var(--pc-text);
+  font-size: var(--font-xs);
+  outline: none;
+  display: inline-flex;
+  border-radius: var(--pc-radius-full);
+  transition: all 0.3s ease;
+  width: var(--pc-space-200);
+  height: var(--pc-space-200);
+  border-radius: 50%;
+  background-color: var(--pc-mobs-sec);
+}
+
+.variations button.active {
+  background-color: var(--pc-text-muted);
+}
+
+.variations {
+  display: inline-flex;
+  gap: var(--pc-space-100);
+}
+
+.variation {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--pc-bg);
+  border-radius: var(--pc-radius-full);
+  padding: var(--pc-space-50) var(--pc-space-200);
+  font-size: var(--font-sm);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 5;
+}
+
+.variation:hover .tooltip {
+  opacity: 1;
+}
+
 @media only screen and (max-width: 1000px) {
   .segment {
     width: 100%;
