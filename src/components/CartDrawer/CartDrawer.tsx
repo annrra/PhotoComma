@@ -2,15 +2,15 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/src/context/CartContext/CartContext';
 import styles from './cd.module.css';
-import { style } from 'framer-motion/client';
 
-type CartDrawerProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
-
-const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
-  const { items, removeItem, updateQuantity } = useCart();
+const CartDrawer = () => {
+  const {
+    items,
+    removeItem,
+    updateQuantity,
+    isCartOpen,
+    closeCart,
+  } = useCart();
 
   const total = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -19,11 +19,11 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
 
   return (
     <AnimatePresence>
-      {isOpen && (
+      {isCartOpen && (
         <>
           <motion.div
             className={styles.overlay}
-            onClick={onClose}
+            onClick={closeCart}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -38,7 +38,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
           >
             <div className={styles.header}>
               <h2>Cart</h2>
-              <button onClick={onClose} className={styles.close}>
+              <button onClick={closeCart} className={styles.close}>
                 <svg
                   width={24}
                   height={24}

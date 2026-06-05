@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/src/context/ThemeContext/ThemeContext';
 import { useCart } from '@/src/context/CartContext/CartContext';
-import { useState } from 'react';
 import { CartDrawer } from '@/src/components/CartDrawer';
 
 type ViewControlsProps = {
@@ -18,8 +17,7 @@ const ViewControls = ({
   hasExpandFullscreen = false,
 }: ViewControlsProps) => {
   const { toggleTheme } = useTheme();
-  const { totalItems } = useCart();
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { totalItems, openCart } = useCart();
 
   const circleVariants = {
     rest: {
@@ -41,18 +39,15 @@ const ViewControls = ({
 
   return (
     <>
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-      />
+      <CartDrawer />
       <div className={classNames(styles.ctrls, {[styles.full]: isFullscreen})}>
         <motion.button
-          className={styles['btn-ctrl']}
+          className={classNames(styles['btn-ctrl'], {[styles.active]: totalItems > 0})}
           initial="rest"
           animate="rest"
           whileHover="hover"
           aria-label="Cart"
-          onClick={() => setIsCartOpen(true)}
+          onClick={openCart}
         >
           <div style={{ position: 'relative' }}>
             <svg

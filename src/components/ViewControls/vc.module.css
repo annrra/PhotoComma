@@ -38,6 +38,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+.btn-ctrl.active .cart-circle {
+  fill: var(--pc-accent);
+}
+
 .expand-icon-fill,
 .theme-icon-fill,
 .cart-icon-fill {
@@ -91,6 +95,7 @@
   width: var(--pc-space-200);
   height: var(--pc-space-200);
   background-color: var(--pc-accent);
+  background-color: var(--pc-mobs-sec);
   color: var(--pc-text-static);
   font-size: var(--font-xs);
   border-radius: 50%;

@@ -27,7 +27,7 @@ function formatPrice(price?: string | null) {
 }
 
 const ProductView = ({ product }: ProductViewProps) => {
-  const { addItem } = useCart();
+  const { addItem, items, openCart } = useCart();
 
   const productImage = product?.featuredImage?.node;
 
@@ -126,7 +126,9 @@ const ProductView = ({ product }: ProductViewProps) => {
 
             <button
               className={styles['cart-btn']}
-              onClick={() =>
+              onClick={() => {
+                const wasEmpty = items.length === 0;
+
                 addItem({
                   productId: product.databaseId,
                   variationId: activeVariation.id,
@@ -134,8 +136,13 @@ const ProductView = ({ product }: ProductViewProps) => {
                   image: productImage?.sourceUrl || '',
                   size: activeVariation.attributes.nodes?.[0]?.value || '',
                   price: Number(activeVariation.price),
-                })
-              }
+                });
+
+                // UX rule: open only when cart was empty before adding
+                if (wasEmpty) {
+                  openCart();
+                }
+              }}
             >
               Add to cart
             </button>

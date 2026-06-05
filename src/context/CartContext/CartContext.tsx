@@ -5,6 +5,7 @@ import {
   useEffect,
   useMemo,
   useReducer,
+  useState,
   ReactNode,
 } from 'react';
 import { CartContextType, CartItem } from './types';
@@ -16,6 +17,10 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(cartReducer, initialCartState);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const openCart = () => setIsCartOpen(true);
+  const closeCart = () => setIsCartOpen(false);
 
   // Hydrate from localStorage
   useEffect(() => {
@@ -66,13 +71,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     return state.items.reduce((sum, item) => sum + item.quantity, 0);
   }, [state.items]);
 
-  const value: CartContextType = {
+  const value: CartContextType & {
+    isCartOpen: boolean;
+    openCart: () => void;
+    closeCart: () => void;
+  } = {
     items: state.items,
     addItem,
     removeItem,
     updateQuantity,
     clearCart,
     totalItems,
+    isCartOpen,
+    openCart,
+    closeCart,
   };
 
   return (

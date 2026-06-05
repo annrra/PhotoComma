@@ -22,4 +22,8 @@ export type CartContextType = {
   updateQuantity: (variationId: string, quantity: number) => void;
   clearCart: () => void;
   totalItems: number;
+
+  isCartOpen: boolean;
+  openCart: () => void;
+  closeCart: () => void;
 };
