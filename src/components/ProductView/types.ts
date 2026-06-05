@@ -1,21 +1,19 @@
-export type ProductAttribute = {
-  nodes: {
-    name: string;
-    value: string;
-  }[];
-};
-
 export type ProductVariation = {
   id: string;
   price: string;
-  attributes: ProductAttribute;
+  attributes: {
+    nodes: {
+      name: string;
+      value: string;
+    }[];
+  };
 };
 
 export type ProductImage = {
   node: {
     sourceUrl: string;
-    altText: string | null;
-    title: string | null;
+    altText?: string | null;
+    title?: string | null;
   };
 };
 
@@ -24,7 +22,9 @@ export type Product = {
   uri: string;
   slug: string;
   databaseId: number;
-  status: string;
+
+  description?: string;
+  shortDescription?: string;
 
   variations?: {
     nodes: ProductVariation[];
@@ -33,8 +33,6 @@ export type Product = {
   featuredImage?: ProductImage;
 };
 
-export type ProductsResponse = {
-  products: {
-    nodes: Product[];
-  };
-};
+export type GetProductResponse = {
+  product: Product | null;
+}

@@ -87,8 +87,20 @@
 .purchase-info {
   display: inline-flex;
   gap: var(--pc-space-200);
-  align-items: flex-end;
+  align-items: center;
   flex-direction: row-reverse;
+}
+
+.price {
+  line-height: 1;
+}
+
+.price {
+  font-size: var(--font-sm);
+}
+
+.price-number {
+  font-size: var(--font-base);
 }
 
 .variations button {
@@ -112,6 +124,8 @@
 .variations {
   display: inline-flex;
   gap: var(--pc-space-100);
+  font-size: 0;
+  align-items: center;
 }
 
 .variation {

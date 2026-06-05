@@ -44,7 +44,7 @@ const ProductCard = ({ product }: Props) => {
 
   return (
     <div className={styles.item}>
-      <Link href={product.uri}>
+      <Link href={`/shop/${product.slug}`}>
         {product.featuredImage?.node?.sourceUrl && (
           <Image
             src={product.featuredImage.node.sourceUrl}
@@ -52,6 +52,7 @@ const ProductCard = ({ product }: Props) => {
             width={600}
             height={600}
             className={styles.image}
+            unoptimized
           />
         )}
       </Link>

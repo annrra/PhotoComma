@@ -1,0 +1,115 @@
+.panel {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pc-space-300);
+  min-height: 700px;
+}
+
+.scene {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--pc-space-600);
+  margin: 0 auto var(--pc-space-700);
+  max-width: var(--pc-max-width);
+}
+
+.preview-figure {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.info h1 {
+  font-size: var(--font-sm-alt);
+  font-weight: 400;
+  line-height: var(--lh-relaxed);
+  text-transform: uppercase;
+}
+
+.description {
+  font-size: var(--font-sm-alt);
+  margin: var(--pc-space-300) 0;
+  max-width: 90%;
+  line-height: var(--lh-relaxed);
+}
+
+.variation-label {
+  font-size: var(--font-sm);
+  text-transform: uppercase;
+  margin: var(--pc-space-300) 0 var(--pc-space-25);
+}
+
+.variations {
+  display: inline-flex;
+  gap: var(--pc-space-300);
+}
+
+.variation button {
+  font-size: var(--font-sm-alt);
+  border: 0;
+  outline: none;
+  padding: 0 0 var(--pc-space-25);
+  border-bottom: 1px solid transparent;
+  position: relative;
+  color: var(--pc-text-subtle);
+  transition: all 0.3s ease;
+}
+
+.variation button.active {
+  color: var(--pc-text);
+}
+
+.variation button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--pc-text);
+  transition: all 0.3s ease;
+}
+
+.variation button.active::after {
+  width: 100%;
+}
+
+.variation button:hover::after {
+  width: 100%;
+}
+
+.price {
+  margin: var(--pc-space-100) 0 0;
+  font-size: var(--font-sm);
+}
+
+.price-number {
+  font-size: var(--font-base);
+}
+
+.breadcrumb {
+  max-width: var(--pc-max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.breadcrumb a {
+  display: inline-flex;
+  gap: var(--pc-space-200);
+  align-items: center;
+  font-size: var(--font-sm-alt);
+  text-transform: lowercase;
+  color: var(--pc-text-subtle);
+  transition: all 0.3s ease;
+}
+
+.breadcrumb a:hover {
+  color: var(--pc-text);
+}
+
+.fill-crumb {
+  fill: var(--pc-text-muted);
+}
