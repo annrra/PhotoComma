@@ -5,6 +5,7 @@ import Link from 'next/link';
 import styles from './pv.module.css';
 import type { Product } from './types';
 import { ViewControls } from '@/src/components/ViewControls';
+import { useCart } from '@/src/context/CartContext/CartContext';
 import classNames from 'classnames';
 
 type ProductViewProps = {
@@ -26,6 +27,8 @@ function formatPrice(price?: string | null) {
 }
 
 const ProductView = ({ product }: ProductViewProps) => {
+  const { addItem } = useCart();
+
   const productImage = product?.featuredImage?.node;
 
   const variations = useMemo(() => {
@@ -120,6 +123,22 @@ const ProductView = ({ product }: ProductViewProps) => {
                 __html: product.description ?? '',
               }}
             />
+
+            <button
+              className={styles['cart-btn']}
+              onClick={() =>
+                addItem({
+                  productId: product.databaseId,
+                  variationId: activeVariation.id,
+                  title: product.title,
+                  image: productImage?.sourceUrl || '',
+                  size: activeVariation.attributes.nodes?.[0]?.value || '',
+                  price: Number(activeVariation.price),
+                })
+              }
+            >
+              Add to cart
+            </button>
           </div>
         </div>
       </div>

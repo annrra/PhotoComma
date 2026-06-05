@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ThemeProvider } from '@/src/context/ThemeContext/ThemeContext';
+import { CartProvider } from '@/src/context/CartContext/CartContext';
 import { AnalyticsGate } from '@/src/components/AnalyticsGate';
 import { getValidRoutes } from '@/lib/validRoutes';
 import { Geist } from 'next/font/google';
@@ -57,7 +58,9 @@ export default async function RootLayout({
     <html lang="en" className={`${geistSans.variable}`}>
       <body>
         <ThemeProvider>
-          {children}
+          <CartProvider>
+            {children}
+          </CartProvider>
         </ThemeProvider>
         <AnalyticsGate validRoutes={validRoutes} websiteId={UMAMI_WEBSITE_ID} />
       </body>

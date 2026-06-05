@@ -22,6 +22,11 @@
   margin: 0;
 }
 
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
 .info h1 {
   font-size: var(--font-sm-alt);
   font-weight: 400;
@@ -112,4 +117,15 @@
 
 .fill-crumb {
   fill: var(--pc-text-muted);
+}
+
+.cart-btn {
+  color: var(--pc-text);
+  background-color: var(--pc-accent);
+  padding: 0 var(--pc-space-300);
+  line-height: var(--pc-space-500);
+  border-radius: var(--pc-radius-md);
+  width: 90%;
+  font-size: var(--font-sm-alt);
+  margin-top: auto;
 }
