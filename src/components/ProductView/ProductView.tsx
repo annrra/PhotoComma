@@ -129,11 +129,12 @@ const ProductView = ({ product }: ProductViewProps) => {
               onClick={() => {
                 addItem({
                   productId: product.databaseId,
-                  variationId: activeVariation.id,
+                  variationId: activeVariation.databaseId,
                   title: product.title,
                   image: productImage?.sourceUrl || '',
                   size: activeVariation.attributes.nodes?.[0]?.value || '',
                   price: Number(activeVariation.price),
+                  quantity: 1,
                 });
 
                 // UX rule: open cart drawer after adding

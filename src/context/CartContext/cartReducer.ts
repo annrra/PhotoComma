@@ -2,8 +2,8 @@ import { CartItem, CartState } from './types';
 
 type Action =
   | { type: 'ADD_ITEM'; payload: CartItem }
-  | { type: 'REMOVE_ITEM'; payload: { variationId: string } }
-  | { type: 'UPDATE_QUANTITY'; payload: { variationId: string; quantity: number } }
+  | { type: 'REMOVE_ITEM'; payload: { variationId: number } }
+  | { type: 'UPDATE_QUANTITY'; payload: { variationId: number; quantity: number } }
   | { type: 'CLEAR_CART' }
   | { type: 'HYDRATE'; payload: CartItem[] };
 

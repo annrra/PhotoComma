@@ -1,4 +1,5 @@
 export type ProductVariation = {
+  databaseId: number;
   id: string;
   price: string;
   attributes: {

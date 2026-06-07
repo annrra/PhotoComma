@@ -103,6 +103,7 @@ export async function getProduct(slug: string) {
           ... on VariableProduct {
             variations {
               nodes {
+                databaseId
                 id
                 price(format: RAW)
                 attributes {

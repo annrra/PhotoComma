@@ -1,6 +1,6 @@
 export type CartItem = {
   productId: number;
-  variationId: string;
+  variationId: number;
 
   title: string;
   image: string;
@@ -17,9 +17,9 @@ export type CartState = {
 
 export type CartContextType = {
   items: CartItem[];
-  addItem: (item: Omit<CartItem, 'quantity'>) => void;
-  removeItem: (variationId: string) => void;
-  updateQuantity: (variationId: string, quantity: number) => void;
+  addItem: (item: CartItem) => void;
+  removeItem: (variationId: number) => void;
+  updateQuantity: (variationId: number, quantity: number) => void;
   clearCart: () => void;
   totalItems: number;
 

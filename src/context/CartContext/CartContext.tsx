@@ -10,6 +10,8 @@ import {
 } from 'react';
 import { CartContextType, CartItem } from './types';
 import { cartReducer, initialCartState } from './cartReducer';
+import { addToCart as wooAddToCart } from '@/lib/woocommerce/cart';
+import { getCart } from '@/lib/woocommerce/cart';
 
 const CART_STORAGE_KEY = 'photocomma-cart';
 
@@ -34,6 +36,40 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  useEffect(() => {
+    async function loadCart() {
+      const cart = await getCart();
+
+      if (cart?.contents?.nodes?.length) {
+        const items = cart.contents.nodes.map((item: any) => ({
+          productId: item.product?.node?.databaseId,
+          variationId: item.variation?.node?.databaseId,
+          title: item.product?.node?.name || '',
+          image: '',
+          size: '',
+          price: 0,
+          quantity: item.quantity,
+        }));
+
+        dispatch({ type: 'HYDRATE', payload: items });
+
+        // sync local cache
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+      } else {
+        // fallback to localStorage only if Woo empty
+        const stored = localStorage.getItem(CART_STORAGE_KEY);
+        if (stored) {
+          dispatch({
+            type: 'HYDRATE',
+            payload: JSON.parse(stored),
+          });
+        }
+      }
+    }
+
+    loadCart();
+  }, []);
+
   // Persist to localStorage
   useEffect(() => {
     window.localStorage.setItem(
@@ -42,21 +78,38 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   }, [state.items]);
 
-  const addItem = (item: Omit<CartItem, 'quantity'>) => {
+  const addItem = (item: CartItem) => {
+    const quantity = item.quantity ?? 1;
+
+    // 1. Optimistic UI update
     dispatch({
       type: 'ADD_ITEM',
-      payload: { ...item, quantity: 1 },
+      payload: {
+        ...item,
+        quantity,
+      },
     });
+
+    // 2. Woo sync (fire-and-forget, NOT blocking UI)
+    wooAddToCart(item.productId, item.variationId, quantity)
+      .then(res => {
+        if (!res) {
+          console.error('[Cart] Woo sync failed');
+        }
+      })
+      .catch(err => {
+        console.error('[Cart] Woo sync error', err);
+      });
   };
 
-  const removeItem = (variationId: string) => {
+  const removeItem = (variationId: number) => {
     dispatch({
       type: 'REMOVE_ITEM',
       payload: { variationId },
     });
   };
 
-  const updateQuantity = (variationId: string, quantity: number) => {
+  const updateQuantity = (variationId: number, quantity: number) => {
     dispatch({
       type: 'UPDATE_QUANTITY',
       payload: { variationId, quantity },
