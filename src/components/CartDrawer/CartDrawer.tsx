@@ -64,7 +64,9 @@ const CartDrawer = () => {
               ) : (
                 items.map(item => (
                   <div key={item.variationId} className={styles.item}>
-                    <img src={item.image} alt={item.title} className={styles.preview} />
+                    {item.image ? (
+                      <img src={item.image} alt={item.title} className={styles.preview} />
+                    ) : null}
 
                     <div className={styles.info}>
                       <h4>{item.title}</h4>

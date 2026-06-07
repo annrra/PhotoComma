@@ -1,4 +1,5 @@
 export type CartItem = {
+  key?: string;
   productId: number;
   variationId: number;
 
