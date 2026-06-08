@@ -1,0 +1,21 @@
+.checkout-form h2 {
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: var(--font-md);
+  margin: 0 0 var(--pc-space-400);
+}
+
+.form-field {
+  margin: 0 0 var(--pc-space-300);
+}
+
+.form-field-double {
+  display: flex;
+  align-items: center;
+  gap: var(--pc-space-300);
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+}

@@ -94,7 +94,7 @@ function persistSessionFromResponse(res: Response) {
   }
 }
 
-async function graphqlRequest<T>(query: string, variables?: Record<string, unknown>) {
+export async function graphqlRequest<T>(query: string, variables?: Record<string, unknown>) {
   if (!API_URL) {
     console.error('[WooCart] API_URL is not defined');
     return null;

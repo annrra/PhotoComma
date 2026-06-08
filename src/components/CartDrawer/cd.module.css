@@ -170,7 +170,10 @@
 }
 
 .checkout {
+  display: flex;
   width: 100%;
+  align-items: center;
+  justify-content: center;
   padding: 12px var(--pc-space-100);
   background: var(--pc-accent);
   color: var(--pc-white-static);
