@@ -1,9 +1,10 @@
 'use client';
-
-import { useReducer } from 'react';
+import { useReducer, useState, useEffect } from 'react';
 import { checkout } from './checkoutApi';
 import { CheckoutState } from './checkoutTypes';
 import { useCart } from '@/src/context/CartContext/CartContext';
+import { validateCart } from './checkoutGuard';
+import { getCart, mapWooCartToItems } from '@/lib/woocommerce/cart';
 
 const initialState: CheckoutState = {
   step: 'FORM',
@@ -40,12 +41,57 @@ function reducer(state: CheckoutState, action: any): CheckoutState {
 
 export function useCheckout() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { items } = useCart(); // IMPORTANT: cart integration
+  const { items } = useCart(); // cart integration
+  const [cartReady, setCartReady] = useState(false);
+
+  useEffect(() => {
+    async function init() {
+      await getCart(); // or CartContext hydration
+
+      setCartReady(true);
+    }
+
+    init();
+  }, []);
 
   async function submit() {
     try {
+      // 🧠 1. BLOCK DOUBLE SUBMIT EARLY
+      if (state.step === 'PROCESSING') return;
+
       dispatch({ type: 'STEP', step: 'PROCESSING' });
 
+      // 🧠 2. GET AUTHORITATIVE CART FROM WOO
+      const serverCart = await getCart();
+
+      const syncedItems = mapWooCartToItems(
+        serverCart?.contents?.nodes ?? []
+      );
+
+      // 🧠 3. VALIDATE SERVER CART (IMPORTANT FIX)
+      const validation = validateCart(syncedItems);
+
+      if (!validation.ok) {
+        dispatch({
+          type: 'ERROR',
+          error: validation.error,
+        });
+        return;
+      }
+
+      // 🧠 4. DETECT DESYNC (optional but correct)
+      const localMismatch =
+        syncedItems.length !== items.length;
+
+      if (localMismatch) {
+        dispatch({
+          type: 'ERROR',
+          error: 'Cart updated. Please review your order.',
+        });
+        return;
+      }
+
+      // 🧠 5. BUILD CHECKOUT FROM SERVER TRUTH (IMPORTANT)
       const res = await checkout({
         clientMutationId: crypto.randomUUID(),
 
@@ -57,12 +103,13 @@ export function useCheckout() {
 
       const data = res?.checkout;
 
-      // 🔁 PayPal / Stripe redirect handling
+      // 🧠 6. PAYMENT REDIRECT (PayPal / Stripe)
       if (data?.redirect) {
         window.location.href = data.redirect;
         return;
       }
 
+      // 🧠 7. SUCCESS
       if (data?.order) {
         dispatch({
           type: 'SUCCESS',
@@ -71,13 +118,14 @@ export function useCheckout() {
       } else {
         throw new Error('Checkout failed');
       }
+
     } catch (err: any) {
       dispatch({
         type: 'ERROR',
-        error: err.message,
+        error: err.message || 'Checkout error',
       });
     }
   }
 
-  return { state, dispatch, submit, items };
+  return { state, dispatch, submit, items, cartReady };
 }

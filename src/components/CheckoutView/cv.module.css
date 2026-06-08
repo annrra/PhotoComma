@@ -15,3 +15,15 @@
   max-width: var(--pc-max-width);
   width: 100%;
 }
+
+.scene.scene-empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pc-space-200);
+}
+
+.scene.scene-empty .heading {
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: var(--font-md);
+}

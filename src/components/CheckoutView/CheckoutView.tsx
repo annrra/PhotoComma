@@ -3,9 +3,10 @@ import { useCheckout } from './useCheckout';
 import { CheckoutForm } from './CheckoutForm';
 import { CheckoutSummary } from './CheckoutSummary';
 import styles from './cv.module.css';
+import classNames from 'classnames';
 
 const CheckoutView = () => {
-  const { state, dispatch, submit, items } = useCheckout();
+  const { state, dispatch, submit, items, cartReady } = useCheckout();
 
   if (state.step === 'SUCCESS') {
     return (
@@ -27,6 +28,27 @@ const CheckoutView = () => {
         <button onClick={() => dispatch({ type: 'STEP', step: 'FORM' })}>
           Try again
         </button>
+      </div>
+    );
+  }
+
+  if (!cartReady) {
+    return (
+      <div className={styles.panel}>
+        <div className={classNames(styles.scene, styles['scene-empty'])}>
+          <h2 className={styles.heading}>Loading checkout...</h2>
+        </div>
+      </div>
+    );
+  }
+
+  if (cartReady && (!items || items.length === 0)) {
+    return (
+      <div className={styles.panel}>
+        <div className={classNames(styles.scene, styles['scene-empty'])}>
+          <h2 className={styles.heading}>Your cart is empty</h2>
+          <div>Add items before checkout.</div>
+        </div>
       </div>
     );
   }
