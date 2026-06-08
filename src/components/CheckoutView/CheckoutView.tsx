@@ -4,6 +4,7 @@ import { CheckoutForm } from './CheckoutForm';
 import { CheckoutSummary } from './CheckoutSummary';
 import styles from './cv.module.css';
 import classNames from 'classnames';
+import Link from 'next/link';
 
 const CheckoutView = () => {
   const { state, dispatch, submit, items, cartReady } = useCheckout();
@@ -44,10 +45,10 @@ const CheckoutView = () => {
 
   if (cartReady && (!items || items.length === 0)) {
     return (
-      <div className={styles.panel}>
-        <div className={classNames(styles.scene, styles['scene-empty'])}>
+      <div className={classNames(styles.panel, styles['scene-empty'])}>
+        <div className={styles.scene}>
           <h2 className={styles.heading}>Your cart is empty</h2>
-          <div>Add items before checkout.</div>
+          <div className={styles['empty-cta']}><Link href={'/prints'}>Add items</Link> before checkout.</div>
         </div>
       </div>
     );

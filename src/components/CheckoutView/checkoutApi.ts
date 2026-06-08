@@ -10,6 +10,10 @@ export async function checkout(input: any) {
         orderNumber: string;
         status: string;
       };
+      notices?: Array<{
+        type: string;
+        message: string;
+      }>;
     };
   }>(
     `
@@ -17,10 +21,16 @@ export async function checkout(input: any) {
         checkout(input: $input) {
           result
           redirect
+
           order {
-            id
+            databaseId
             orderNumber
             status
+          }
+
+          notices {
+            message
+            type
           }
         }
       }

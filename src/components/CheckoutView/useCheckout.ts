@@ -5,6 +5,7 @@ import { CheckoutState } from './checkoutTypes';
 import { useCart } from '@/src/context/CartContext/CartContext';
 import { validateCart } from './checkoutGuard';
 import { getCart, mapWooCartToItems } from '@/lib/woocommerce/cart';
+import { useRouter } from 'next/navigation';
 
 const initialState: CheckoutState = {
   step: 'FORM',
@@ -17,7 +18,7 @@ const initialState: CheckoutState = {
     postcode: '',
     country: '',
   },
-  paymentMethod: 'stripe',
+  paymentMethod: 'bacs',
 };
 
 function reducer(state: CheckoutState, action: any): CheckoutState {
@@ -43,6 +44,7 @@ export function useCheckout() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { items } = useCart(); // cart integration
   const [cartReady, setCartReady] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function init() {
@@ -56,19 +58,19 @@ export function useCheckout() {
 
   async function submit() {
     try {
-      // 🧠 1. BLOCK DOUBLE SUBMIT EARLY
+      // 1. BLOCK DOUBLE SUBMIT EARLY
       if (state.step === 'PROCESSING') return;
 
       dispatch({ type: 'STEP', step: 'PROCESSING' });
 
-      // 🧠 2. GET AUTHORITATIVE CART FROM WOO
+      // 2. GET AUTHORITATIVE CART FROM WOO
       const serverCart = await getCart();
 
       const syncedItems = mapWooCartToItems(
         serverCart?.contents?.nodes ?? []
       );
 
-      // 🧠 3. VALIDATE SERVER CART (IMPORTANT FIX)
+      // 3. VALIDATE SERVER CART
       const validation = validateCart(syncedItems);
 
       if (!validation.ok) {
@@ -79,7 +81,7 @@ export function useCheckout() {
         return;
       }
 
-      // 🧠 4. DETECT DESYNC (optional but correct)
+      // 4. DETECT DESYNC (optional)
       const localMismatch =
         syncedItems.length !== items.length;
 
@@ -91,7 +93,7 @@ export function useCheckout() {
         return;
       }
 
-      // 🧠 5. BUILD CHECKOUT FROM SERVER TRUTH (IMPORTANT)
+      // 5. BUILD CHECKOUT FROM SERVER TRUTH
       const res = await checkout({
         clientMutationId: crypto.randomUUID(),
 
@@ -101,23 +103,43 @@ export function useCheckout() {
         paymentMethod: state.paymentMethod,
       });
 
+      console.log('Checkout response:', res);
+
       const data = res?.checkout;
 
-      // 🧠 6. PAYMENT REDIRECT (PayPal / Stripe)
-      if (data?.redirect) {
-        window.location.href = data.redirect;
+      // 6. PAYMENT REDIRECT (PayPal / Stripe)
+      const redirect = data?.redirect;
+      if (redirect) {
+        const isInternalWooPage =
+          redirect.includes('/checkout/order-received') ||
+          redirect.includes('/order-received');
+
+        // prevent WordPress thank-you page
+        if (isInternalWooPage) {
+          router.push(
+            `/checkout/success?order=${data.order?.orderNumber}`
+          );
+          return;
+        }
+
+        // PayPal / Stripe / external providers
+        window.location.href = redirect;
         return;
       }
 
-      // 🧠 7. SUCCESS
-      if (data?.order) {
+      // 7. SUCCESS
+      if (data?.result === 'success' && data?.order) {
         dispatch({
           type: 'SUCCESS',
           order: data.order,
         });
-      } else {
-        throw new Error('Checkout failed');
+
+        return;
       }
+
+      throw new Error(
+        data?.notices?.[0]?.message || 'Checkout failed'
+      );
 
     } catch (err: any) {
       dispatch({

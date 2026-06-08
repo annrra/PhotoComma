@@ -1,4 +1,4 @@
-export type PaymentMethod = 'stripe' | 'paypal';
+export type PaymentMethod = 'stripe' | 'paypal' | 'bacs';
 
 export type CheckoutState = {
   email: string;

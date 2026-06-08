@@ -1,0 +1,31 @@
+.success {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel {
+  gap: var(--pc-space-200);
+  flex-direction: column;
+  width: 90%;
+  min-height: calc(100vh - 304px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-sm-alt);
+}
+
+.panel h1 {
+  font-weight: 400;
+  font-size: var(--font-base);
+  text-transform: uppercase;
+}
+
+.tx {
+  text-align: center;
+}
+
+.order-num {
+  font-weight: 600;
+}
