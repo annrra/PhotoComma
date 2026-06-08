@@ -1,8 +1,13 @@
 import styles from './cs.module.css';
+import { CheckoutItem } from './checkoutTypes';
 
-export function CheckoutSummary({ items }: any) {
+type Props = {
+  items: CheckoutItem[];
+};
+
+export function CheckoutSummary({ items }: Props) {
   const total = items.reduce(
-    (sum: number, i: any) => sum + i.price * i.quantity,
+    (sum, i) => sum + i.price * i.quantity,
     0
   );
 
@@ -10,7 +15,7 @@ export function CheckoutSummary({ items }: any) {
     <div className={styles.summary}>
       <h3 className={styles.heading}>Order summary</h3>
 
-      {items.map((item: any) => (
+      {items.map((item) => (
         <div key={item.key}>
           {item.title} × {item.quantity}
         </div>

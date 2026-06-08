@@ -1,11 +1,24 @@
 'use client';
 import { useReducer, useState, useEffect } from 'react';
 import { checkout } from './checkoutApi';
-import { CheckoutState } from './checkoutTypes';
+import { CheckoutState, CheckoutAction } from './checkoutTypes';
 import { useCart } from '@/src/context/CartContext/CartContext';
 import { validateCart } from './checkoutGuard';
 import { getCart, mapWooCartToItems } from '@/lib/woocommerce/cart';
 import { useRouter } from 'next/navigation';
+import { CheckoutItem } from './checkoutTypes';
+import { CartItem } from '@/src/context/CartContext/types';
+
+export function mapCartToCheckoutItems(items: CartItem[]): CheckoutItem[] {
+  return items
+    .filter((i): i is CartItem & { key: string } => Boolean(i.key))
+    .map((i) => ({
+      key: i.key,
+      title: i.title ?? 'Untitled',
+      price: i.price,
+      quantity: i.quantity,
+    }));
+}
 
 const initialState: CheckoutState = {
   step: 'FORM',
@@ -21,10 +34,23 @@ const initialState: CheckoutState = {
   paymentMethod: 'bacs',
 };
 
-function reducer(state: CheckoutState, action: any): CheckoutState {
+function reducer(
+  state: CheckoutState,
+  action: CheckoutAction
+): CheckoutState {
   switch (action.type) {
-    case 'SET':
-      return { ...state, ...action.payload };
+    case 'SET': {
+      return {
+        ...state,
+        ...action.payload,
+        shipping: action.payload.shipping
+          ? {
+              ...state.shipping,
+              ...action.payload.shipping,
+            }
+          : state.shipping,
+      };
+    }
 
     case 'STEP':
       return { ...state, step: action.step };
@@ -141,10 +167,15 @@ export function useCheckout() {
         data?.notices?.[0]?.message || 'Checkout failed'
       );
 
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error
+          ? err.message
+          : 'Checkout error';
+
       dispatch({
         type: 'ERROR',
-        error: err.message || 'Checkout error',
+        error: message,
       });
     }
   }

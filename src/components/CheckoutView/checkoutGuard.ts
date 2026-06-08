@@ -1,6 +1,10 @@
 import type { CartItem } from '@/src/context/CartContext/types';
 
-export function validateCart(items: CartItem[]) {
+export type CartValidation =
+  | { ok: true }
+  | { ok: false; error: string };
+
+export function validateCart(items: CartItem[]): CartValidation {
   if (!items || items.length === 0) {
     return {
       ok: false,

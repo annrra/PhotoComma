@@ -5,6 +5,7 @@ import { CheckoutSummary } from './CheckoutSummary';
 import styles from './cv.module.css';
 import classNames from 'classnames';
 import Link from 'next/link';
+import { mapCartToCheckoutItems } from './useCheckout';
 
 const CheckoutView = () => {
   const { state, dispatch, submit, items, cartReady } = useCheckout();
@@ -12,7 +13,7 @@ const CheckoutView = () => {
   if (state.step === 'SUCCESS') {
     return (
       <div>
-        <h1>Order confirmed 🎉</h1>
+        <h1>Order confirmed</h1>
         <p>Order #{state.order?.orderNumber}</p>
       </div>
     );
@@ -58,7 +59,7 @@ const CheckoutView = () => {
     <div className={styles.panel}>
       <div className={styles.scene}>
         <CheckoutForm state={state} dispatch={dispatch} onSubmit={submit} />
-        <CheckoutSummary items={items} />
+        <CheckoutSummary items={mapCartToCheckoutItems(items)} />
       </div>
     </div>
   );

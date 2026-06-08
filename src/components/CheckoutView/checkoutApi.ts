@@ -1,6 +1,14 @@
 import { graphqlRequest } from '@/lib/woocommerce/cart';
+import { CheckoutState } from './checkoutTypes';
 
-export async function checkout(input: any) {
+export type CheckoutInput = {
+  clientMutationId: string;
+  email: string;
+  paymentMethod: CheckoutState['paymentMethod'];
+  shipping: CheckoutState['shipping'];
+};
+
+export async function checkout(input: CheckoutInput) {
   return graphqlRequest<{
     checkout: {
       result: string;

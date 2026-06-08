@@ -29,3 +29,20 @@
 .order-num {
   font-weight: 600;
 }
+
+.actions {
+  margin-top: var(--pc-space-200);
+  display: flex;
+  gap: var(--pc-space-100);
+  font-size: var(--font-sm-alt);
+  justify-content: center;
+}
+
+.link {
+  color: var(--pc-accent);
+  transition: all 0.3s ease;
+}
+
+.link:hover {
+  opacity: 0.7;
+}

@@ -1,7 +1,14 @@
 import styles from './cf.module.css';
 import classNames from 'classnames';
+import { CheckoutState, CheckoutAction, PaymentMethod } from './checkoutTypes';
 
-export function CheckoutForm({ state, dispatch, onSubmit }: any) {
+type Props = {
+  state: CheckoutState;
+  dispatch: React.Dispatch<CheckoutAction>;
+  onSubmit: () => void;
+};
+
+export function CheckoutForm({ state, dispatch, onSubmit }: Props) {
   return (
     <div className={styles['checkout-form']}>
       <h2>Checkout</h2>
@@ -142,7 +149,7 @@ export function CheckoutForm({ state, dispatch, onSubmit }: any) {
           onChange={(e) =>
             dispatch({
               type: 'SET',
-              payload: { paymentMethod: e.target.value },
+              payload: { paymentMethod: e.target.value as PaymentMethod },
             })
           }
         >
