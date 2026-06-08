@@ -20,7 +20,13 @@ const CheckoutView = () => {
   }
 
   if (state.step === 'PROCESSING') {
-    return <p>Processing payment...</p>;
+    return (
+      <div className={styles.panel}>
+        <div className={classNames(styles.scene, styles['scene-empty'])}>
+          <h2 className={styles.heading}>Processing payment...</h2>
+        </div>
+      </div>
+    );
   }
 
   if (state.step === 'ERROR') {
