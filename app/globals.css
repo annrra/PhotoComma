@@ -99,6 +99,7 @@
   --pc-space-1000: 80px;
 
   --pc-max-width: 1400px;
+  --pc-max-width-sm: 1000px;
 
   /* ========== Forms ========== */
   --pc-input-bg: #222222;

@@ -120,16 +120,16 @@ export function useCheckout() {
       }
 
       // 5. BUILD CHECKOUT FROM SERVER TRUTH
+      const address = {
+        ...state.shipping,
+        email: state.email,
+      };
       const res = await checkout({
         clientMutationId: crypto.randomUUID(),
-
-        billing: state.shipping,
-        shipping: state.shipping,
-
+        billing: address,
+        shipping: address,
         paymentMethod: state.paymentMethod,
       });
-
-      console.log('Checkout response:', res);
 
       const data = res?.checkout;
 

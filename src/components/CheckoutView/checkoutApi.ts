@@ -3,8 +3,8 @@ import { CheckoutState } from './checkoutTypes';
 
 export type CheckoutInput = {
   clientMutationId: string;
-  email: string;
   paymentMethod: CheckoutState['paymentMethod'];
+  billing: CheckoutState['shipping'] & { email?: string };
   shipping: CheckoutState['shipping'];
 };
 
