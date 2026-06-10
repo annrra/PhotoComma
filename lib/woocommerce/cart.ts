@@ -1,6 +1,6 @@
 import type { CartItem } from '@/src/context/CartContext/types';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_SHOP_API_URL;
 const WC_SESSION_KEY = 'wc-session';
 
 const CART_ITEM_FIELDS = `

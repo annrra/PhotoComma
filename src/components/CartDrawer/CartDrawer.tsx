@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/src/context/CartContext/CartContext';
 import styles from './cd.module.css';
-import Link from 'next/link';
+const SHOP_URL = process.env.NEXT_PUBLIC_SITE_SHOP_URL || 'https://shop.photocomma.com';
 
 const CartDrawer = () => {
   const {
@@ -122,13 +122,15 @@ const CartDrawer = () => {
                 <span className={styles['total-label']}>Total:</span> {total.toFixed(2)} <span className={styles['total-currency']}>EUR</span>
               </div>
 
-              <Link 
-                href={'/checkout'} 
+              <button
                 className={styles.checkout}
-                onClick={closeCart}
+                onClick={() => {
+                  closeCart();
+                  window.location.href = `${SHOP_URL}/checkout`;
+                }}
               >
                 Checkout
-              </Link>
+              </button>
             </div>
           </motion.aside>
         </>

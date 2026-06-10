@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getProduct } from '@/lib/api';
+import { getProduct } from '@/lib/woocommerce/wooapi';
 import type { GetProductResponse } from '@/src/components/ProductView/types';
 import { Header } from '@/src/components/Header';
 import { Footer } from '@/src/components/Footer';

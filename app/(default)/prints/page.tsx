@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getProducts } from '@/lib/api';
+import { getProducts } from '@/lib/woocommerce/wooapi';
 import type { ProductsResponse } from "@/src/components/PrintsView/types";
 import { PrintsView } from '@/src/components/PrintsView';
 import { Header } from '@/src/components/Header';
