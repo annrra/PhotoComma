@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 const SHOP_URL = "https://shop.photocomma.com";
 const API_URL = "https://api.photocomma.com";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const securityHeaders = [
   {
     key: "Content-Security-Policy",
@@ -59,7 +61,7 @@ const nextConfig: NextConfig = {
   },
 
   async headers() {
-    if (process.env.NODE_ENV === "development") {
+    if (isDev) {
       return [];
     }
 
