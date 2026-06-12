@@ -5,11 +5,7 @@ type Action =
   | { type: 'REMOVE_ITEM'; payload: { variationId: number } }
   | { type: 'UPDATE_QUANTITY'; payload: { variationId: number; quantity: number } }
   | { type: 'CLEAR_CART' }
-  | { type: 'HYDRATE'; payload: CartItem[] }
-  | {
-      type: 'SYNC_KEYS';
-      payload: Array<{ variationId: number; key: string; quantity: number }>;
-    };
+  | { type: 'HYDRATE'; payload: CartItem[] };
 
 export const initialCartState: CartState = {
   items: [],
@@ -29,7 +25,10 @@ export function cartReducer(state: CartState, action: Action): CartState {
         return {
           items: state.items.map(item =>
             item.variationId === action.payload.variationId
-              ? { ...item, quantity: item.quantity + 1 }
+              ? {
+                  ...item,
+                  quantity: item.quantity + action.payload.quantity,
+                }
               : item
           ),
         };
@@ -58,19 +57,6 @@ export function cartReducer(state: CartState, action: Action): CartState {
 
     case 'CLEAR_CART':
       return { items: [] };
-
-    case 'SYNC_KEYS':
-      return {
-        items: state.items.map(item => {
-          const match = action.payload.find(
-            entry => entry.variationId === item.variationId
-          );
-
-          return match
-            ? { ...item, key: match.key, quantity: match.quantity }
-            : item;
-        }),
-      };
 
     default:
       return state;

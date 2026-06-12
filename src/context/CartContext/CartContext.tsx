@@ -1,54 +1,79 @@
 'use client';
+
 import {
   createContext,
   useContext,
   useEffect,
   useMemo,
   useReducer,
+  useRef,
   useState,
   ReactNode,
 } from 'react';
 import { CartContextType, CartItem } from './types';
 import { cartReducer, initialCartState } from './cartReducer';
-import {
-  addToCart as wooAddToCart,
-  emptyCart as wooEmptyCart,
-  getCart,
-  mapWooCartToItems,
-  removeItemsFromCart,
-  resolveCartKey,
-  updateItemQuantities,
-} from '@/lib/woocommerce/cart';
+
+const CART_STORAGE_KEY = 'photocomma-cart';
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-async function reloadFromWoo(
-  dispatch: React.Dispatch<Parameters<typeof cartReducer>[1]>
-) {
-  const cart = await getCart();
-  const items = cart?.contents?.nodes?.length
-    ? mapWooCartToItems(cart.contents.nodes)
-    : [];
+function loadStoredCart(): CartItem[] {
+  if (typeof window === 'undefined') return [];
 
-  dispatch({ type: 'HYDRATE', payload: items });
+  try {
+    const raw = localStorage.getItem(CART_STORAGE_KEY);
+    if (!raw) return [];
+
+    const parsed = JSON.parse(raw) as unknown;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(isValidCartItem);
+  } catch {
+    return [];
+  }
+}
+
+function isValidCartItem(value: unknown): value is CartItem {
+  if (!value || typeof value !== 'object') return false;
+
+  const item = value as CartItem;
+
+  return (
+    Number.isInteger(item.productId) &&
+    item.productId > 0 &&
+    Number.isInteger(item.variationId) &&
+    item.variationId > 0 &&
+    typeof item.title === 'string' &&
+    typeof item.image === 'string' &&
+    typeof item.size === 'string' &&
+    typeof item.price === 'number' &&
+    Number.isInteger(item.quantity) &&
+    item.quantity > 0
+  );
+}
+
+function persistCart(items: CartItem[]) {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
 }
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(cartReducer, initialCartState);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isHydrated, setIsHydrated] = useState(false);
+  const skipPersistRef = useRef(true);
 
   const openCart = () => setIsCartOpen(true);
   const closeCart = () => setIsCartOpen(false);
 
   useEffect(() => {
-    async function loadCart() {
-      await reloadFromWoo(dispatch);
-      setIsHydrated(true);
-    }
-
-    loadCart();
+    dispatch({ type: 'HYDRATE', payload: loadStoredCart() });
+    skipPersistRef.current = false;
   }, []);
+
+  useEffect(() => {
+    if (skipPersistRef.current) return;
+    persistCart(state.items);
+  }, [state.items]);
 
   const addItem = (item: CartItem) => {
     const quantity = item.quantity ?? 1;
@@ -60,110 +85,21 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         quantity,
       },
     });
-
-    wooAddToCart(item.productId, item.variationId, quantity)
-      .then(res => {
-        if (!res?.cart?.contents?.nodes) {
-          console.error('[Cart] Woo sync failed');
-          return;
-        }
-
-        dispatch({
-          type: 'SYNC_KEYS',
-          payload: res.cart.contents.nodes.map(node => ({
-            variationId: node.variation?.node?.databaseId ?? 0,
-            key: node.key,
-            quantity: node.quantity,
-          })),
-        });
-      })
-      .catch(err => {
-        console.error('[Cart] Woo sync error', err);
-      });
   };
 
   const removeItem = (variationId: number) => {
-    const item = state.items.find(entry => entry.variationId === variationId);
-    if (!item) return;
-
     dispatch({ type: 'REMOVE_ITEM', payload: { variationId } });
-
-    (async () => {
-      const key = item.key ?? (await resolveCartKey(variationId));
-
-      if (!key) {
-        console.error('[Cart] Missing cart key for removal');
-        await reloadFromWoo(dispatch);
-        return;
-      }
-
-      const result = await removeItemsFromCart([key]);
-
-      if (!result) {
-        console.error('[Cart] Woo remove failed');
-        await reloadFromWoo(dispatch);
-      }
-    })().catch(err => {
-      console.error('[Cart] Woo remove error', err);
-      reloadFromWoo(dispatch);
-    });
   };
 
   const updateQuantity = (variationId: number, quantity: number) => {
-    const item = state.items.find(entry => entry.variationId === variationId);
-    if (!item) return;
-
-    const previousQuantity = item.quantity;
-
     dispatch({
       type: 'UPDATE_QUANTITY',
       payload: { variationId, quantity },
-    });
-
-    (async () => {
-      const key = item.key ?? (await resolveCartKey(variationId));
-
-      if (!key) {
-        console.error('[Cart] Missing cart key for quantity update');
-        await reloadFromWoo(dispatch);
-        return;
-      }
-
-      const result = await updateItemQuantities([{ key, quantity }]);
-
-      if (!result) {
-        console.error('[Cart] Woo quantity update failed');
-        dispatch({
-          type: 'UPDATE_QUANTITY',
-          payload: { variationId, quantity: previousQuantity },
-        });
-        return;
-      }
-
-      dispatch({
-        type: 'SYNC_KEYS',
-        payload: result.cart.contents.nodes.map(node => ({
-          variationId: node.variation?.node?.databaseId ?? 0,
-          key: node.key,
-          quantity: node.quantity,
-        })),
-      });
-    })().catch(err => {
-      console.error('[Cart] Woo quantity update error', err);
-      dispatch({
-        type: 'UPDATE_QUANTITY',
-        payload: { variationId, quantity: previousQuantity },
-      });
     });
   };
 
   const clearCart = () => {
     dispatch({ type: 'CLEAR_CART' });
-
-    wooEmptyCart().catch(err => {
-      console.error('[Cart] Woo empty cart error', err);
-      reloadFromWoo(dispatch);
-    });
   };
 
   const totalItems = useMemo(() => {
@@ -174,7 +110,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     isCartOpen: boolean;
     openCart: () => void;
     closeCart: () => void;
-    isHydrated: boolean;
   } = {
     items: state.items,
     addItem,
@@ -185,7 +120,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     isCartOpen,
     openCart,
     closeCart,
-    isHydrated,
   };
 
   return (

@@ -1,8 +1,8 @@
 'use client';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/src/context/CartContext/CartContext';
 import styles from './cd.module.css';
-const SHOP_URL = process.env.NEXT_PUBLIC_SITE_SHOP_URL || 'https://shop.photocomma.com';
 
 const CartDrawer = () => {
   const {
@@ -13,10 +13,57 @@ const CartDrawer = () => {
     closeCart,
   } = useCart();
 
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+
   const total = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  const handleCheckout = async () => {
+    if (items.length === 0 || isCheckingOut) return;
+
+    setCheckoutError(null);
+    setIsCheckingOut(true);
+
+    try {
+      const res = await fetch('/api/checkout/handoff', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: items.map(item => ({
+            productId: item.productId,
+            variationId: item.variationId,
+            quantity: item.quantity,
+          })),
+        }),
+      });
+
+      const data = (await res.json()) as {
+        checkoutUrl?: string;
+        error?: string;
+        details?: string[];
+      };
+
+      if (!res.ok || !data.checkoutUrl) {
+        const detail = data.details?.[0];
+        setCheckoutError(detail ?? data.error ?? 'Checkout failed');
+        setIsCheckingOut(false);
+        return;
+      }
+
+      closeCart();
+      window.location.href = data.checkoutUrl;
+      console.log('HANDOFF RESPONSE:', data);
+      console.log('CHECKOUT URL:', data.checkoutUrl);
+      // TEMP
+      return;
+    } catch {
+      setCheckoutError('Checkout failed. Please try again.');
+      setIsCheckingOut(false);
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -82,6 +129,7 @@ const CartDrawer = () => {
                             )
                           }
                           className={styles['btn-stepper']}
+                          disabled={isCheckingOut}
                         >
                           -
                         </button>
@@ -96,6 +144,7 @@ const CartDrawer = () => {
                             )
                           }
                           className={styles['btn-stepper']}
+                          disabled={isCheckingOut}
                         >
                           +
                         </button>
@@ -103,6 +152,7 @@ const CartDrawer = () => {
                         <button
                           onClick={() => removeItem(item.variationId)}
                           className={styles['btn-remove']}
+                          disabled={isCheckingOut}
                         >
                           remove
                         </button>
@@ -122,14 +172,18 @@ const CartDrawer = () => {
                 <span className={styles['total-label']}>Total:</span> {total.toFixed(2)} <span className={styles['total-currency']}>EUR</span>
               </div>
 
+              {checkoutError ? (
+                <p className={styles['checkout-error']} role="alert">
+                  {checkoutError}
+                </p>
+              ) : null}
+
               <button
                 className={styles.checkout}
-                onClick={() => {
-                  closeCart();
-                  window.location.href = `${SHOP_URL}/checkout`;
-                }}
+                onClick={handleCheckout}
+                disabled={items.length === 0 || isCheckingOut}
               >
-                Checkout
+                {isCheckingOut ? 'Preparing checkout…' : 'Checkout'}
               </button>
             </div>
           </motion.aside>
