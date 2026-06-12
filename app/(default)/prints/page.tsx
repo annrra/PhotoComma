@@ -43,7 +43,7 @@ export default async function Prints() {
 
   const rawData: ProductsResponse = await getProducts();
   const products = rawData.products?.nodes ?? [];
-  console.log('RawData:');
+  console.log('RawData');
   console.log(JSON.stringify(rawData, null, 2));
 
   return (
