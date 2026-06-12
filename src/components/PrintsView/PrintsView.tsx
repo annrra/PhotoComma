@@ -10,6 +10,8 @@ type PrintsViewProps = {
 };
 
 const PrintsView = ({ products }: PrintsViewProps) => {
+  console.log(JSON.stringify(products, null, 2));
+  
 
   return (
     <>
