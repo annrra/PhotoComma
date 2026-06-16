@@ -64,19 +64,10 @@ export async function POST(req: Request) {
       );
     }
 
-    console.log(result);
     return NextResponse.json({ checkoutUrl: result.checkoutUrl });
   } catch (err) {
-    //console.error('[API checkout/handoff] Server error:', err);
-    //return NextResponse.json({ error: 'Server error' }, { status: 500 });
-    console.error('[API checkout/handoff] FULL ERROR:', err);
+    console.error('[API checkout/handoff] Server error:', err);
 
-    return NextResponse.json(
-      {
-        error: 'Server error',
-        details: err instanceof Error ? err.stack : err,
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }

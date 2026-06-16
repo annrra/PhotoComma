@@ -55,10 +55,6 @@ const CartDrawer = () => {
 
       closeCart();
       window.location.href = data.checkoutUrl;
-      console.log('HANDOFF RESPONSE:', data);
-      console.log('CHECKOUT URL:', data.checkoutUrl);
-      // TEMP
-      return;
     } catch {
       setCheckoutError('Checkout failed. Please try again.');
       setIsCheckingOut(false);
