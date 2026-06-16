@@ -12,6 +12,7 @@ import { useView } from '@/src/context/ViewContext/ViewContext';
 import { useRouter } from 'next/navigation';
 import { motion, useMotionValue, animate } from "framer-motion";
 import { DecodeHtml } from '@/src/components/_utils/DecodeHtml';
+import { usePostViewTracker } from './usePostViewTracker';
 
 const PostView = ({ 
   post,
@@ -33,6 +34,8 @@ const PostView = ({
   const imageKey = post.databaseId;
 
   const x = useMotionValue(0);
+
+  usePostViewTracker(post?.slug);
 
   const goPrev = useCallback(() => {
     if (prevPost?.slug) router.push(`/${prevPost.slug}`);
