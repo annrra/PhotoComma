@@ -9,12 +9,14 @@ type ViewControlsProps = {
   isFullscreen?: boolean;
   onToggleFullscreen?: () => void;
   hasExpandFullscreen?: boolean;
+  hasCartDrawer?: boolean;
 }
 
 const ViewControls = ({
   isFullscreen,
   onToggleFullscreen,
   hasExpandFullscreen = false,
+  hasCartDrawer = true,
 }: ViewControlsProps) => {
   const { toggleTheme } = useTheme();
   const { totalItems, openCart } = useCart();
@@ -39,54 +41,58 @@ const ViewControls = ({
 
   return (
     <>
-      <CartDrawer />
+      {hasCartDrawer && (
+        <CartDrawer />
+      )}
       <div className={classNames(styles.ctrls, {[styles.full]: isFullscreen})}>
-        <motion.button
-          className={classNames(styles['btn-ctrl'], {[styles.active]: totalItems > 0})}
-          initial="rest"
-          animate="rest"
-          whileHover="hover"
-          aria-label="Cart"
-          onClick={openCart}
-        >
-          <div style={{ position: 'relative' }}>
-            <svg
-              width={40}
-              height={40}
-              viewBox="0 0 40 40"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ overflow: 'visible' }}
-            >
-              <g id="cart-icon">
-                <motion.circle 
-                  id="Ellipse-cart" 
-                  cx={20} cy={20} 
-                  r={20}
-                  className={styles['cart-circle']}
-                  variants={circleVariants}
-                  style={{
-                    transformBox: 'fill-box',
-                    transformOrigin: 'center',
-                  }} 
-                />
-                <g id="shopping-cart">
-                  <path
-                    id="cart"
-                    d="M12.958 11.6667C12.6128 11.6667 12.333 11.9465 12.333 12.2917C12.333 12.6369 12.6128 12.9167 12.958 12.9167H14.3785V21.6856C14.3785 22.491 15.0314 23.1439 15.8368 23.1439H25.458C25.8032 23.1439 26.083 22.8641 26.083 22.5189C26.083 22.1738 25.8032 21.8939 25.458 21.8939H15.8368C15.7217 21.8939 15.6285 21.8007 15.6285 21.6856V20.4739H24.5627C24.9533 20.4739 25.2914 20.2027 25.3762 19.8214L26.3694 15.3517C26.4851 14.8313 26.0891 14.3376 25.556 14.3376H15.6285V12.2917C15.6285 11.9465 15.3486 11.6667 15.0035 11.6667H12.958ZM15.6285 15.5876H25.0365L24.2284 19.2239H15.6285V15.5876ZM15.8747 26.875C15.8747 26.4144 16.2473 26.0417 16.708 26.0417C17.1687 26.0417 17.5413 26.4144 17.5413 26.875C17.5413 27.3357 17.1687 27.7084 16.708 27.7084C16.2473 27.7084 15.8747 27.3357 15.8747 26.875ZM14.6247 26.875C14.6247 28.0261 15.557 28.9584 16.708 28.9584C17.859 28.9584 18.7913 28.0261 18.7913 26.875C18.7913 25.7239 17.859 24.7917 16.708 24.7917C15.557 24.7917 14.6247 25.7239 14.6247 26.875ZM24.208 26.0417C24.6687 26.0417 25.0413 26.4144 25.0413 26.875C25.0413 27.3357 24.6687 27.7084 24.208 27.7084C23.7473 27.7084 23.3747 27.3357 23.3747 26.875C23.3747 26.4144 23.7473 26.0417 24.208 26.0417ZM24.208 24.7917C23.0569 24.7917 22.1247 25.7239 22.1247 26.875C22.1247 28.0261 23.0569 28.9584 24.208 28.9584C25.3591 28.9584 26.2913 28.0261 26.2913 26.875C26.2913 25.7239 25.3591 24.7917 24.208 24.7917Z"
-                    className={styles['cart-icon-fill']}
+        {hasCartDrawer && (
+          <motion.button
+            className={classNames(styles['btn-ctrl'], {[styles.active]: totalItems > 0})}
+            initial="rest"
+            animate="rest"
+            whileHover="hover"
+            aria-label="Cart"
+            onClick={openCart}
+          >
+            <div style={{ position: 'relative' }}>
+              <svg
+                width={40}
+                height={40}
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ overflow: 'visible' }}
+              >
+                <g id="cart-icon">
+                  <motion.circle 
+                    id="Ellipse-cart" 
+                    cx={20} cy={20} 
+                    r={20}
+                    className={styles['cart-circle']}
+                    variants={circleVariants}
+                    style={{
+                      transformBox: 'fill-box',
+                      transformOrigin: 'center',
+                    }} 
                   />
+                  <g id="shopping-cart">
+                    <path
+                      id="cart"
+                      d="M12.958 11.6667C12.6128 11.6667 12.333 11.9465 12.333 12.2917C12.333 12.6369 12.6128 12.9167 12.958 12.9167H14.3785V21.6856C14.3785 22.491 15.0314 23.1439 15.8368 23.1439H25.458C25.8032 23.1439 26.083 22.8641 26.083 22.5189C26.083 22.1738 25.8032 21.8939 25.458 21.8939H15.8368C15.7217 21.8939 15.6285 21.8007 15.6285 21.6856V20.4739H24.5627C24.9533 20.4739 25.2914 20.2027 25.3762 19.8214L26.3694 15.3517C26.4851 14.8313 26.0891 14.3376 25.556 14.3376H15.6285V12.2917C15.6285 11.9465 15.3486 11.6667 15.0035 11.6667H12.958ZM15.6285 15.5876H25.0365L24.2284 19.2239H15.6285V15.5876ZM15.8747 26.875C15.8747 26.4144 16.2473 26.0417 16.708 26.0417C17.1687 26.0417 17.5413 26.4144 17.5413 26.875C17.5413 27.3357 17.1687 27.7084 16.708 27.7084C16.2473 27.7084 15.8747 27.3357 15.8747 26.875ZM14.6247 26.875C14.6247 28.0261 15.557 28.9584 16.708 28.9584C17.859 28.9584 18.7913 28.0261 18.7913 26.875C18.7913 25.7239 17.859 24.7917 16.708 24.7917C15.557 24.7917 14.6247 25.7239 14.6247 26.875ZM24.208 26.0417C24.6687 26.0417 25.0413 26.4144 25.0413 26.875C25.0413 27.3357 24.6687 27.7084 24.208 27.7084C23.7473 27.7084 23.3747 27.3357 23.3747 26.875C23.3747 26.4144 23.7473 26.0417 24.208 26.0417ZM24.208 24.7917C23.0569 24.7917 22.1247 25.7239 22.1247 26.875C22.1247 28.0261 23.0569 28.9584 24.208 28.9584C25.3591 28.9584 26.2913 28.0261 26.2913 26.875C26.2913 25.7239 25.3591 24.7917 24.208 24.7917Z"
+                      className={styles['cart-icon-fill']}
+                    />
+                  </g>
                 </g>
-              </g>
-            </svg>
+              </svg>
 
-            {totalItems > 0 && (
-              <div className={styles['cart-badge']}>
-                {totalItems}
-              </div>
-            )}
-          </div>
-        </motion.button>
+              {totalItems > 0 && (
+                <div className={styles['cart-badge']}>
+                  {totalItems}
+                </div>
+              )}
+            </div>
+          </motion.button>
+        )}
 
         <motion.button 
           onClick={toggleTheme}

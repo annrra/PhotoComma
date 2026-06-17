@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
   ReactNode,
+  useCallback,
 } from 'react';
 import { CartContextType, CartItem } from './types';
 import { cartReducer, initialCartState } from './cartReducer';
@@ -98,9 +99,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     dispatch({ type: 'CLEAR_CART' });
-  };
+    localStorage.removeItem('photocomma-cart');
+  }, []);
 
   const totalItems = useMemo(() => {
     return state.items.reduce((sum, item) => sum + item.quantity, 0);
