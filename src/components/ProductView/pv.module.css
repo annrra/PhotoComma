@@ -15,6 +15,13 @@
   max-width: var(--pc-max-width);
 }
 
+@media only screen and (max-width: 1000px) {
+  .scene {
+    grid-template-columns: 1fr;
+    gap: var(--pc-space-400);
+  }
+}
+
 .preview-figure {
   position: relative;
   width: 100%;
@@ -25,6 +32,13 @@
 .info {
   display: flex;
   flex-direction: column;
+  max-width: 90%;
+}
+
+@media only screen and (max-width: 1000px) {
+  .info {
+    max-width: 100%;
+  }
 }
 
 .info h1 {
@@ -32,10 +46,6 @@
   font-weight: 400;
   line-height: var(--lh-relaxed);
   text-transform: uppercase;
-}
-
-.info {
-  max-width: 90%;
 }
 
 .description {

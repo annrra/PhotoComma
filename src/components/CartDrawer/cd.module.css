@@ -22,6 +22,12 @@
   color: var(--pc-mobs-static);
 }
 
+@media only screen and (max-width: 500px) {
+  .drawer {
+    width: calc(100% - 16px);
+  }
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -210,6 +216,12 @@
   margin: 0 auto;
   gap: var(--pc-space-200);
   font-size: var(--font-sm-alt);
+}
+
+@media only screen and (max-width: 500px) {
+  .empty {
+    max-width: 90%;
+  }
 }
 
 .empty-image {

@@ -41,8 +41,14 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--pc-space-300);
+  gap: var(--pc-space-400);
   margin: var(--pc-space-700) 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .item {
@@ -73,6 +79,12 @@
   z-index: 1;
   top: 50%;
   transform: translateY(-50%);
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+.item a:hover .image {
+  transform: translateY(-50%) scale(1.02);
 }
 
 .product-content {
@@ -155,15 +167,37 @@
   opacity: 1;
 }
 
-@media only screen and (max-width: 1000px) {
-  .segment {
-    width: 100%;
-  }
+.more {
+  position: relative;
+  color: var(--pc-accent);
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
-@media only screen and (max-width: 768px) {
+.more::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--pc-accent);
+  transition: all 0.3s ease;
+}
+
+.more:hover::after {
+  width: 100%;
+}
+
+@media only screen and (max-width: 1200px) {
   .panel {
     width: 80%;
     margin: var(--pc-space-500) 0 var(--pc-space-400);
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .segment {
+    width: 100%;
   }
 }
