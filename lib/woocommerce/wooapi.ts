@@ -39,7 +39,7 @@ export async function getProducts() {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
       query:`{
-        products {
+        products(first: 10, where: {orderby: {field: DATE, order: DESC}}) {
           nodes {
             title
             uri
