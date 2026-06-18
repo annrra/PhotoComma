@@ -1,7 +1,6 @@
 import { SeparatorDecorator } from '@/src/components/ui/SeparatorDecorator';
 import styles from './pv.module.css';
 import { EmailLink } from '@/src/components/_utils/EmailLink';
-import Link from 'next/link';
 
 const PrintsInfoPanel = () => {
 
@@ -14,7 +13,7 @@ const PrintsInfoPanel = () => {
       Available in a selection of sizes.<br />
       Shipping worldwide.<br /><br />
 
-      Other prints available on request: <EmailLink showEmail className={styles.mailto} />
+      For other prints or framing queries, please contact: <EmailLink showEmail className={styles.mailto} />
     </div>
   )
 }

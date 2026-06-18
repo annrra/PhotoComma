@@ -1,46 +1,80 @@
-export function SchemaOrgPrints() {
+import type { ProductsResponse } from "@/src/components/PrintsView/types";
+
+type SchemaOrgPrintsProps = {
+  products: ProductsResponse["products"]["nodes"];
+};
+
+export function SchemaOrgPrints({ products }: SchemaOrgPrintsProps) {
+  
+  const items =
+    products?.map((product, index) => {
+      const image = product.featuredImage?.node;
+
+      // take lowest variation price (if exists)
+      const price =
+        product.variations?.nodes
+          ?.map(v => parseFloat(v.price))
+          .filter(Boolean)
+          .sort((a, b) => a - b)[0];
+
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        url: `https://photocomma.com/shop/${product.slug}`,
+        item: {
+          "@type": "Product",
+
+          name: product.title,
+
+          description: undefined, // not available in type
+
+          image: image?.sourceUrl,
+
+          offers: price
+            ? {
+                "@type": "Offer",
+                price: price,
+                priceCurrency: "EUR",
+                availability: "https://schema.org/InStock",
+                url: `https://photocomma.com/shop/${product.slug}`,
+              }
+            : undefined,
+        },
+      };
+    }) || [];
+
   const schema = {
     "@context": "https://schema.org",
-    "@type": "ContactPage",
+    "@type": "CollectionPage",
 
-    name: "Prints | PhotoComma",
+    name: "Photography Prints | PhotoComma",
     url: "https://photocomma.com/prints",
-
     description:
-      "Fine art photography prints by Andrey Raychev, available worldwide. Carefully produced prints from selected photographic projects.",
+      "Fine art photography prints by Andrey Raychev, available worldwide.",
 
     mainEntity: {
-      "@type": "Offer",
+      "@type": "ItemList",
       name: "Fine Art Photography Prints",
-
-      description:
-        "Each photograph is available as a carefully produced print with worldwide shipping.",
-
-      areaServed: "Worldwide",
-
-      seller: {
-        "@type": "Person",
-        name: "Andrey Raychev",
-      }
+      itemListElement: items,
     },
 
     author: {
       "@type": "Person",
       name: "Andrey Raychev",
-      url: "https://photocomma.com"
+      url: "https://photocomma.com",
     },
 
     publisher: {
       "@type": "Organization",
       name: "PhotoComma",
-      url: "https://photocomma.com"
+      url: "https://photocomma.com",
     },
 
     isPartOf: {
       "@type": "WebSite",
       name: "PhotoComma",
-      url: "https://photocomma.com"
-    }
+      url: "https://photocomma.com",
+    },
   };
 
   return (

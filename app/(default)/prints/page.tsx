@@ -46,7 +46,7 @@ export default async function Prints() {
 
   return (
     <>
-      <SchemaOrgPrints />
+      <SchemaOrgPrints products={products} />
       <div className={styles.print}>
         <Header />
         <PrintsView products={products} />

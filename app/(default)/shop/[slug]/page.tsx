@@ -5,6 +5,7 @@ import { Header } from '@/src/components/Header';
 import { Footer } from '@/src/components/Footer';
 import { ProductView } from '@/src/components/ProductView';
 import styles from './page.module.css';
+import { SchemaOrgProduct } from "@/src/components/seo/SchemaOrgProduct";
 
 type ProductProps = {
   params: {
@@ -28,6 +29,7 @@ export default async function ProductPage({ params }: ProductProps) {
 
   return (
     <>
+      <SchemaOrgProduct product={product} />
       <div className={styles.stage}>
         <Header />
         <ProductView product={product} />
