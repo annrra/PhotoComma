@@ -1,4 +1,4 @@
-import type { ProductsResponse } from "@/src/components/PrintsView/types";
+import type { ProductsResponse } from '@/src/components/PrintsView/types';
 
 type SchemaOrgPrintsProps = {
   products: ProductsResponse["products"]["nodes"];

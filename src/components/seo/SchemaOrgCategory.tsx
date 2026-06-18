@@ -1,5 +1,5 @@
 import type { Category } from '@/src/components/CategoryView/types';
-import { categoryMetaMap } from "@/src/components/_utils/MetaDataCategoryUtil/categoryMeta";
+import { categoryMetaMap } from '@/src/components/_utils/MetaDataCategoryUtil/categoryMeta';
 
 type SchemaOrgCategoryProps = {
   category: Category | null;

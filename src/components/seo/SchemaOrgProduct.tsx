@@ -1,4 +1,4 @@
-import type { Product } from "@/src/components/ProductView/types";
+import type { Product } from '@/src/components/ProductView/types';
 
 type SchemaOrgProductProps = {
   product: Product;
