@@ -30,13 +30,31 @@ const ProductCard = ({ product }: Props) => {
   const defaultIndex = useMemo(() => {
     if (!variations.length) return 0;
 
+    const defaults = product.defaultAttributes?.nodes ?? [];
+
+    // Try WooCommerce default attributes first
+    if (defaults.length) {
+      const matchIndex = variations.findIndex(v => {
+        const attrs = v.attributes?.nodes ?? [];
+
+        return defaults.every(def =>
+          attrs.some(
+            a => a.name === def.name && a.value === def.value
+          )
+        );
+      });
+
+      if (matchIndex !== -1) return matchIndex;
+    }
+
+    // Fallback: cheapest variation
     return variations.reduce((minIdx, v, i, arr) => {
       const price = Number(v.price);
       const minPrice = Number(arr[minIdx].price);
 
       return price < minPrice ? i : minIdx;
     }, 0);
-  }, [variations]);
+  }, [variations, product.defaultAttributes]);
 
   const [selected, setSelected] = useState(defaultIndex);
 

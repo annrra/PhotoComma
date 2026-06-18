@@ -1,12 +1,14 @@
+export type ProductAttribute = {
+  name: string;
+  value: string;
+};
+
 export type ProductVariation = {
   databaseId: number;
   id: string;
   price: string;
   attributes: {
-    nodes: {
-      name: string;
-      value: string;
-    }[];
+    nodes: ProductAttribute[];
   };
 };
 
@@ -24,8 +26,12 @@ export type Product = {
   slug: string;
   databaseId: number;
 
-  description?: string;
-  shortDescription?: string;
+  description?: string | null;
+  shortDescription?: string | null;
+
+  defaultAttributes?: {
+    nodes: ProductAttribute[];
+  };
 
   variations?: {
     nodes: ProductVariation[];
@@ -36,4 +42,4 @@ export type Product = {
 
 export type GetProductResponse = {
   product: Product | null;
-}
+};

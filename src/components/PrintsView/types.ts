@@ -1,8 +1,10 @@
+export type ProductAttributeNode = {
+  name: string;
+  value: string;
+};
+
 export type ProductAttribute = {
-  nodes: {
-    name: string;
-    value: string;
-  }[];
+  nodes: ProductAttributeNode[];
 };
 
 export type ProductVariation = {
@@ -25,6 +27,10 @@ export type Product = {
   slug: string;
   databaseId: number;
   status: string;
+
+  defaultAttributes?: {
+    nodes: ProductAttributeNode[];
+  };
 
   variations?: {
     nodes: ProductVariation[];

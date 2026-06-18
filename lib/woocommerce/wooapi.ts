@@ -46,6 +46,14 @@ export async function getProducts() {
             slug
             databaseId
             status
+            ... on ProductWithAttributes {
+              defaultAttributes {
+                nodes {
+                  name
+                  value
+                }
+              }
+            }
             ... on VariableProduct {
               variations {
                 nodes {
@@ -100,6 +108,14 @@ export async function getProduct(slug: string) {
           databaseId
           description
           shortDescription
+          ... on ProductWithAttributes {
+            defaultAttributes {
+              nodes {
+                name
+                value
+              }
+            }
+          }
           ... on VariableProduct {
             variations {
               nodes {

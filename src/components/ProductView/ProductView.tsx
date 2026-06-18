@@ -7,6 +7,7 @@ import type { Product } from './types';
 import { ViewControls } from '@/src/components/ViewControls';
 import { useCart } from '@/src/context/CartContext/CartContext';
 import classNames from 'classnames';
+import { SeparatorDecorator } from '@/src/components/ui/SeparatorDecorator';
 
 type ProductViewProps = {
   product: Product;
@@ -38,13 +39,31 @@ const ProductView = ({ product }: ProductViewProps) => {
   const defaultIndex = useMemo(() => {
     if (!variations.length) return 0;
 
+    const defaults = product.defaultAttributes?.nodes ?? [];
+
+    // 1. Try match WooCommerce default attributes
+    if (defaults.length) {
+      const matchIndex = variations.findIndex(v => {
+        const attrs = v.attributes?.nodes ?? [];
+
+        return defaults.every(def =>
+          attrs.some(
+            a => a.name === def.name && a.value === def.value
+          )
+        );
+      });
+
+      if (matchIndex !== -1) return matchIndex;
+    }
+
+    // 2. Fallback: cheapest variation
     return variations.reduce((minIdx, v, i, arr) => {
       const price = Number(v.price);
       const minPrice = Number(arr[minIdx].price);
 
       return price < minPrice ? i : minIdx;
     }, 0);
-  }, [variations]);
+  }, [variations, product.defaultAttributes]);
 
   const [selected, setSelected] = useState(defaultIndex);
 
@@ -117,12 +136,21 @@ const ProductView = ({ product }: ProductViewProps) => {
               })}
             </div>
 
-            <div
-              className={styles.description}
-              dangerouslySetInnerHTML={{
-                __html: product.description ?? '',
-              }}
-            />
+            <div className={styles.info}>
+              <div
+                className={styles.description}
+                dangerouslySetInnerHTML={{
+                  __html: product.description ?? '',
+                }}
+              />
+              <SeparatorDecorator />
+              <div
+                className={styles['details']}
+                dangerouslySetInnerHTML={{
+                  __html: product.shortDescription ?? '',
+                }}
+              />
+            </div>
 
             <button
               className={styles['cart-btn']}

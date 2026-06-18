@@ -34,11 +34,31 @@
   text-transform: uppercase;
 }
 
+.info {
+  max-width: 90%;
+}
+
 .description {
   font-size: var(--font-sm-alt);
   margin: var(--pc-space-300) 0;
-  max-width: 90%;
   line-height: var(--lh-relaxed);
+}
+
+.details {
+  font-size: var(--font-sm-alt);
+  margin: var(--pc-space-300) 0;
+  line-height: var(--lh-relaxed);
+  color: var(--pc-text-muted);
+}
+
+.details ul {
+  list-style: none;
+  margin: var(--pc-space-100) 0;
+  padding: 0 0 0 var(--pc-space-200);
+}
+
+.details p {
+  margin-bottom: var(--pc-space-100);
 }
 
 .variation-label {
@@ -50,6 +70,7 @@
 .variations {
   display: inline-flex;
   gap: var(--pc-space-300);
+  margin-top: var(--pc-space-50);
 }
 
 .variation button {
