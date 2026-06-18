@@ -114,7 +114,7 @@
   --pc-light-60: var(--pc-bg-60);
   --pc-light-100: var(--pc-bg-100);
   --pc-mobs: var(--pc-bg-05);
-  --pc-mobs-sec: var(--pc-bg-10);
+  --pc-mobs-sec: #E6E6E6;
   --pc-text-muted: #808080;
   --pc-text-subtle: #c6c6c6;
   --surface: #000000;

@@ -94,9 +94,8 @@
   justify-content: center;
   width: var(--pc-space-200);
   height: var(--pc-space-200);
-  background-color: var(--pc-accent);
   background-color: var(--pc-mobs-sec);
-  color: var(--pc-text-static);
+  color: var(--pc-text);
   font-size: var(--font-xs);
   border-radius: 50%;
 }

@@ -151,3 +151,63 @@ export async function getProduct(slug: string) {
   const json = await res.json();
   return json.data ?? { posts: { nodes: [] } };
 }
+
+export async function getPrivacyPolicy() {
+	if (!API_URL) {
+    console.error('API_URL is not defined.');
+    return { posts: { nodes: [] } };
+  }
+
+  const res = await fetchWithTimeout(API_URL, {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      query:`{
+        page(id: "privacy-policy", idType: URI) {
+          title
+          slug
+          content
+          status
+        }
+      }`
+    }),
+    next: { revalidate: 10 },
+  });
+   
+  if (!res || !res.ok) {
+    return { posts: { nodes: [] } };
+  }
+
+  const json = await res.json();
+  return json.data ?? { posts: { nodes: [] } };
+}
+
+export async function getTermsAndConditions() {
+	if (!API_URL) {
+    console.error('API_URL is not defined.');
+    return { posts: { nodes: [] } };
+  }
+
+  const res = await fetchWithTimeout(API_URL, {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      query:`{
+        page(id: "terms-and-conditions", idType: URI) {
+          title
+          slug
+          content
+          status
+        }
+      }`
+    }),
+    next: { revalidate: 10 },
+  });
+   
+  if (!res || !res.ok) {
+    return { posts: { nodes: [] } };
+  }
+
+  const json = await res.json();
+  return json.data ?? { posts: { nodes: [] } };
+}

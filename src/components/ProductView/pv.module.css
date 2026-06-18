@@ -55,7 +55,7 @@
 }
 
 .details {
-  font-size: var(--font-sm-alt);
+  font-size: var(--font-sm);
   margin: var(--pc-space-300) 0;
   line-height: var(--lh-relaxed);
   color: var(--pc-text-muted);

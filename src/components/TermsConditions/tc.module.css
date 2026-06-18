@@ -1,0 +1,78 @@
+.pane {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.panel {
+  max-width: 60%;
+  margin: var(--pc-space-300) 0 var(--pc-space-600);
+}
+
+.segment {
+  font-size: var(--font-sm-alt);
+  line-height: var(--lh-relaxed);
+  width: 70%;
+  margin: 0 auto;
+}
+
+.sronly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.segment svg {
+  margin-bottom: var(--pc-space-400);
+}
+
+.segment h2 {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: var(--font-base);
+  margin: 0 0 var(--pc-space-200);
+}
+
+.segment p {
+  margin: 0 0 var(--pc-space-200);
+  line-height: var(--lh-relaxed);
+}
+
+.segment ul {
+  margin: var(--pc-space-200) 0;
+  padding-left: var(--pc-space-300);
+  line-height: var(--lh-relaxed);
+  list-style: circle;
+}
+
+.segment a {
+  position: relative;
+  display: inline-block;
+  padding: 0 0 0;
+  border-bottom: 1px dotted var(--pc-text);
+  transition: all 0.3s ease;
+}
+
+.segment a:hover {
+  border-bottom: 1px solid var(--pc-text);
+}
+
+@media only screen and (max-width: 1000px) {
+  .segment {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .panel {
+    max-width: 80%;
+    margin: var(--pc-space-500) 0 var(--pc-space-400);
+  }
+}
