@@ -20,7 +20,7 @@ const Nav = ({ navigation, collapsed = false }: NavProps) => {
     <div className={classNames(styles.nav, {[styles.collapsed]: collapsed})}>
       <ul>
         {navigation.map((item) => (    
-          <li key={item.menuItemId} className={classNames(styles.navitem, {[styles.navalt]: item.label === 'about'})}>
+          <li key={item.menuItemId} className={classNames(styles.navitem, {[styles.navalt]: item.label === 'prints'})}>
             <Link href={item.uri} className={styles.link}>
               <span className={styles.navlabel}>{item.label}</span>
               <span className={styles.separator}></span>
