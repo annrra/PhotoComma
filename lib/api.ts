@@ -132,6 +132,7 @@ export async function getMainNavigation() {
               uri
               menuItemId
               label
+              title
             }
           }
         }
