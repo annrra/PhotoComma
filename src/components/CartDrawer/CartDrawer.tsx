@@ -3,6 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/src/context/CartContext/CartContext';
 import styles from './cd.module.css';
 
+const CHECKOUT_MESSAGES = {
+  preparing: 'Preparing checkout…',
+  error: 'Checkout failed. Please try again.',
+};
+
 const CartDrawer = () => {
   const {
     items,
@@ -24,7 +29,7 @@ const CartDrawer = () => {
     if (items.length === 0) return;
 
     setCheckoutTransition(true);
-    setCheckoutStatus('Preparing secure checkout...');
+    setCheckoutStatus(CHECKOUT_MESSAGES.preparing);
 
     try {
       const res = await fetch('/api/checkout/handoff', {
@@ -42,21 +47,19 @@ const CartDrawer = () => {
       const data = await res.json();
 
       if (!res.ok || !data.checkoutUrl) {
-        setCheckoutStatus('Checkout failed. Please try again.');
+        setCheckoutStatus(CHECKOUT_MESSAGES.error);
         setTimeout(() => setCheckoutTransition(false), 2000);
         return;
       }
-
-      setCheckoutStatus('Redirecting to secure payment...');
 
       // small UX delay for smoother transition
       setTimeout(() => {
         closeCart();
         window.location.href = data.checkoutUrl;
-      }, 400);
+      }, 600);
 
     } catch {
-      setCheckoutStatus('Checkout failed. Please try again.');
+      setCheckoutStatus(CHECKOUT_MESSAGES.error);
       setTimeout(() => setCheckoutTransition(false), 2000);
     }
   };

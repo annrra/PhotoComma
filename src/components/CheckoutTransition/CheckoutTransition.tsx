@@ -15,7 +15,6 @@ const CheckoutTransition = ({
     <div className={styles.overlay}>
       <div className={styles.card}>
         <LogoSvg spin customClassName={styles['filler-static']} />
-        <div>Preparing secure checkout...</div>
         <div>{status}</div>
       </div>
     </div>
