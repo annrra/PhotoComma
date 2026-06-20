@@ -61,6 +61,10 @@ function persistCart(items: CartItem[]) {
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(cartReducer, initialCartState);
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const [checkoutTransition, setCheckoutTransition] = useState(false);
+  const [checkoutStatus, setCheckoutStatus] = useState('');
+
   const skipPersistRef = useRef(true);
 
   const openCart = () => setIsCartOpen(true);
@@ -112,6 +116,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     isCartOpen: boolean;
     openCart: () => void;
     closeCart: () => void;
+    checkoutTransition: boolean;
+    setCheckoutTransition: (v: boolean) => void;
+    checkoutStatus: string;
+    setCheckoutStatus: (v: string) => void;
   } = {
     items: state.items,
     addItem,
@@ -122,6 +130,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     isCartOpen,
     openCart,
     closeCart,
+    checkoutTransition,
+    setCheckoutTransition,
+    checkoutStatus,
+    setCheckoutStatus,
   };
 
   return (

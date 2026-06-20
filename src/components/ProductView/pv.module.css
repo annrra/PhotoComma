@@ -151,7 +151,7 @@
 }
 
 .cart-btn {
-  color: var(--pc-text);
+  color: var(--pc-white-static);
   background-color: var(--pc-accent);
   padding: 0 var(--pc-space-300);
   line-height: var(--pc-space-500);

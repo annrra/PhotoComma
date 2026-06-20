@@ -26,4 +26,9 @@ export type CartContextType = {
   isCartOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
+
+  checkoutTransition: boolean;
+  setCheckoutTransition: (value: boolean) => void;
+  checkoutStatus: string;
+  setCheckoutStatus: (value: string) => void;
 };

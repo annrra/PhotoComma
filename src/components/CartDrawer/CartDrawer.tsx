@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/src/context/CartContext/CartContext';
 import styles from './cd.module.css';
@@ -11,10 +10,10 @@ const CartDrawer = () => {
     updateQuantity,
     isCartOpen,
     closeCart,
+    setCheckoutTransition,
+    setCheckoutStatus,
+    checkoutTransition,
   } = useCart();
-
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const total = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -22,10 +21,10 @@ const CartDrawer = () => {
   );
 
   const handleCheckout = async () => {
-    if (items.length === 0 || isCheckingOut) return;
+    if (items.length === 0) return;
 
-    setCheckoutError(null);
-    setIsCheckingOut(true);
+    setCheckoutTransition(true);
+    setCheckoutStatus('Preparing secure checkout...');
 
     try {
       const res = await fetch('/api/checkout/handoff', {
@@ -40,24 +39,25 @@ const CartDrawer = () => {
         }),
       });
 
-      const data = (await res.json()) as {
-        checkoutUrl?: string;
-        error?: string;
-        details?: string[];
-      };
+      const data = await res.json();
 
       if (!res.ok || !data.checkoutUrl) {
-        const detail = data.details?.[0];
-        setCheckoutError(detail ?? data.error ?? 'Checkout failed');
-        setIsCheckingOut(false);
+        setCheckoutStatus('Checkout failed. Please try again.');
+        setTimeout(() => setCheckoutTransition(false), 2000);
         return;
       }
 
-      closeCart();
-      window.location.href = data.checkoutUrl;
+      setCheckoutStatus('Redirecting to secure payment...');
+
+      // small UX delay for smoother transition
+      setTimeout(() => {
+        closeCart();
+        window.location.href = data.checkoutUrl;
+      }, 400);
+
     } catch {
-      setCheckoutError('Checkout failed. Please try again.');
-      setIsCheckingOut(false);
+      setCheckoutStatus('Checkout failed. Please try again.');
+      setTimeout(() => setCheckoutTransition(false), 2000);
     }
   };
 
@@ -125,7 +125,7 @@ const CartDrawer = () => {
                             )
                           }
                           className={styles['btn-stepper']}
-                          disabled={isCheckingOut}
+                          disabled={checkoutTransition}
                         >
                           -
                         </button>
@@ -140,7 +140,7 @@ const CartDrawer = () => {
                             )
                           }
                           className={styles['btn-stepper']}
-                          disabled={isCheckingOut}
+                          disabled={checkoutTransition}
                         >
                           +
                         </button>
@@ -148,7 +148,7 @@ const CartDrawer = () => {
                         <button
                           onClick={() => removeItem(item.variationId)}
                           className={styles['btn-remove']}
-                          disabled={isCheckingOut}
+                          disabled={checkoutTransition}
                         >
                           remove
                         </button>
@@ -168,18 +168,12 @@ const CartDrawer = () => {
                 <span className={styles['total-label']}>Total:</span> {total.toFixed(2)} <span className={styles['total-currency']}>EUR</span>
               </div>
 
-              {checkoutError ? (
-                <p className={styles['checkout-error']} role="alert">
-                  {checkoutError}
-                </p>
-              ) : null}
-
               <button
                 className={styles.checkout}
                 onClick={handleCheckout}
-                disabled={items.length === 0 || isCheckingOut}
+                disabled={items.length === 0}
               >
-                {isCheckingOut ? 'Preparing checkout…' : 'Checkout'}
+                Checkout
               </button>
             </div>
           </motion.aside>
