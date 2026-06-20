@@ -51,9 +51,18 @@
   transition: color 0.3s ease;
 }
 
+.title {
+  color: var(--pc-accent);
+  transition: color 0.3s ease;
+}
+
 .link:hover .navlabel {
   color: var(--pc-accent);
 }
+
+/* .link:hover .title {
+  color: var(--pc-text-static);
+} */
 
 .separator {
   position: relative;

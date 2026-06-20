@@ -5,6 +5,7 @@
   --pc-text-subtle-static: #808080;
   --pc-mobs-static: #111111;
   --pc-mobs-sec-static: #333333;
+  --pc-white-static: #fff;
 
   /* ========== Backgrounds ========== */
   --pc-bg: #000;
@@ -98,6 +99,13 @@
   --pc-space-1000: 80px;
 
   --pc-max-width: 1400px;
+  --pc-max-width-sm: 1000px;
+
+  /* ========== Forms ========== */
+  --pc-input-bg: #222222;
+  --pc-input-border: #515151;
+  --pc-input-text: #fff;
+  --pc-input-radius: var(--pc-radius-md);
 }
 
 [data-theme='light'] {
@@ -106,10 +114,13 @@
   --pc-light-60: var(--pc-bg-60);
   --pc-light-100: var(--pc-bg-100);
   --pc-mobs: var(--pc-bg-05);
-  --pc-mobs-sec: var(--pc-bg-10);
+  --pc-mobs-sec: #E6E6E6;
   --pc-text-muted: #808080;
   --pc-text-subtle: #c6c6c6;
   --surface: #000000;
+  --pc-input-bg: #fff;
+  --pc-input-border: #000;
+  --pc-input-text: #000;
 }
 
 /* =========================
@@ -184,4 +195,20 @@ body {
   color: var(--pc-text);
   font-family: var(--font-system);
   font-family: var(--font-geist-sans);
+}
+
+input, select {
+  line-height: var(--pc-space-500);
+  padding: 0 var(--pc-space-200);
+}
+
+input, textarea, select {
+  background-color: var(--pc-input-bg);
+  border: 1px solid var(--pc-input-border);
+  border-radius: var(--pc-input-radius);
+  color: var(--pc-input-text);
+}
+
+select {
+  height: var(--pc-space-500);
 }

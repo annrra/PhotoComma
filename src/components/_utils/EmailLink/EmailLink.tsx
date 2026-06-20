@@ -1,23 +1,20 @@
 'use client';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 type EmailLinkProps = {
   className?: string;
   showEmail?: boolean;
-}
+};
 
 const EmailLink = ({ className, showEmail = false }: EmailLinkProps) => {
-  const a = "ann"
-  const b = "rra"
-  const c = "gma"
-  const d = "il"
-  const e = "co"
-  const f = "m"
+  const a = "ann";
+  const b = "rra";
+  const c = "gma";
+  const d = "il";
+  const e = "co";
+  const f = "m";
 
-  // Construct only in JS runtime
-  const email = useMemo(() => {
-    return `${a + b}@${c + d}.${e + f}`;
-  }, []);
+  const email = `${a + b}@${c + d}.${e + f}`;
 
   const handleClick = () => {
     window.open(`mailto:${email}`);
@@ -37,7 +34,7 @@ const EmailLink = ({ className, showEmail = false }: EmailLinkProps) => {
     >
       {showEmail ? email : "email"}
     </span>
-  )
-}
+  );
+};
 
 export default EmailLink;

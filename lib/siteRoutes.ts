@@ -27,6 +27,8 @@ export type PublishedCategoryConfig = {
 export const STATIC_PAGES: StaticPageConfig[] = [
   { slug: 'apropos', priority: 0.9, changefreq: 'monthly' },
   { slug: 'prints', priority: 0.9, changefreq: 'monthly' },
+  { slug: 'privacy-policy', priority: 0.9, changefreq: 'monthly' },
+  { slug: 'terms', priority: 0.9, changefreq: 'monthly' },
 ];
 
 export const PUBLISHED_CATEGORIES: PublishedCategoryConfig[] = [

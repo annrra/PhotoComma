@@ -1,4 +1,8 @@
 import type { NextConfig } from "next";
+const SHOP_URL = "https://shop.photocomma.com";
+const API_URL = "https://api.photocomma.com";
+
+const isDev = process.env.NODE_ENV === "development";
 
 const securityHeaders = [
   {
@@ -9,8 +13,8 @@ const securityHeaders = [
       style-src 'self' 'unsafe-inline';
       img-src 'self' data: blob: https:;
       font-src 'self' data: https:;
-      connect-src 'self' https://api.photocomma.com https://va.vercel-scripts.com https://vitals.vercel-insights.com https://cloud.umami.is https://api-gateway.umami.dev;
-      media-src 'self' https://api.photocomma.com;
+      connect-src 'self' ${API_URL} ${SHOP_URL} https://va.vercel-scripts.com https://vitals.vercel-insights.com https://cloud.umami.is https://api-gateway.umami.dev;
+      media-src 'self' ${API_URL};
       frame-ancestors 'none';
     `.replace(/\n/g, ""),
   },
@@ -57,6 +61,10 @@ const nextConfig: NextConfig = {
   },
 
   async headers() {
+    if (isDev) {
+      return [];
+    }
+
     return [
       {
         source: "/(.*)", // applies to ALL routes
