@@ -4,6 +4,15 @@ type SchemaOrgProductProps = {
   product: Product;
 };
 
+function stripHtml(html?: string) {
+  if (!html) return undefined;
+
+  return html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export function SchemaOrgProduct({ product }: SchemaOrgProductProps) {
   const image = product.featuredImage?.node;
 
@@ -26,7 +35,9 @@ export function SchemaOrgProduct({ product }: SchemaOrgProductProps) {
 
     image: image?.sourceUrl,
 
-    description: product.description || product.shortDescription || undefined,
+    description: stripHtml(
+      product.description || product.shortDescription || undefined
+    ),
 
     brand: {
       "@type": "Brand",
