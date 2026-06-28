@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './pv.module.css';
@@ -29,6 +29,7 @@ function formatPrice(price?: string | null) {
 
 const ProductView = ({ product }: ProductViewProps) => {
   const { addItem, openCart } = useCart();
+  const [isImageOpen, setIsImageOpen] = useState(false);
 
   const productImage = product?.featuredImage?.node;
 
@@ -68,7 +69,15 @@ const ProductView = ({ product }: ProductViewProps) => {
   const [selected, setSelected] = useState(defaultIndex);
 
   const activeVariation = variations[selected];
-  
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsImageOpen(false);
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
 
   return (
     <>
@@ -92,7 +101,7 @@ const ProductView = ({ product }: ProductViewProps) => {
             <span>Back to Shop</span></Link>
         </div>
         <div className={styles.scene}>
-          <div className={styles.preview}>
+          <div className={styles.preview} onClick={() => setIsImageOpen(true)}>
             {productImage?.sourceUrl && (
               <>
                 <Image
@@ -145,7 +154,7 @@ const ProductView = ({ product }: ProductViewProps) => {
               />
               <SeparatorDecorator />
               <div
-                className={styles['details']}
+                className={styles.details}
                 dangerouslySetInnerHTML={{
                   __html: product.shortDescription ?? '',
                 }}
@@ -174,6 +183,36 @@ const ProductView = ({ product }: ProductViewProps) => {
           </div>
         </div>
       </div>
+
+      {isImageOpen && productImage?.sourceUrl && (
+        <div className={styles.modal} onClick={() => setIsImageOpen(false)}>
+          <button onClick={() => setIsImageOpen(false)} className={styles.close}>
+            <svg
+              width={24}
+              height={24}
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6.96381 8.02502L10.8114 11.8727L6.96443 15.7197C6.67153 16.0126 6.67153 16.4874 6.96443 16.7803C7.25732 17.0732 7.73219 17.0732 8.02509 16.7803L11.8721 12.9333L15.7191 16.7803C16.012 17.0732 16.4869 17.0732 16.7798 16.7803C17.0727 16.4874 17.0727 16.0126 16.7798 15.7197L12.9328 11.8727L16.7804 8.02502C17.0733 7.73213 17.0733 7.25725 16.7804 6.96436C16.4875 6.67147 16.0126 6.67147 15.7197 6.96436L11.8721 10.812L8.02447 6.96436C7.73158 6.67147 7.2567 6.67147 6.96381 6.96436C6.67092 7.25725 6.67092 7.73213 6.96381 8.02502Z"
+                fill="black"
+                className={styles['fill-x']}
+              />
+            </svg>
+          </button>
+          <div className={styles['modal-content']}>
+            <Image
+              src={productImage.sourceUrl}
+              alt={productImage?.altText || ""}
+              width={1200}
+              height={1200}
+              unoptimized
+              className={styles['modal-image']}
+            />
+          </div>
+        </div>
+      )}
     </>
   )
 }
