@@ -22,6 +22,10 @@
   }
 }
 
+.preview {
+  cursor: pointer;
+}
+
 .preview-figure {
   position: relative;
   width: 100%;
@@ -79,7 +83,7 @@
 
 .variations {
   display: inline-flex;
-  gap: var(--pc-space-300);
+  gap: var(--pc-space-50);
   margin-top: var(--pc-space-50);
 }
 
@@ -87,34 +91,37 @@
   font-size: var(--font-sm-alt);
   border: 0;
   outline: none;
-  padding: 0 0 var(--pc-space-25);
-  border-bottom: 1px solid transparent;
+  padding: var(--pc-space-25) var(--pc-space-200);
+  border-bottom: 0 solid transparent;
   position: relative;
-  color: var(--pc-text-subtle);
+  color: var(--pc-text);
   transition: all 0.3s ease;
+  background-color: var(--pc-light-10);
+  border-radius: var(--pc-radius-xs);
+}
+
+.variation button:hover {
+  background-color: var(--pc-light-20);
 }
 
 .variation button.active {
-  color: var(--pc-text);
+  background-color: var(--pc-light-30);
 }
 
-.variation button::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 1px;
-  background-color: var(--pc-text);
-  transition: all 0.3s ease;
+.variation button.active:hover {
+  background-color: var(--pc-light-30);
 }
 
-.variation button.active::after {
-  width: 100%;
+[data-theme='light'] .variation button {
+  background-color: var(--pc-bg-10);
 }
 
-.variation button:hover::after {
-  width: 100%;
+[data-theme='light'] .variation button.active {
+  background-color: var(--pc-bg-20);
+}
+
+[data-theme='light'] .variation button:hover {
+  background-color: var(--pc-bg-20);
 }
 
 .price {
@@ -151,8 +158,8 @@
 }
 
 .cart-btn {
-  color: var(--pc-white-static);
-  background-color: var(--pc-accent);
+  color: var(--pc-bg);
+  background-color: var(--pc-prime-btn);
   padding: 0 var(--pc-space-300);
   line-height: var(--pc-space-500);
   border-radius: var(--pc-radius-md);
@@ -164,4 +171,55 @@
 
 .cart-btn:hover {
   box-shadow: inset 0 0 0 9999px var(--pc-bg-10);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: var(--pc-bg-90);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99991;
+}
+
+[data-theme='light'] .modal {
+  background: var(--pc-light-90);
+}
+
+.modal-content {
+  max-width: 90vw;
+  max-height: 80vh;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  width: 40px;
+  height: 40px;
+  background-color: var(--pc-mobs);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: var(--pc-space-500);
+  right: var(--pc-space-500);
+  z-index: 99995;
+}
+
+.close:hover {
+  background-color: var(--pc-bg-05);
+}
+
+.fill-x {
+  fill: var(--pc-text);
 }

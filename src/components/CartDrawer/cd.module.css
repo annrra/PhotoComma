@@ -181,7 +181,7 @@
   align-items: center;
   justify-content: center;
   padding: 12px var(--pc-space-100);
-  background: var(--pc-accent);
+  background: var(--pc-bg-static);
   color: var(--pc-white-static);
   border: none;
   cursor: pointer;

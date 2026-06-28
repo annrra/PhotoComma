@@ -11,6 +11,7 @@
   --pc-bg: #000;
   --pc-bg-subtle: #999;
   --pc-bg-muted: #808080;
+  --pc-prime-btn: #d7d7d7;
 
   --pc-bg-100: rgba(0, 0, 0, 1);
   --pc-bg-90:  rgba(0, 0, 0, 0.9);
@@ -121,6 +122,7 @@
   --pc-input-bg: #fff;
   --pc-input-border: #000;
   --pc-input-text: #000;
+  --pc-prime-btn: #111111;
 }
 
 /* =========================
