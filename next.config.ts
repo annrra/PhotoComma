@@ -60,6 +60,16 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  async redirects() {
+    return [
+      {
+        source: '/794-hobbit-house',
+        destination: '/',
+        permanent: true, // 301 redirect
+      },
+    ];
+  },
+
   async headers() {
     if (isDev) {
       return [];
