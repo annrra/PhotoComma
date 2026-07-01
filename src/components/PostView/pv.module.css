@@ -247,6 +247,10 @@
     padding: 0;
   }
 
+  .caption {
+    width: 80%;
+  }
+
   .snap {
     width: 100%;
   }
